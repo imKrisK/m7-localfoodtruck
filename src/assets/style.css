@@ -1,0 +1,566 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500&display=swap');
+:root {
+    --clr1: #9F0B60;
+    --clr2: #fff;
+    --clr3: #000;
+    --clr4: #eee;
+    --clr5: #FF8B1A;
+    --box-shadow: 0 .5rem .5rem rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    text-transform: capitalize;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+section {
+    padding: 9rem 12%;
+}
+
+html {
+    font-size: 65%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+    width: 1rem;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--clr1);
+}
+
+
+/*-----------------------------scrollbar----------------*/
+
+#scroll {
+    position: fixed;
+    display: none;
+    top: 90%;
+    right: 2rem;
+    padding: .5rem 1rem;
+    font-size: 3rem;
+    background: var(--clr1);
+    color: var(--clr2);
+    border-radius: .5rem;
+    transition: .5s ease;
+    animation: scroll 1s ease infinite;
+}
+
+#scroll.active {
+    display: block;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateY(-1rem);
+    }
+    100% {
+        transform: translateY(1rem);
+    }
+}
+
+.head {
+    position: sticky;
+    background: var(--clr4);
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+}
+
+.head .logo {
+    font-size: 3.5rem;
+    line-height: rem;
+    color: var(--clr1);
+    letter-spacing: .1rem;
+}
+
+.head .logo img {
+    width: 3.5rem;
+    height: 3.5rem;
+    line-height: 5rem;
+}
+
+.head .logo span {
+    color: var(--clr5);
+}
+
+.navbar a {
+    color: var(--clr1);
+    font-size: 1.8rem;
+    padding: 0 2rem;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    color: #FF8B1A;
+    transition: 1s ease;
+}
+
+#menu-bar {
+    font-size: 1.8rem;
+    color: var(--clr1);
+    display: none;
+}
+
+.btn {
+    padding: 1rem;
+    width: 15rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    border: none;
+    border-radius: .5rem;
+    background: var(--clr2);
+    color: var(--clr1);
+}
+
+.btn:hover {
+    background: var(--clr1);
+    color: var(--clr5);
+    transition: .5s ease-in;
+}
+
+.title {
+    padding: 2.5rem 0;
+    text-align: center;
+    color: var(--clr1);
+    font-size: 3.5rem;
+    letter-spacing: .1rem;
+}
+
+.title span {
+    color: var(--clr5);
+}
+
+
+/*---------------------------home section----------------*/
+
+.home {
+    padding: 0;
+}
+
+.home .slide {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home .slide img {
+    height: 50rem;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    object-fit: cover;
+}
+
+.home .slide .content {
+    position: absolute;
+    width: 80rem;
+}
+
+.home .slide .content h1 {
+    font-size: 5rem;
+    color: var(--clr2);
+    line-height: 10rem;
+    animation: animate 2s ease infinite;
+}
+
+.home .swiper-button-next,
+.home .swiper-button-prev {
+    height: 5rem;
+    width: 5rem;
+    background: var(--clr1);
+    border-radius: .5rem;
+    font-size: 1rem;
+    color: var(--clr2);
+    padding: 2rem !important;
+}
+
+.home .swiper-button-next::after,
+.home .swiper-button-prev::after {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+@keyframes animate {
+    0% {
+        transform: translateX(-3rem);
+    }
+    50% {
+        transform: translateX(3rem);
+    }
+    100% {
+        transform: translateX(-3rem);
+    }
+}
+
+
+/*-------------------services-----------------*/
+
+.service .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-gap: 2rem;
+}
+
+.service .container .b-container {
+    padding: 4rem 2.5rem;
+    text-align: center;
+    background: var(--clr4);
+}
+
+.service .container .b-container:hover {
+    background: var(--clr5);
+    transform: translateY(-2rem);
+    transition: .5s ease;
+    cursor: pointer;
+}
+
+.service .container .b-container img {
+    height: 7.5rem;
+}
+
+.service .container .b-container h2 {
+    font-size: 1.8rem;
+    padding: 1rem 0;
+    color: var(--clr1);
+}
+
+
+/*-----------------menu---------------------*/
+
+.menu .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-gap: 2rem;
+}
+
+.menu .container .inner-container {
+    background: var(--clr4);
+    height: 35rem;
+    padding: 1rem;
+    margin: 1.5rem;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+.menu .container .inner-container:hover {
+    transition: 1s ease;
+    border: .1rem solid var(--clr1);
+    transform: translateY(-1rem);
+}
+
+.menu .container .inner-container img {
+    height: 15rem;
+    width: 100%;
+    object-fit: cover;
+}
+
+.menu .container .inner-container .star {
+    color: var(--clr5);
+    font-size: 1.2rem;
+    position: relative;
+    margin-top: 1.2rem;
+}
+
+.menu .container .inner-container h2 {
+    padding: .5rem 0;
+    color: var(--clr1);
+    font-size: 2.2rem;
+}
+
+.menu .container .inner-container p {
+    color: gray;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: .5rem 0;
+}
+
+.menu .container .inner-container button {
+    background: var(--clr1);
+    color: var(--clr5);
+}
+
+
+/*-----------------About--------------------*/
+
+.about {
+    background: var(--clr3);
+}
+
+.about .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    grid-gap: 2rem;
+}
+
+.about .container .inner-container {
+    border-radius: .5rem;
+    padding: 4rem 2rem;
+    background: var(--clr2);
+}
+
+.about .container .inner-container:hover {
+    background: var(--clr4);
+    transition: .3s ease;
+}
+
+.about .container .inner-container span {
+    color: var(--clr5);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.about .container .inner-container h2 {
+    font-size: 2rem;
+    padding: 1rem 0;
+    color: var(--clr1);
+}
+
+.about .container .inner-container p {
+    font-size: 1.2rem;
+    font-weight: bolder;
+}
+
+.chef-container h1 {
+    padding-top: 5rem;
+}
+
+.about .container-1 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-gap: 2rem;
+}
+
+.about .container-1 .inner-container img {
+    height: 35rem;
+    width: 100%;
+    object-fit: cover;
+    opacity: .8;
+}
+
+.about .container-1 .inner-container .name {
+    position: relative;
+    text-align: center;
+    bottom: 13rem;
+    font-size: 2rem;
+    color: var(--clr1);
+}
+
+.about .container-1 .inner-container .social {
+    position: relative;
+    bottom: 8rem;
+    text-align: center;
+}
+
+.about .container-1 .inner-container .social i {
+    font-size: 1.5rem;
+    border-radius: 50%;
+    padding: 1.5rem;
+    margin: 0 .1rem;
+    background: var(--clr5);
+    color: var(--clr2);
+}
+
+.about .container-1 .inner-container .social i:hover {
+    transform: translateY(-1rem);
+    transition: .5s ease;
+}
+
+
+/*--------------------contact----------------*/
+
+.contact .container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2rem;
+}
+
+.contact .container .image {
+    flex: 1 1 30rem;
+}
+
+.contact .container .image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    opacity: .7;
+}
+
+.contact .container .box {
+    flex: 1 1 30rem;
+}
+
+.contact .container .box input,
+.contact .container .box textarea {
+    display: flex;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    border: .1rem solid var(--clr1);
+    resize: none;
+}
+
+.contact .container .box input:focus,
+.contact .container .box textarea:focus {
+    background: var(--clr1);
+    border: none;
+}
+
+.contact .container .box input:focus::placeholder,
+.contact .container .box textarea:focus::placeholder {
+    color: var(--clr2);
+}
+
+.contact .container button {
+    border: .1rem solid var(--clr1);
+}
+
+
+/*----------------footer-------------------*/
+
+footer {
+    margin-top: 10rem;
+    padding: 10rem 5rem;
+    background: var(--clr4);
+    color: var(--clr1);
+}
+
+footer .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-gap: 2rem;
+}
+
+footer .container .b-container h2 {
+    padding: 1rem 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+footer .container .b-container .fas {
+    font-size: 1.5rem;
+    padding-right: .5rem;
+}
+
+footer .container .b-container a {
+    display: block;
+    padding-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--clr1);
+}
+
+footer .container .b-container a:hover {
+    transform: translateX(1rem);
+    transition: .5s ease;
+}
+
+footer .container .b-container p {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    width: 25rem;
+    line-height: 2rem;
+}
+
+footer .container .b-container .social i {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--clr1);
+    color: var(--clr2);
+    font-size: 1.8rem;
+    border-radius: 5rem;
+}
+
+footer .container .b-container .social i:hover {
+    transform: translateY(-.5rem);
+    transition: .5s ease;
+}
+
+footer .container .b-container input {
+    width: 100%;
+    border: .1rem solid var(--clr1);
+    border-radius: .5rem;
+    padding: .5rem 0;
+    margin-top: 1rem;
+}
+
+footer .container .b-container button {
+    margin-top: 1rem;
+    border: .1rem solid var(--clr1);
+}
+
+footer .container .b-container .payment img {
+    margin-top: 1rem;
+    height: 3rem;
+}
+
+.copyright {
+    padding: 2rem 0;
+    text-align: center;
+    background: var(--clr1);
+    color: var(--clr2);
+    font-size: 1.5rem;
+}
+
+
+/*------------------media Query------------*/
+
+@media(max-width:991px) {
+    html {
+        font-size: 52%;
+    }
+}
+
+@media(max-width:768px) {
+    .head .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--clr5);
+        padding: 2rem;
+        transition: .5s ease-in;
+        clip-path: polygon(0 0, 100% 0%, 100% 0, 0 0);
+    }
+    .head .navbar.active {
+        clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
+    }
+    .head .navbar a {
+        display: block;
+        margin: 2rem;
+        text-align: center;
+    }
+    .head .navbar a:hover {
+        color: var(--clr4);
+        transform: translateX(1rem);
+    }
+    #menu-bar {
+        display: block;
+    }
+    .home .slide .content h1 {
+        font-size: 3rem;
+    }
+    .contact .container {
+        display: block;
+    }
+}
+
+@media(max-width:450px) {
+    html {
+        font-size: 52%;
+    }
+}
