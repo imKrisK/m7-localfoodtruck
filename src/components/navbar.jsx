@@ -15,7 +15,7 @@ const Navbar = () => {
           <Link to="/register" style={styles.navLink}>Register</Link>
         </li>
         <li style={styles.navItem}>
-          <Link to="/AboutPage.jsx" style={styles.navLink}>AboutPage</Link>
+          <Link to="/about" style={styles.navLink}>About</Link>
         </li>
         <li style={styles.navItem}>
           <Link to="/DashbardPage.jsx" style={styles.navLink}>Dashboard Page</Link>

@@ -15,11 +15,12 @@
       <h1>Local Food  <i class="fas fa-food-order"></i> Truck</h1>
       <nav class="navbar">
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#contact">Contact Us</a></li>
-          
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#menu" class="nav-link">Menu</a></li>
+          <li><a href="#about" class="nav-link">About Us</a></li>
+          <li><a href="#contact" class="nav-link">Contact Us</a></li>
+          <li><a href="/login" class="nav-link">Login</a></li>
+          <li><a href="/register" class="nav-link">Register</a></li>
         </ul>
       </nav>
       <div class="side-bar">
@@ -318,6 +319,27 @@
       </div>
   </div>
 </section>
+
+<!-- Login Section -->
+<section id="login" class="auth-section">
+  <h2>Login</h2>
+  <form>
+    <input type="email" placeholder="Email" required>
+    <input type="password" placeholder="Password" required>
+    <button class="btn">Login</button>
+  </form>
+</section>
+
+<!-- Register Section -->
+<section id="register" class="auth-section">
+  <h2>Register</h2>
+  <form>
+    <input type="email" placeholder="Email" required>
+    <input type="password" placeholder="Password" required>
+    <button class="btn">Register</button>
+  </form>
+</section>
+
 <!-------------------------------------------contact Section-------------->
 <footer class="contact" id="contact">
   <div class="contact-sec">
@@ -381,6 +403,32 @@
     if (menu) menu.classList.remove('active');
     if (searchfrm) searchfrm.classList.remove('active');
   };
+
+  // Highlight active nav link based on scroll position
+  window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 60;
+      if (pageYOffset >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
 </script>
+<style>
+.nav-link.active {
+  font-weight: bold;
+  color: #FFD700;
+  border-bottom: 2px solid #FFD700;
+}
+</style>
 
 </html>

@@ -1,17 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SingleCat from './SingleCat';
 import AddCatForm from './AddCatForm';
+import { getItems, createItem, updateItem, deleteItem } from '../services/api';
 
 const BigCats = () => {
-  const [cats, setCats] = useState([
-    { id: 1, name: 'Lion', breed: 'Panthera leo', age: 8, description: 'King of the jungle' },
-    { id: 2, name: 'Tiger', breed: 'Panthera tigris', age: 5, description: 'Largest cat species' },
-    { id: 3, name: 'Leopard', breed: 'Panthera pardus', age: 4, description: 'Known for its spots' },
-    { id: 4, name: 'Cheetah', breed: 'Acinonyx jubatus', age: 3, description: 'Fastest land animal' },
-  ]);
+  const [cats, setCats] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [editingCat, setEditingCat] = useState(null);
+  const [success, setSuccess] = useState('');
 
-  const addCat = (newCat) => {
-    setCats((prevCats) => [...prevCats, newCat]);
+  useEffect(() => {
+    getItems()
+      .then(setCats)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const addCat = async (newCat) => {
+    try {
+      setLoading(true);
+      const created = await createItem(newCat);
+      setCats((prevCats) => [...prevCats, created]);
+      setSuccess('Cat added successfully!');
+      setTimeout(() => setSuccess(''), 2000);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const editCat = async (id, updatedCat) => {
+    try {
+      setLoading(true);
+      const updated = await updateItem(id, updatedCat);
+      setCats((prevCats) => prevCats.map(cat => cat.id === id ? updated : cat));
+      setEditingCat(null);
+      setSuccess('Cat updated successfully!');
+      setTimeout(() => setSuccess(''), 2000);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const removeCat = async (id) => {
+    try {
+      setLoading(true);
+      await deleteItem(id);
+      setCats((prevCats) => prevCats.filter(cat => cat.id !== id));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const [filter, setFilter] = useState('');
@@ -41,7 +85,18 @@ const BigCats = () => {
   return (
     <div className="componentBox">
       <h2>Big Cats</h2>
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {success && <div style={{ color: 'green' }}>{success}</div>}
+      {loading && <div>Loading...</div>}
       <AddCatForm onAddCat={addCat} />
+      {editingCat && (
+        <AddCatForm
+          onAddCat={(cat) => editCat(editingCat.id, cat)}
+          initialData={editingCat}
+          editMode
+          onCancel={() => setEditingCat(null)}
+        />
+      )}
       <div>
         <button onClick={() => handleFilter('Panthera')}>Filter Panthera</button>
         <button onClick={() => handleFilter('')}>Clear Filter</button>
@@ -49,7 +104,12 @@ const BigCats = () => {
       </div>
       <div>
         {sortedCats.map((cat) => (
-          <SingleCat key={cat.id} cat={cat} />
+          <SingleCat
+            key={cat.id}
+            cat={cat}
+            onEdit={() => setEditingCat(cat)}
+            onDelete={removeCat}
+          />
         ))}
       </div>
     </div>
