@@ -5,7 +5,7 @@
 Rubric:
 [x] ALL of what was required for Mp2 (If you do not have this, you will need it ASAP)
 [x] Slides/Quality of Presentation (Update PowerPoint Slides from MP2)
-[ ] State handling
+[x ] State handling
     Summary:
 
 Local UI state is handled with useState and useEffect.
@@ -37,7 +37,7 @@ Some legacy/lab code could be further refactored to use the shared components.
 Keep building new features using the shared, prop-driven components in components.
 
 
-[ ] Use of Routing
+[x] Use of Routing
     Your main app uses React Router for client-side routing, as seen in AppRoutes.jsx and the use of <Router>, <Routes>, and <Route> components.
 Defined Routes
 
@@ -86,7 +86,7 @@ Async errors are caught and surfaced in the UI.
 Form validation prevents invalid submissions and provides immediate feedback.
 Routing errors (404) are handled with a dedicated page.
 
-[ ] Conditional rendering
+[x] Conditional rendering
     Loading, Error, and Success States
 
 Components like BigCats, AddCatForm, Login, and Register use conditional rendering to display loading spinners, error messages, and success notifications based on state.

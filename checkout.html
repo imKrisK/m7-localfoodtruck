@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Food Truck</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .checkout-container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      padding: 32px 24px;
+    }
+    .checkout-container h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+    .order-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+    }
+    .order-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .order-total {
+      font-weight: bold;
+      text-align: right;
+      margin-top: 16px;
+      font-size: 1.1em;
+    }
+    .empty {
+      text-align: center;
+      color: #888;
+      margin: 32px 0;
+    }
+    .btn {
+      width: 100%;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-container">
+    <h2>Order Summary</h2>
+    <ul id="order-list" class="order-list"></ul>
+    <div id="order-total" class="order-total"></div>
+    <div id="empty-message" class="empty" style="display:none;">Your cart is empty.</div>
+    <button class="btn" id="place-order-btn">Place Order</button>
+    <button class="btn" id="back-btn" style="background:#eee;color:#333;">Back to Menu</button>
+  </div>
+  <script>
+    function renderOrder() {
+      const orderList = document.getElementById('order-list');
+      const orderTotal = document.getElementById('order-total');
+      const emptyMsg = document.getElementById('empty-message');
+      let cart = [];
+      try {
+        cart = JSON.parse(localStorage.getItem('checkoutCart')) || [];
+      } catch (e) { cart = []; }
+      orderList.innerHTML = '';
+      let total = 0;
+      if (cart.length === 0) {
+        orderTotal.textContent = '';
+        emptyMsg.style.display = 'block';
+        document.getElementById('place-order-btn').disabled = true;
+        return;
+      }
+      emptyMsg.style.display = 'none';
+      document.getElementById('place-order-btn').disabled = false;
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${item.item} x${item.quantity}</span><span>${item.price}</span>`;
+        orderList.appendChild(li);
+        const priceNum = parseFloat(item.price.replace(/[^\d.]/g, ''));
+        total += priceNum * item.quantity;
+      });
+      orderTotal.textContent = 'Total: $' + total.toFixed(2);
+    }
+    renderOrder();
+    document.getElementById('place-order-btn').onclick = function() {
+      alert('Thank you for your order!');
+      localStorage.removeItem('checkoutCart');
+      window.location.href = 'index.html';
+    };
+    document.getElementById('back-btn').onclick = function() {
+      window.location.href = 'index.html';
+    };
+  </script>
+</body>
+</html>

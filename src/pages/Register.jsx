@@ -5,38 +5,15 @@ import FormContainer from "../components/FormContainer";
 import Navbar from "../components/navbar";
 
 const Register = () => {
+  const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [userRePassword, setUserRePassword] = useState("");
   const [submitResult, setSubmitResult] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      if (userPassword.length < 6) {
-        setSubmitResult("Password must be at least 6 characters long.");
-      } else {
-        setSubmitResult("Registration successful!");
-      }
-      setLoading(false);
-    }, 1000);
-  };
-
+  // Add styles for InputField
   const styles = {
-    container: {
-      maxWidth: '400px',
-      margin: '50px auto',
-      padding: '20px',
-      border: '1px solid #ccc',
-      borderRadius: '8px',
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-      textAlign: 'center',
-    },
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
     inputGroup: {
       marginBottom: '15px',
       textAlign: 'left',
@@ -48,50 +25,79 @@ const Register = () => {
       border: '1px solid #ccc',
       borderRadius: '4px',
     },
-    button: {
-      padding: '10px 20px',
-      backgroundColor: '#007BFF',
-      color: '#fff',
-      border: 'none',
-      borderRadius: '4px',
-      cursor: loading ? 'not-allowed' : 'pointer',
-    },
-    result: {
-      marginTop: '15px',
-      color: submitResult.includes('successful') ? 'green' : 'red',
-    },
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      if (userPassword.length < 6) {
+        setSubmitResult("Password must be at least 6 characters long.");
+      } else if (userPassword !== userRePassword) {
+        setSubmitResult("Passwords do not match.");
+      } else {
+        setSubmitResult("Registration successful!");
+      }
+      setLoading(false);
+    }, 1000);
   };
 
   return (
     <>
       <Navbar />
-      <FormContainer style={styles}>
+      <div className="form_container">
         <h2>Register</h2>
-        <form onSubmit={handleSubmit} style={styles.form}>
+        <form onSubmit={handleSubmit} autoComplete="off">
+          <InputField
+            label="Name:"
+            type="text"
+            id="register-name"
+            name="name"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+            autoComplete="off"
+            style={styles}
+          />
           <InputField
             label="Email:"
             type="email"
             id="register-email"
+            name="email"
             value={userEmail}
             onChange={(e) => setUserEmail(e.target.value)}
             required
+            autoComplete="off"
             style={styles}
           />
           <InputField
             label="Password:"
             type="password"
             id="register-password"
+            name="password"
             value={userPassword}
             onChange={(e) => setUserPassword(e.target.value)}
             required
+            autoComplete="new-password"
             style={styles}
           />
-          <Button type="submit" style={styles.button} loading={loading} disabled={loading}>
+          <InputField
+            label="Re-enter Password:"
+            type="password"
+            id="register-repassword"
+            name="re-password"
+            value={userRePassword}
+            onChange={(e) => setUserRePassword(e.target.value)}
+            required
+            autoComplete="new-password"
+            style={styles}
+          />
+          <Button type="submit" className="form-btn" loading={loading} disabled={loading}>
             Register
           </Button>
         </form>
-        {submitResult && <p style={styles.result}>{submitResult}</p>}
-      </FormContainer>
+        {submitResult && <p style={{ marginTop: '15px', color: submitResult.includes('successful') ? 'green' : 'red' }}>{submitResult}</p>}
+      </div>
     </>
   );
 };
