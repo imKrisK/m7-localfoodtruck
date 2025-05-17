@@ -530,8 +530,13 @@
         return response.text().then(text => text ? JSON.parse(text) : {});
       })
       .then(data => {
-        // Add to local cart and update UI
-        cart.push({ item: itemName, price, quantity });
+        // Check if item already exists in cart, update quantity if so
+        const existingIndex = cart.findIndex(item => item.item === itemName && item.price === price);
+        if (existingIndex !== -1) {
+          cart[existingIndex].quantity += quantity;
+        } else {
+          cart.push({ item: itemName, price, quantity });
+        }
         updateCartUI();
         alert(`Added to cart:\n${itemName}\nPrice: ${price}\nQuantity: ${quantity}`);
       })
