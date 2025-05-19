@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
-import FormContainer from "../components/FormContainer";
 import Navbar from "../components/navbar";
 
 const Register = () => {

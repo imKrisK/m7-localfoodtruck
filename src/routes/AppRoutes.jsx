@@ -5,6 +5,7 @@ import NotFound from '../pages/PageNotFound';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import CatDetail from '../pages/CatDetail';
+import UserProfile from '../pages/UserProfile';
 
 // special component containing all the possible routes for this app
 // any props passed into AppRoutes will also be passed onto
@@ -23,6 +24,9 @@ function AppRoutes(props) {
 
         {/* Route for Cat details */}
         <Route path="/cats/:id" element={<CatDetail {...props} />} />
+
+        {/* Route for User Profile */}
+        <Route path="/profile" element={<UserProfile />} />
 
         {/* Default route for home page */}
         <Route index element={<Homepage {...props} />} />

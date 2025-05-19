@@ -85,9 +85,17 @@
     }
     renderOrder();
     document.getElementById('place-order-btn').onclick = function() {
-      alert('Thank you for your order!');
+      const cart = JSON.parse(localStorage.getItem('checkoutCart')) || [];
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      // Optionally generate a simple order ID (timestamp-based)
+      const orderId = 'ORD-' + Date.now();
+      // Save order details for receipt page
+      localStorage.setItem('lastOrder', JSON.stringify({ items: cart, orderId }));
       localStorage.removeItem('checkoutCart');
-      window.location.href = 'index.html';
+      window.location.href = 'receipt.html';
     };
     document.getElementById('back-btn').onclick = function() {
       window.location.href = 'index.html#menu';
