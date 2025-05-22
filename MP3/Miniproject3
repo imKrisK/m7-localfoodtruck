@@ -38,7 +38,9 @@ Keep building new features using the shared, prop-driven components in component
 
 
 [x] Use of Routing
-    Your main app uses React Router for client-side routing, as seen in AppRoutes.jsx and the use of <Router>, <Routes>, and <Route> components.
+    Your main app uses React Router for client-side routing, as seen in AppRoutes.jsx and the use of <Router>, <Routes>, and 
+    <Route> components.
+
 Defined Routes
 
 Routes are defined for key pages:
@@ -46,8 +48,8 @@ Routes are defined for key pages:
 /dashboard (dashboard page)
 /login (login page)
 /register (register page)
-/cats/:id (cat details page)
 * (fallback for 404 not found)
+
 Navigation
 
 Navigation is handled using the Navbar component with <Link> elements for route changes.
@@ -79,6 +81,7 @@ Forms like AddCatForm and Register check for required fields and display alerts 
 404 Not Found Route
 
 A fallback route (*) in your router renders a PageNotFound component for undefined routes, providing user-friendly error handling for navigation.
+
 Summary:
 
 Errors are handled at the component level using state and displayed to the user.
