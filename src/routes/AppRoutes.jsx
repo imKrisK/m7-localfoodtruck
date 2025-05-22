@@ -22,9 +22,6 @@ function AppRoutes(props) {
         {/* Route for the Register page */}
         <Route path="/register" element={<Register {...props} />} />
 
-        {/* Route for Cat details */}
-        <Route path="/cats/:id" element={<CatDetail {...props} />} />
-
         {/* Route for User Profile */}
         <Route path="/profile" element={<UserProfile />} />
 

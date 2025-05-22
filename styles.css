@@ -266,7 +266,7 @@ section p {
 }
 
 .about-content h3 {
-    background: url(./src/assets/) no-repeat;
+    background: url(./src/assets/back.jpg) no-repeat;
     background-size: cover;
     background-position: center;
     color: var(--clr4);
