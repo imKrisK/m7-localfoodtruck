@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Login Form</title>
+</head>
+
+<body style="background: url('src/assets/foodtruck.jpg') no-repeat center center fixed; background-size: cover;">
+    <div class="form_container">
+        <form action="" method="post">
+            <h3>Login Now</h3>
+            <label for="email" class="visually-hidden">Email</label>
+            <input type="email" name="email" id="email" placeholder="Enter your Email" required>
+            <label for="password" class="visually-hidden">Password</label>
+            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+            <input type="submit" name="submit" value="login now" class="form-btn">
+            <p>Don't have an account? <a href="registration.html">Register Now</a></p>
+            <a href="index.html" class="btn"
+            style="display:block;text-align:center;margin-top:16px;background: #f95b11;color:#222;padding:10px 0;border-radius:6px;text-decoration:none;font-weight:bold;">Home</a>
+        </form>
+    </div>
+
+    <style>
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Favorites - Food Truck Website 2025</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+</head>
+<body>
+  <header class="head">
+    <h1>Local Food <i class="fas fa-food-order"></i> Truck</h1>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#menu" class="nav-link">Menu</a></li>
+        <li><a href="index.html#about" class="nav-link">About Us</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact Us</a></li>
+        <li><a href="login.html" class="nav-link">Login</a></li>
+        <li><a href="registration.html" class="nav-link">Register</a></li>
+        <li><a href="favorites.html" class="nav-link active">Favorites</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="favorites-section">
+      <h2>Your Favorites</h2>
+      <div id="favorites-list"></div>
+    </section>
+  </main>
+  <script>
+    const FAVORITES_KEY = 'menuFavorites';
+    const menuItems = [
+      { name: 'Waggu Burger', image: 'src/assets/burger.png', price: '$20.00' },
+      { name: 'BBQ Porkchop', image: 'src/assets/bbq-porkchop.png', price: '$20.00' },
+      { name: 'The Other Burrito', image: 'src/assets/burrito1.png', price: '$20.00' },
+      { name: 'The Cal Burger Zone', image: 'src/assets/calburgerzone.png', price: '$20.00' },
+      { name: 'The Burr', image: 'src/assets/burrito.png', price: '$20.00' },
+      { name: 'Spare Ribs', image: 'src/assets/spare-ribs.png', price: '$20.00' },
+      { name: 'chicken Wings', image: 'src/assets/chickenwings.png', price: '$20.00' },
+      { name: 'May the 4 pounder be with you!', image: 'src/assets/4lbsburger.png', price: '$20.00' },
+      { name: 'Trifecta!', image: 'src/assets/comb3.png', price: '$20.00' }
+    ];
+    function getFavorites() {
+      try {
+        return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+      } catch {
+        return [];
+      }
+    }
+    function renderFavorites() {
+      const favorites = getFavorites();
+      const favoritesList = document.getElementById('favorites-list');
+      favoritesList.innerHTML = '';
+      if (favorites.length === 0) {
+        favoritesList.innerHTML = '<p>No favorites yet. Go to the menu and click the heart to add some!</p>';
+        return;
+      }
+      // Render favorites as menu-style cards
+      const menuContent = document.createElement('div');
+      menuContent.className = 'menu-content';
+      favorites.forEach(name => {
+        const item = menuItems.find(m => m.name === name);
+        if (item) {
+          const box = document.createElement('div');
+          box.className = 'in-box';
+          box.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="veg-icon">
+            <div class="in-content">
+              <div class="star">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <h2>${item.name}</h2>
+                <div class="price">${item.price}</div>
+              </div>
+            </div>
+          `;
+          menuContent.appendChild(box);
+        }
+      });
+      favoritesList.appendChild(menuContent);
+    }
+    renderFavorites();
+  </script>
+  <style>
+    /* --- Menu/Favorites Card Styles from styles.css --- */
+    .menu-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 2rem;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+    .in-box {
+      flex: 0 1 320px;
+      margin: 1rem;
+      padding: 3rem 4rem;
+      text-align: center;
+      border: .1rem solid var(--clr4);
+      background: #eee;
+    }
+    .in-box:hover {
+      background: var(--clr4);
+      transition: .4s ease all;
+    }
+    .in-box img {
+      width: 10rem;
+      height: auto;
+    }
+    .in-box .far {
+      position: absolute;
+      font-size: 2.5rem;
+      margin-left: -7rem;
+      color: var(--clr3);
+    }
+    .star,
+    .price {
+      padding: 1rem 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--clr3);
+      text-transform: capitalize;
+    }
+    .fa-star {
+      color: var(--clr2);
+    }
+    .in-box .fa-plus-circle {
+      color: var(--clr4);
+    }
+    /* --- Favorites Section Layout --- */
+    .favorites-section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+    }
+    .favorites-section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      color: #222;
+    }
+    .menu-content .in-box {
+      background: #fff;
+    }
+  </style>
+</body>
+</html>

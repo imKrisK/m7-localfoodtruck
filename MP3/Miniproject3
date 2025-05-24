@@ -1,0 +1,139 @@
+
+
+
+
+Rubric:
+[x] ALL of what was required for Mp2 (If you do not have this, you will need it ASAP)
+[x] Slides/Quality of Presentation (Update PowerPoint Slides from MP2)
+[x ] State handling
+    Summary:
+
+Local UI state is handled with useState and useEffect.
+App-wide/global state is managed with React Context.
+Complex or async state is managed with useReducer and custom hooks.
+
+[x] Use of React hooks
+    useState
+
+Used for local state management in most components (e.g., form fields, toggles, counters, UI feedback).
+useEffect
+
+Used for side effects such as data fetching, subscriptions, and updating state after async operations.
+useReducer
+
+Used for managing complex or related state, especially in forms (e.g., AddCatForm) and custom hooks for async logic (e.g., useBitcoinPriceWithReducer).
+useContext
+
+Used to access global state provided by React Contexts (e.g., UserContext, ThemeContext, EmojiContext).
+Custom Hooks
+
+useBitcoinPrice and useBitcoinPriceWithReducer for fetching and managing Bitcoin price data with loading and error state.
+
+[x] Use of component architecture (DRY coding)
+    
+    Summary
+Your main app is DRY and component-based.
+Some legacy/lab code could be further refactored to use the shared components.
+Keep building new features using the shared, prop-driven components in components.
+
+
+[x] Use of Routing
+    Your main app uses React Router for client-side routing, as seen in AppRoutes.jsx and the use of <Router>, <Routes>, and 
+    <Route> components.
+
+Defined Routes
+
+Routes are defined for key pages:
+/ (home page)
+/dashboard (dashboard page)
+/login (login page)
+/register (register page)
+* (fallback for 404 not found)
+
+Navigation
+
+Navigation is handled using the Navbar component with <Link> elements for route changes.
+Programmatic navigation is used in some components (e.g., useNavigate in DashboardPage.jsx).
+Nested Routing
+
+***extra probably will not be using***
+The DashboardPage uses <Outlet /> to support nested routes (e.g., /dashboard/tasks, /dashboard/message).
+
+Summary:
+
+Routing is implemented using React Router v6.
+You have routes for all main pages, including dynamic and fallback routes.
+Navigation is both declarative (with <Link>) and programmatic (with useNavigate).
+
+[x] Error handling
+    Local Error State with useState
+
+Components like BigCats, AddCatForm, Login, and Register use a local error state (via useState) to capture and display errors from form validation or async operations (e.g., failed API calls).
+Async Error Handling
+
+In async functions (e.g., CRUD operations in BigCats), errors are caught with try/catch blocks. The error message is set in state and displayed in the UI.
+User Feedback
+
+Error messages are rendered conditionally in the UI, often in red text, to inform users of issues (e.g., invalid form input, failed network requests).
+Form Validation
+
+Forms like AddCatForm and Register check for required fields and display alerts or error messages if validation fails.
+404 Not Found Route
+
+A fallback route (*) in your router renders a PageNotFound component for undefined routes, providing user-friendly error handling for navigation.
+
+Summary:
+
+Errors are handled at the component level using state and displayed to the user.
+Async errors are caught and surfaced in the UI.
+Form validation prevents invalid submissions and provides immediate feedback.
+Routing errors (404) are handled with a dedicated page.
+
+[x] Conditional rendering
+    Loading, Error, and Success States
+
+Components like BigCats, AddCatForm, Login, and Register use conditional rendering to display loading spinners, error messages, and success notifications based on state.
+Form Modes and UI Toggles
+In BigCats, the edit form is only shown when editingCat is set:
+Buttons and UI elements are conditionally rendered based on props or state (e.g., show "Cancel" button only in edit mode).
+404 and Fallback Routes
+
+The router uses conditional rendering to show a PageNotFound component for undefined routes.
+User Feedback and Validation
+
+Forms display validation messages or alerts only when certain conditions are met (e.g., missing fields, invalid input).
+Summary:
+
+Conditional rendering is used for feedback (loading, error, success), form modes, toggling UI, and routing fallbacks.
+This ensures users see the right UI for the current state of the app.
+
+[x] Quality of code
+[x] Quality of documentation (Did you comment necessary areas of your code? Did you fill out the README.md?)
+[x] All CRUD operations (Create/Read/Update/Delete) operational with your NodeJS/Express API
+
+Extension - Consider using a UI framework such as Bootstrap or MUI
+Extension - Consider creating your own custom hooks
+Submit link to GitHub - you will lose 2 points if you do not do this.
+
+1. Create
+
+Users can add new items (e.g., cats) using forms like AddCatForm.
+The form submission triggers the createItem function from api.js, which sends a POST request to your NodeJS/Express API.
+Operational: Yes, new items are created in the backend.
+2. Read
+
+Data is fetched from the backend using the getItems function (GET request).
+Components like BigCats use useEffect to load data from the API and display it.
+Operational: Yes, data is read from the backend and rendered in the UI.
+3. Update
+
+Items can be edited (e.g., via the edit mode in BigCats).
+The updateItem function sends a PUT request to the API to update the item.
+Operational: Yes, updates are sent to and reflected by the backend.
+4. Delete
+
+Items can be deleted (e.g., via a delete button in BigCats).
+The deleteItem function sends a DELETE request to the API.
+Operational: Yes, items are removed from the backend and the UI.
+Summary:
+All CRUD operations (Create, Read, Update, Delete) are implemented and operational with your NodeJS/Express API. The UI is fully wired to the backend for data management.

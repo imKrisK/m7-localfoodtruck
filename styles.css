@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
 :root {
     --clr1: #f95b11;
     --clr2: #fff;
@@ -7,6 +8,7 @@
     --clr5: limegreen;
 }
 
+/* Universal selector: use only PT Sans, keep accessibility */
 * {
     margin: 0;
     padding: 0;
@@ -14,6 +16,8 @@
     font-family: 'PT Sans', sans-serif;
     text-decoration: none;
     text-transform: uppercase;
+
+    /* Do NOT remove outline or border globally for accessibility */
 }
 
 html {
@@ -72,10 +76,11 @@ section h3 {
     letter-spacing: .2rem;
 }
 
+/* Fix section h4 for better responsiveness */
 section h4 {
-    margin: 0 0 1rem 25rem;
+    margin: 0 auto 1rem auto;
     padding: .2rem;
-    width: 50%;
+    width: 80%;
     font-size: 3rem;
     color: var(--clr2);
     text-transform: none;
@@ -84,6 +89,14 @@ section h4 {
     letter-spacing: .2rem;
     clip-path: polygon(0% 15%, 25% 28%, 15% 0%, 85% 0%, 70% 28%, 100% 15%, 100% 85%, 67% 70%, 85% 100%, 15% 100%, 28% 66%, 0% 85%);
     background: var(--clr4);
+}
+
+@media(max-width:768px) {
+    section h4 {
+        width: 95%;
+        font-size: 2rem;
+        margin-left: 0;
+    }
 }
 
 section h2 {
@@ -125,13 +138,52 @@ section p {
     animation: icon 5s ease infinite;
 }
 
+/* Fix keyframes: use different percentages */
 @keyframes icon {
+    0% {
+        transform: translateY(0);
+    }
     25% {
         transform: translateY(-1.5rem);
     }
-    25% {
+    50% {
         transform: translateY(1.5rem);
     }
+    100% {
+        transform: translateY(0);
+    }
+}
+.head .search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.head .search-bar input {
+    padding: 1rem;
+    width: 30rem;
+    border: none;
+    border-radius: .5rem;
+    background: var(--clr2);
+    color: var(--clr3);
+}
+.head .search-bar input::placeholder {
+    color: var(--clr3);
+}
+.head .search-bar input:focus {
+    outline: none;
+    border: .1rem solid var(--clr4);
+}
+.head .search-bar i {
+    padding: 1rem;
+    font-size: 2.5rem;
+    color: var(--clr4);
+    background: var(--clr2);
+    border-radius: .5rem;
+}
+.head .search-bar i:hover {
+    background: var(--clr3);
+    color: var(--clr4);
+    transition: .5s ease all;
 }
 
 .head .navbar a {
@@ -160,47 +212,17 @@ section p {
     transition: .5s ease all;
 }
 
-#bars {
-    display: none;
-}
 
-.search-bar {
-    height: 7rem;
-    padding: 0 1rem;
-    display: flex;
-    position: absolute;
-    top: 99%;
-    left: 50%;
-    right: 0;
-    align-items: center;
-    background: var(--clr3);
-    border: 2px solid var(--clr4);
-    clip-path: polygon(20% 0%, 80% 0%, 100% 0, 0 0);
-}
-
-.search-bar.active {
-    transition: .2s ease;
-    border: hidden;
-    clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
-}
-
-.search-bar input {
-    width: 100%;
-    background: none;
-    border: hidden;
-    text-transform: none;
-    font-size: 1.5rem;
-    color: #fff;
-}
 
 
 /*------------------------Home Section--------------------*/
 
 .home {
-    height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(back1.png) no-repeat;
+    height: 50vh;
+    background: url(./src/assets/burrito1.png) no-repeat;
     background-size: cover;
     background-position: center;
+
 }
 
 .home-content {
@@ -209,8 +231,8 @@ section p {
 }
 
 .inner-content {
-    max-width: 70rem;
-    margin-top: 20rem;
+    max-width: 100rem;
+    margin-top: 15rem;
     text-align: center;
 }
 
@@ -219,8 +241,8 @@ section p {
 }
 
 .inner-content-img img {
-    width: 45rem;
-    height: auto;
+    width: 15rem;
+    height: 15rem;
     animation: icon 5s ease infinite;
 }
 
@@ -244,7 +266,7 @@ section p {
 }
 
 .about-content h3 {
-    background: url(back.png);
+    background: url(./src/assets/back.jpg) no-repeat;
     background-size: cover;
     background-position: center;
     color: var(--clr4);
@@ -289,7 +311,7 @@ section p {
 }
 
 .service h3 {
-    color: var(--clr4);
+    color: var(--clr3);
 }
 
 .inner-box {
@@ -318,13 +340,18 @@ section p {
 /*--------------menu section--------*/
 
 .menu-content {
-    display: grid;
-    grid-template-columns: 1.2fr 1.2fr 1.2fr;
-    grid-gap: .5rem;
-    flex-wrap: nowrap;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
 .in-box {
+    flex: 0 1 320px;
+    margin: 1rem;
     padding: 3rem 4rem;
     text-align: center;
     border: .1rem solid var(--clr4);
@@ -552,8 +579,9 @@ textarea {
         display: inline-block;
     }
     section h4 {
-        margin-left: 10rem;
-        text-align: center;
+        width: 95%;
+        font-size: 2rem;
+        margin-left: 0;
     }
     .search-bar input {
         width: 100%;
@@ -604,4 +632,273 @@ textarea {
     .service-content {
         padding: 1rem;
     }
+}
+
+/*------------------Login & Registration------------------*/
+.form_container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    padding-bottom: 60px;
+}
+
+.form_container form {
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.20);
+    background: #fff;
+    text-align: center;
+    width: 550px;
+}
+
+.form_container form h3 {
+    font-size: 30px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: #333;
+    letter-spacing: .1rem;
+}
+
+.form_container form input,
+.form_container form select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 20px;
+    margin: 8px;
+    background: #eee;
+}
+
+.form_container form .form-btn {
+    background: var(--clr1);
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.form_container form p {
+    margin-top: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+.form_container form p a {
+    color: var(--clr4);
+}
+
+/* --- User Profile Avatar and Form Enhancements --- */
+.user-profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+    border: 2px solid #eee;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.user-profile-form label[for="avatar"] {
+    display: block;
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+    color: var(--clr4);
+}
+.user-profile-form input[type="file"] {
+    display: block;
+    margin: 0 auto 12px auto;
+}
+.user-profile-form .show-password {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    display: block;
+    text-align: left;
+}
+.user-profile-form .form-btn {
+    margin-top: 10px;
+}
+
+
+/* --- Favorite Food Card --- */
+
+.Food-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #1a1a1a;
+  transition: transform 0.2s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Food-card:hover {
+  transform: translateY(-5px);
+}
+
+.Food-poster {
+  position: relative;
+  aspect-ratio: 2/3;
+  width: 100%;
+}
+
+.Food-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.Food-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.8)
+  );
+  opacity: 0;
+  transition: opacity 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.Food-card:hover .Food-overlay {
+  opacity: 1;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.favorite-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.favorite-btn.active {
+  color: #ff4757;
+}
+
+.rating-select {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.Food-info {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.Food-info h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.Food-info p {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.user-rating {
+  color: #ffd700;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .Food-card {
+    font-size: 0.9rem;
+  }
+
+  .Food-info {
+    padding: 0.75rem;
+  }
+
+  .favorite-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
+}
+
+/* --- Favorite Food CSS --- */
+
+.favorites {
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.favorites h2 {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 2.5rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.favorites-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.favorites-empty h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #e50914;
+}
+
+.favorites-empty p {
+  color: #999;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+
+/* Animation for new favorites being added */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.food-grid > * {
+  animation: fadeIn 0.3s ease-in-out;
 }

@@ -11,27 +11,25 @@
   </head>
 
   <body>
+    
     <header class="head">
       <h1>Local Food  <i class="fas fa-food-order"></i> Truck</h1>
       <nav class="navbar">
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#contact">Contact Us</a></li>
-          
+          <li><a href="#home" class="nav-link">Home</a></li>
+          <li><a href="#menu" class="nav-link">Menu</a></li>
+          <li><a href="#about" class="nav-link">About Us</a></li>
+          <li><a href="#contact" class="nav-link">Contact Us</a></li>
+          <li><a href="login.html" class="nav-link">Login</a></li>
+          <li><a href="registration.html" class="nav-link">Register</a></li>
+          <li><a href="favorites.html" class="nav-link">Favorites</a></li>
         </ul>
       </nav>
-      <div class="side-bar">
-        <i class="fas fa-search" id="search"></i>
-        <i class="fas fa-user" id="user"></i>
-        <i class="fas fa-bars" id="bar"></i>
-      </div>
-      <form action="# class='search-bar'"> 
-        <input type="search" name="search" id="1" placeholder="Search Here" />
-        </form>
-
-    </header>
+      <form class="search-bar" style="margin-top:1rem;">
+        <label for="search-input">Search the menu</label>
+        <input type="search" name="search" id="search-input" placeholder="Search Here" />
+      </form>
+    </header> 
 
 
     <!--Home Section-->
@@ -40,11 +38,10 @@
       <div class="inner-content">
         <h3>Welcome to Food Zone</h3>
         <p>Your one-stop destination for delicious food on wheels!</p>
-        <button class="btn">Order Now</button>
+        <br><a href="#menu" class="btn">Order Now</a></br>
       </div>
       <div class="inner-content-img">
-          <img src="../src/assets/LFTlogo" alt="Food Truck" />
-      </div>
+          <img src="../src/assets/LFTlogo.png" alt="Food Truck" />
       </div>
     </section>
 
@@ -67,7 +64,7 @@
                 <h5><i class="fas fa-arrow-alt-circle-right"></i>Good food, good price</h5>
                 <h5><i class="fas fa-arrow-alt-circle-right"></i>Quality Cooking</h5>
             </div>
-            <button class="btn">Read More</button>
+
         </div>
     </div>
 </section>
@@ -80,7 +77,7 @@
         <img src="src/assets/foodtruck.jpg" alt="" />
         <h2>Food Service</h2>
         <p>We offer quality food and service, and experience from new places.</p>
-        <button class="btn">Read More</button>
+
       </div>
       <div class="inner-box">
         <img src="src/assets/m1.png" alt="" />
@@ -88,13 +85,13 @@
         <img src="src/assets/m4.png" alt="" />
         <h3>Online Payment</h3>
         <p>Secure Payment System or cash transaction.</p>
-        <button class="btn">Read More</button>
+ 
       </div>
       <div class="inner-box">
 
         <h3>Always Fresh Food</h3>
         <p>We provide catering services for events, parties, and gatherings.</p>
-        <button class="btn">Read More</button>
+  
       </div>
       </div>
     </section>
@@ -118,7 +115,10 @@
                     <i class="fas fa-star"></i>
                     <h2>Waggu Burger</h2>
                     <div class="price">$20.00</div>
-                    <button class="btn">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    <form class="add-to-cart-form">
+                        <input type="number" name="quantity" min="1" value="1" style="width:60px; margin-right:8px;">
+                        <button class="btn" type="submit">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -135,7 +135,10 @@
                     <i class="fas fa-star"></i>
                     <h2>BBQ Porkchop</h2>
                     <div class="price">$20.00</div>
-                    <button class="btn">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    <form class="add-to-cart-form">
+                        <input type="number" name="quantity" min="1" value="1" style="width:60px; margin-right:8px;">
+                        <button class="btn" type="submit">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -152,7 +155,10 @@
                     <i class="fas fa-star"></i>
                     <h2>The Other Burrito</h2>
                     <div class="price">$20.00</div>
-                    <button class="btn">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    <form class="add-to-cart-form">
+                        <input type="number" name="quantity" min="1" value="1" style="width:60px; margin-right:8px;">
+                        <button class="btn" type="submit">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -169,7 +175,10 @@
                     <i class="fas fa-star"></i>
                     <h2>The Cal Burger Zone</h2>
                     <div class="price">$20.00</div>
-                    <button class="btn">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    <form class="add-to-cart-form">
+                        <input type="number" name="quantity" min="1" value="1" style="width:60px; margin-right:8px;">
+                        <button class="btn" type="submit">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -186,7 +195,10 @@
                     <i class="fas fa-star"></i>
                     <h2>The Burr</h2>
                     <div class="price">$20.00</div>
-                    <button class="btn">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    <form class="add-to-cart-form">
+                        <input type="number" name="quantity" min="1" value="1" style="width:60px; margin-right:8px;">
+                        <button class="btn" type="submit">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -203,7 +215,10 @@
                     <i class="fas fa-star"></i>
                     <h2>Spare Ribs</h2>
                     <div class="price">$20.00</div>
-                    <button class="btn">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    <form class="add-to-cart-form">
+                        <input type="number" name="quantity" min="1" value="1" style="width:60px; margin-right:8px;">
+                        <button class="btn" type="submit">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -220,7 +235,10 @@
                     <i class="fas fa-star"></i>
                     <h2>chicken Wings</h2>
                     <div class="price">$20.00</div>
-                    <button class="btn">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    <form class="add-to-cart-form">
+                        <input type="number" name="quantity" min="1" value="1" style="width:60px; margin-right:8px;">
+                        <button class="btn" type="submit">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -237,7 +255,10 @@
                     <i class="fas fa-star"></i>
                     <h2>May the 4 pounder be with you!</h2>
                     <div class="price">$20.00</div>
-                    <button class="btn">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    <form class="add-to-cart-form">
+                        <input type="number" name="quantity" min="1" value="1" style="width:60px; margin-right:8px;">
+                        <button class="btn" type="submit">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -254,70 +275,19 @@
                     <i class="fas fa-star"></i>
                     <h2>Trifecta!</h2>
                     <div class="price">$20.00</div>
-                    <button class="btn">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    <form class="add-to-cart-form">
+                        <input type="number" name="quantity" min="1" value="1" style="width:60px; margin-right:8px;">
+                        <button class="btn" type="submit">Add to Cart <i class="fas fa-plus-circle"></i></button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!--Blog Section-->
-<section id="blog" class="blog">
-  <h4>Latest Blog</h4>
-  <div class="inner-blog">
-      <div class="blog-content">
-          <div class="in-blog">
-              <div class="im">
-                  <img src="blog-1.jpg" alt="img">
-                  <div class="in-blog-icon">
-                      <a href="#"><i class="fas fa-calendar"></i>19th May 2025</a>
-                      <a href="#"><i class="fas fa-user"></i>Admin</a>
-                  </div>
 
-              </div>
-              <div class="in-blog-content">
-                  <h2>You gotta try Combo #3.</h2>
-                  <p>Full plate, good price.</p>
-                  <button class="btn">Read More</button>
-              </div>
-          </div>
-      </div>
-      <div class="blog-content">
-          <div class="in-blog">
-              <div class="im">
-                  <img src="blog-2.jpg" alt="img">
-                  <div class="in-blog-icon">
-                      <a href="#"><i class="fas fa-calendar"></i>19th May 2025</a>
-                      <a href="#"><i class="fas fa-user"></i>Admin</a>
-                  </div>
 
-              </div>
-              <div class="in-blog-content">
-                <h2>Amazing BBQ,Best Quality</h2>
-                  <p>Serving your town!.</p>
-                  <button class="btn">Read More</button>
-              </div>
-          </div>
-      </div>
-      <div class="blog-content">
-          <div class="in-blog">
-              <div class="im">
-                  <img src="blog-3.jpg" alt="img">
-                  <div class="in-blog-icon">
-                      <a href="#"><i class="fas fa-calendar"></i>19th May 2025</a>
-                      <a href="#"><i class="fas fa-user"></i>Admin</a>
-                  </div>
 
-              </div>
-              <div class="in-blog-content">
-                  <h2>I would like, chicken wings and fried rice.</h2>
-                  <p>Family size.</p>
-                  <button class="btn">Read More</button>
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
 <!-------------------------------------------contact Section-------------->
 <footer class="contact" id="contact">
   <div class="contact-sec">
@@ -381,6 +351,279 @@
     if (menu) menu.classList.remove('active');
     if (searchfrm) searchfrm.classList.remove('active');
   };
+
+  // Highlight active nav link based on scroll position
+  window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 60;
+      if (pageYOffset >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Handle Add to Cart form submissions
+  // Add a simple cart UI
+  let cart = [];
+  const cartContainer = document.createElement('div');
+  cartContainer.id = 'cart-container';
+  cartContainer.style.position = 'fixed';
+  cartContainer.style.top = '40px';
+  cartContainer.style.right = '10px';
+  cartContainer.style.background = '#fff';
+  cartContainer.style.border = '1px solid #ccc';
+  cartContainer.style.borderRadius = '4px';
+  cartContainer.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+  cartContainer.style.padding = '8px';
+  cartContainer.style.zIndex = '1000';
+  cartContainer.style.minWidth = '220px';
+  cartContainer.innerHTML = `
+    <h4 style="margin-top:0">🛒 Cart</h4>
+    <ul id="cart-list" style="list-style:none;padding:0;margin:0 0 8px 0"></ul>
+    <div id="cart-total" style="font-weight:bold"></div>
+    <button id="clear-cart-btn" style="margin-top:8px;display:block;width:100%">Clear Cart</button>
+    <button id="checkout-btn" style="margin-top:8px;display:block;width:100%">Checkout</button>
+    <a href="checkout.html" id="checkout-link" style="display:none"></a>
+  `;
+  document.body.appendChild(cartContainer);
+
+  function updateCartUI() {
+    const cartList = document.getElementById('cart-list');
+    const cartTotal = document.getElementById('cart-total');
+    cartList.innerHTML = '';
+    let total = 0;
+    cart.forEach((item, idx) => {
+      const li = document.createElement('li');
+      li.textContent = `${item.item} x${item.quantity} - ${item.price}`;
+
+      // Remove button
+      const removeBtn = document.createElement('button');
+      removeBtn.textContent = 'Remove';
+      removeBtn.style.marginLeft = '4px';
+      removeBtn.style.fontSize = '0.3em';
+      removeBtn.onclick = function() {
+        cart.splice(idx, 1);
+        updateCartUI();
+      };
+      li.appendChild(removeBtn);
+      cartList.appendChild(li);
+
+      // Remove $ and parse price
+      const priceNum = parseFloat(item.price.replace(/[^\d.]/g, ''));
+      total += priceNum * item.quantity;
+    });
+    cartTotal.textContent = 'Total: $' + total.toFixed(2);
+  }
+
+  // Fix: updateCartUI should be called after page load to reflect cart state
+  updateCartUI();
+
+  document.getElementById('clear-cart-btn').onclick = function() {
+    cart = [];
+    updateCartUI();
+  };
+
+  document.getElementById('checkout-btn').onclick = function() {
+    if (cart.length === 0) {
+      alert('Your cart is empty!');
+      return;
+    }
+
+    // Persist cart to localStorage and redirect to checkout page
+    localStorage.setItem('checkoutCart', JSON.stringify(cart));
+
+    // Use the hidden link for navigation (for accessibility/SEO)
+    document.getElementById('checkout-link').click();
+  };
+
+  document.querySelectorAll('.add-to-cart-form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const inBox = form.closest('.in-box');
+      const itemName = inBox.querySelector('h2').textContent;
+      const price = inBox.querySelector('.price').textContent;
+      const quantity = parseInt(form.querySelector('input[name="quantity"]').value, 10);
+      // Add to cart array
+      const existingIndex = cart.findIndex(item => item.item === itemName && item.price === price);
+      if (existingIndex !== -1) {
+        cart[existingIndex].quantity += quantity;
+      } else {
+        cart.push({ item: itemName, price, quantity });
+      }
+      // Persist cart to localStorage for checkout page
+      localStorage.setItem('checkoutCart', JSON.stringify(cart));
+      updateCartUI();
+      alert(`Added to cart:\n${itemName}\nPrice: ${price}\nQuantity: ${quantity}`);
+    });
+  });
+
+  // --- FAVORITES FEATURE FOR MENU HEART ICONS ---
+const FAVORITES_KEY = 'menuFavorites';
+
+function getFavorites() {
+  try {
+    return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+  } catch {
+    return [];
+  }
+}
+
+function setFavorites(favs) {
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs));
+}
+
+function getMenuItemName(inBox) {
+  return inBox.querySelector('h2').textContent.trim();
+}
+
+function updateHeartsUI() {
+  const favorites = getFavorites();
+  document.querySelectorAll('.menu .in-box').forEach(inBox => {
+    const heart = inBox.querySelector('.fa-heart');
+    const name = getMenuItemName(inBox);
+    if (favorites.includes(name)) {
+      heart.classList.remove('far');
+      heart.classList.add('fas', 'active');
+      heart.setAttribute('aria-pressed', 'true');
+      heart.setAttribute('title', 'Remove from favorites');
+    } else {
+      heart.classList.remove('fas', 'active');
+      heart.classList.add('far');
+      heart.setAttribute('aria-pressed', 'false');
+      heart.setAttribute('title', 'Add to favorites');
+    }
+  });
+}
+
+document.querySelectorAll('.menu .in-box').forEach(inBox => {
+  const heart = inBox.querySelector('.fa-heart');
+  const name = getMenuItemName(inBox);
+  heart.style.cursor = 'pointer';
+  heart.setAttribute('tabindex', '0');
+  heart.setAttribute('role', 'button');
+  heart.setAttribute('aria-label', 'Toggle favorite');
+  heart.addEventListener('click', function(e) {
+    e.preventDefault();
+    let favorites = getFavorites();
+    if (favorites.includes(name)) {
+      favorites = favorites.filter(f => f !== name);
+    } else {
+      favorites.push(name);
+    }
+    setFavorites(favorites);
+    updateHeartsUI();
+  });
+  heart.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      heart.click();
+    }
+  });
+});
+
+// On page load, update hearts to reflect favorites
+updateHeartsUI();
+
+// --- STAR RATING SELECTABLE FEATURE ---
+document.querySelectorAll('.menu .in-box').forEach(inBox => {
+  const stars = inBox.querySelectorAll('.star .fa-star');
+  // Make each star focusable and clickable
+  stars.forEach((star, idx) => {
+    star.style.cursor = 'pointer';
+    star.setAttribute('tabindex', '0');
+    star.setAttribute('role', 'button');
+    star.setAttribute('aria-label', `Set rating to ${idx + 1} stars`);
+    // Restore rating from localStorage if present
+    const itemName = inBox.querySelector('h2').textContent.trim();
+    const ratingKey = `menuRating_${itemName}`;
+    let savedRating = parseInt(localStorage.getItem(ratingKey), 10) || 5;
+    function updateStars(rating) {
+      stars.forEach((s, i) => {
+        if (i < rating) {
+          s.classList.add('selected');
+          s.style.color = '#FFD700';
+        } else {
+          s.classList.remove('selected');
+          s.style.color = '';
+        }
+      });
+    }
+    updateStars(savedRating);
+    function setRating(rating) {
+      localStorage.setItem(ratingKey, rating);
+      updateStars(rating);
+    }
+    star.addEventListener('click', function(e) {
+      setRating(idx + 1);
+    });
+    star.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        setRating(idx + 1);
+      }
+    });
+  });
+});
+
+// Render favorites section
+function renderFavoritesSection() {
+  const favorites = getFavorites();
+  const favoritesList = document.getElementById('favorites-list');
+  if (!favoritesList) return;
+  favoritesList.innerHTML = '';
+  if (favorites.length === 0) {
+    favoritesList.innerHTML = '<p>No favorites yet. Click the heart on a menu item to add it here!</p>';
+    return;
+  }
+  favorites.forEach(name => {
+    const menuItem = Array.from(document.querySelectorAll('.menu .in-box')).find(inBox =>
+      inBox.querySelector('h2').textContent.trim() === name
+    );
+    if (menuItem) {
+      const clone = menuItem.cloneNode(true);
+      const heart = clone.querySelector('.fa-heart');
+      if (heart) heart.remove();
+      favoritesList.appendChild(clone);
+    }
+  });
+}
+
+// Update favorites section when hearts are toggled
+Array.from(document.querySelectorAll('.menu .in-box .fa-heart')).forEach(heart => {
+  heart.addEventListener('click', renderFavoritesSection);
+});
+
+// Also call on page load
+renderFavoritesSection();
 </script>
+<style>
+.nav-link.active {
+  font-weight: bold;
+  color: #FFD700;
+  border-bottom: 2px solid #FFD700;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.star .fa-star.selected {
+  color: #FFD700;
+}
+</style>
 
 </html>
