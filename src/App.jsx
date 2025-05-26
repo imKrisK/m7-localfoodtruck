@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import { useState, createContext } from 'react';
 import './App.css';
 import NavBar from '/src/components/NavBar';
 import Footer from '/src/components/Footer';

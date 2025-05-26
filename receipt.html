@@ -51,6 +51,7 @@
   <div class="receipt-container">
     <h2>Order Receipt</h2>
     <div class="thank-you">Thank you for your order!</div>
+    <div id="guest-info" style="margin-bottom:18px;"></div>
     <ul id="receipt-list" class="order-list"></ul>
     <div id="receipt-total" class="order-total"></div>
     <div id="order-id" style="text-align:center;color:#888;margin:16px 0 0 0;"></div>
@@ -61,12 +62,26 @@
       const receiptList = document.getElementById('receipt-list');
       const receiptTotal = document.getElementById('receipt-total');
       const orderIdDiv = document.getElementById('order-id');
+      const guestInfoDiv = document.getElementById('guest-info');
       let order = {};
       try {
         order = JSON.parse(localStorage.getItem('lastOrder')) || {};
       } catch (e) { order = {}; }
       const items = order.items || [];
       const orderId = order.orderId || '';
+      const guestInfo = order.guestInfo || {};
+      // Show guest info if present
+      if (guestInfo.name || guestInfo.address) {
+        guestInfoDiv.innerHTML =
+          `<div style='background:#f7f7f7;padding:12px 16px;border-radius:8px;margin-bottom:10px;'>` +
+          `<strong>Name:</strong> ${guestInfo.name ? guestInfo.name : ''}<br>` +
+          (guestInfo.email ? `<strong>Email:</strong> ${guestInfo.email}<br>` : '') +
+          (guestInfo.phone ? `<strong>Phone:</strong> ${guestInfo.phone}<br>` : '') +
+          `<strong>Address:</strong> ${guestInfo.address ? guestInfo.address : ''}` +
+          `</div>`;
+      } else {
+        guestInfoDiv.innerHTML = '';
+      }
       receiptList.innerHTML = '';
       let total = 0;
       items.forEach(item => {

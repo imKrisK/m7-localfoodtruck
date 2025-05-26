@@ -5,50 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - Food Truck</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    .checkout-container {
-      max-width: 500px;
-      margin: 40px auto;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      padding: 32px 24px;
-    }
-    .checkout-container h2 {
-      margin-top: 0;
-      text-align: center;
-    }
-    .order-list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 16px 0;
-    }
-    .order-list li {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid #eee;
-    }
-    .order-total {
-      font-weight: bold;
-      text-align: right;
-      margin-top: 16px;
-      font-size: 1.1em;
-    }
-    .empty {
-      text-align: center;
-      color: #888;
-      margin: 32px 0;
-    }
-    .btn {
-      width: 100%;
-      margin-top: 24px;
-    }
-  </style>
 </head>
 <body style="background: #fff url('./src/assets/LFTlogo.png') no-repeat top 40px center fixed; background-size: 120px auto;">
   <div class="checkout-container">
     <h2>Order Summary</h2>
+    <form id="guest-info-form" autocomplete="off">
+      <h3>Your Information (required for delivery)</h3>
+      <input type="text" id="guest-name" name="guest-name" placeholder="Full Name" required>
+      <input type="email" id="guest-email" name="guest-email" placeholder="Email (optional)">
+      <input type="tel" id="guest-phone" name="guest-phone" placeholder="Phone (optional)">
+      <textarea id="guest-address" name="guest-address" placeholder="Delivery Address" required></textarea>
+      <button type="button" id="get-location-btn">Use My Current Location</button>
+      <div id="map-preview"></div>
+    </form>
     <ul id="order-list" class="order-list"></ul>
     <div id="order-total" class="order-total"></div>
     <div id="empty-message" class="empty" style="display:none;">Your cart is empty.</div>
@@ -90,15 +59,53 @@
         alert('Your cart is empty!');
         return;
       }
+      // Guest info validation
+      const name = document.getElementById('guest-name').value.trim();
+      const email = document.getElementById('guest-email').value.trim();
+      const phone = document.getElementById('guest-phone').value.trim();
+      const address = document.getElementById('guest-address').value.trim();
+      if (!name || !address) {
+        alert('Please provide your name and delivery address.');
+        document.getElementById('guest-name').focus();
+        return;
+      }
+      const guestInfo = { name, email, phone, address };
       // Optionally generate a simple order ID (timestamp-based)
       const orderId = 'ORD-' + Date.now();
       // Save order details for receipt page
-      localStorage.setItem('lastOrder', JSON.stringify({ items: cart, orderId }));
+      localStorage.setItem('lastOrder', JSON.stringify({ items: cart, orderId, guestInfo }));
       localStorage.removeItem('checkoutCart');
       window.location.href = 'receipt.html';
     };
     document.getElementById('back-btn').onclick = function() {
       window.location.href = 'index.html#menu';
+    };
+    // --- Geolocation for Address Autofill and Map Preview ---
+    document.getElementById('get-location-btn').onclick = function() {
+      const mapDiv = document.getElementById('map-preview');
+      mapDiv.style.display = 'block';
+      mapDiv.innerHTML = 'Locating...';
+      if (!navigator.geolocation) {
+        mapDiv.innerHTML = 'Geolocation is not supported by your browser.';
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        // Show map
+        const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.01},${lat-0.01},${lng+0.01},${lat+0.01}&layer=mapnik&marker=${lat},${lng}`;
+        mapDiv.innerHTML = `<iframe width='100%' height='180' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='${mapUrl}'></iframe>`;
+        // Optionally use a reverse geocoding API for address autofill
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data && data.display_name) {
+              document.getElementById('guest-address').value = data.display_name;
+            }
+          });
+      }, function() {
+        mapDiv.innerHTML = 'Unable to retrieve your location.';
+      });
     };
   </script>
 </body>

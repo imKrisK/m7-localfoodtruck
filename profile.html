@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Member Profile</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <style>
+    .profile-container {
+      max-width: 420px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      padding: 32px;
+    }
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 12px;
+      border: 2px solid #eee;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .profile-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    .profile-form input[type="text"],
+    .profile-form input[type="email"],
+    .profile-form input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .profile-form input[type="file"] {
+      display: block;
+      margin: 0 auto 12px auto;
+    }
+    .profile-form .form-btn {
+      margin-top: 10px;
+      width: 100%;
+      background: #f95b11;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .profile-form .form-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .profile-form .show-password {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      display: block;
+      text-align: left;
+    }
+    .profile-form .edit-btn {
+      background: #007BFF;
+      color: #fff;
+      margin-top: 16px;
+    }
+    .order-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    .order-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .order-total {
+      font-weight: bold;
+      margin-top: 8px;
+    }
+    .menu-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+    .in-box {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 8px;
+      text-align: center;
+      background: #f9f9f9;
+      transition: transform 0.2s;
+    }
+    .in-box:hover {
+      transform: scale(1.05);
+    }
+    .veg-icon {
+      display: block;
+      margin: 0 auto 4px auto;
+    }
+  </style>
+</head>
+<body>
+  <header class="head">
+    <h1>Local Food <i class="fas fa-food-order"></i> Truck</h1>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html" class="nav-link">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="profile-container">
+    <h2 style="text-align:center">Member Profile</h2>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:24px;">
+      <img id="profile-avatar" src="src/assets/LFTlogo.png" alt="avatar" class="profile-avatar" />
+      <input type="file" id="avatar-input" accept="image/*" style="margin-bottom:12px;" />
+    </div>
+    <form id="profile-form" class="profile-form" autocomplete="off">
+      <label for="profile-name">Name:</label>
+      <input type="text" id="profile-name" name="name" required />
+      <label for="profile-email">Email:</label>
+      <input type="email" id="profile-email" name="email" required />
+      <label for="profile-password">Password:</label>
+      <input type="password" id="profile-password" name="password" required />
+      <label class="show-password"><input type="checkbox" id="show-password" /> Show Password</label>
+      <button type="submit" class="form-btn">Save</button>
+    </form>
+    <button id="edit-btn" class="form-btn edit-btn" style="display:none">Edit Profile</button>
+    <button id="logout-btn" class="form-btn" style="background:#d9534f;color:#fff;margin-top:12px;">Logout</button>
+    <div id="profile-view" style="display:none;text-align:center;margin-top:24px">
+      <p><b>Name:</b> <span id="view-name"></span></p>
+      <p><b>Email:</b> <span id="view-email"></span></p>
+    </div>
+    <div id="profile-favorites" style="margin-top:32px;">
+      <h3>Your Favorites</h3>
+      <div id="profile-favorites-list"></div>
+    </div>
+    <div id="profile-receipt" style="margin-top:32px;">
+      <h3>Last Receipt <a href="receipt.html" style="font-size:0.7em;float:right;">View Full</a></h3>
+      <ul id="profile-receipt-list" class="order-list"></ul>
+      <div id="profile-receipt-total" class="order-total"></div>
+      <div id="profile-order-id" style="color:#888;margin:8px 0 0 0;"></div>
+    </div>
+    <div id="order-history-section" style="margin-top:32px;">
+      <h3>Order History</h3>
+      <div id="order-history-list"></div>
+    </div>
+    <div id="push-section" style="margin-top:32px;text-align:center;">
+      <button id="push-btn" class="form-btn" style="background:#007BFF;color:#fff;">Remind Me About Truck Specials</button>
+      <div id="push-msg" style="margin-top:8px;color:#28a745;"></div>
+    </div>
+    <div id="find-us-section" style="margin-top:32px;">
+      <h3>Find Our Food Truck</h3>
+      <button id="show-location-btn" class="form-btn" style="margin-bottom:12px;">Show My Location & Truck</button>
+      <div id="map" style="width:100%;height:300px;border-radius:8px;overflow:hidden;background:#f7f7f7;text-align:center;line-height:300px;color:#888;font-size:1.1em;">Map will appear here</div>
+    </div>
+  </div>
+  <script>
+    // --- Auth Check ---
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = 'login.html';
+    }
+    // --- Profile State Management ---
+    const PROFILE_KEY = 'memberProfile';
+    function getProfile() {
+      try {
+        return JSON.parse(localStorage.getItem(PROFILE_KEY)) || {};
+      } catch {
+        return {};
+      }
+    }
+    function setProfile(profile) {
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    }
+    // --- DOM Elements ---
+    const form = document.getElementById('profile-form');
+    const avatarImg = document.getElementById('profile-avatar');
+    const avatarInput = document.getElementById('avatar-input');
+    const nameInput = document.getElementById('profile-name');
+    const emailInput = document.getElementById('profile-email');
+    const passwordInput = document.getElementById('profile-password');
+    const showPassword = document.getElementById('show-password');
+    const editBtn = document.getElementById('edit-btn');
+    const profileView = document.getElementById('profile-view');
+    const viewName = document.getElementById('view-name');
+    const viewEmail = document.getElementById('view-email');
+
+    // --- Load Profile ---
+    function loadProfile() {
+      const profile = getProfile();
+      if (profile.avatar) avatarImg.src = profile.avatar;
+      else avatarImg.src = 'src/assets/LFTlogo.png';
+      nameInput.value = profile.name || '';
+      emailInput.value = profile.email || '';
+      passwordInput.value = profile.password || '';
+      viewName.textContent = profile.name || '-';
+      viewEmail.textContent = profile.email || '-';
+    }
+
+    // --- Avatar Upload ---
+    avatarInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = function() {
+          avatarImg.src = reader.result;
+          const profile = getProfile();
+          profile.avatar = reader.result;
+          setProfile(profile);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // --- Show/Hide Password ---
+    showPassword.addEventListener('change', function() {
+      passwordInput.type = showPassword.checked ? 'text' : 'password';
+    });
+    
+    // --- Save Profile ---
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const profile = {
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        password: passwordInput.value,
+        avatar: avatarImg.src
+      };
+      setProfile(profile);
+      loadProfile();
+      form.style.display = 'none';
+      editBtn.style.display = '';
+      profileView.style.display = '';
+    });
+    // --- Edit Profile ---
+    editBtn.addEventListener('click', function() {
+      form.style.display = '';
+      editBtn.style.display = 'none';
+      profileView.style.display = 'none';
+    });
+    // --- Logout ---
+    document.getElementById('logout-btn').onclick = function() {
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = 'login.html';
+    };
+    // --- Favorites in Profile ---
+    function renderProfileFavorites() {
+      const FAVORITES_KEY = 'menuFavorites';
+      const menuItems = [
+        { name: 'Waggu Burger', image: 'src/assets/burger.png', price: '$20.00' },
+        { name: 'BBQ Porkchop', image: 'src/assets/bbq-porkchop.png', price: '$20.00' },
+        { name: 'The Other Burrito', image: 'src/assets/burrito1.png', price: '$20.00' },
+        { name: 'The Cal Burger Zone', image: 'src/assets/calburgerzone.png', price: '$20.00' },
+        { name: 'The Burr', image: 'src/assets/burrito.png', price: '$20.00' },
+        { name: 'Spare Ribs', image: 'src/assets/spare-ribs.png', price: '$20.00' },
+        { name: 'chicken Wings', image: 'src/assets/chickenwings.png', price: '$20.00' },
+        { name: 'QT!', image: 'src/assets/4lbsburger.png', price: '$20.00' },
+        { name: 'Trifecta!', image: 'src/assets/comb3.png', price: '$20.00' }
+      ];
+      function getFavorites() {
+        try {
+          return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+        } catch {
+          return [];
+        }
+      }
+      const favorites = getFavorites();
+      const favoritesList = document.getElementById('profile-favorites-list');
+      favoritesList.innerHTML = '';
+      if (favorites.length === 0) {
+        favoritesList.innerHTML = '<p style="color:#888">No favorites yet. Go to the menu and click the heart to add some!</p>';
+        return;
+      }
+      const menuContent = document.createElement('div');
+      menuContent.className = 'menu-content';
+      favorites.forEach(name => {
+        const item = menuItems.find(m => m.name === name);
+        if (item) {
+          const ratingKey = `menuRating_${item.name}`;
+          const rating = parseInt(localStorage.getItem(ratingKey), 10) || 5;
+          let starsHtml = '';
+          for (let i = 1; i <= 5; i++) {
+            starsHtml += `<i class=\"fas fa-star\" style=\"color:${i <= rating ? '#FFD700' : '#ccc'};font-size:1.1em;\"></i>`;
+          }
+          const box = document.createElement('div');
+          box.className = 'in-box';
+          box.style.maxWidth = '180px';
+          box.style.display = 'inline-block';
+          box.style.margin = '8px';
+          box.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="veg-icon" style="width:60px;height:60px;object-fit:cover;">
+            <div class="in-content">
+              <div class="star" style="margin-bottom:4px;">${starsHtml}</div>
+              <h2 style="font-size:1em;margin:8px 0 4px 0;">${item.name}</h2>
+              <div class="price" style="font-size:0.95em;">${item.price}</div>
+            </div>
+          `;
+          menuContent.appendChild(box);
+        }
+      });
+      favoritesList.appendChild(menuContent);
+    }
+    // --- Receipt in Profile ---
+    function renderProfileReceipt() {
+      let order = {};
+      try {
+        order = JSON.parse(localStorage.getItem('lastOrder')) || {};
+      } catch (e) { order = {}; }
+      const items = order.items || [];
+      const orderId = order.orderId || '';
+      const receiptList = document.getElementById('profile-receipt-list');
+      const receiptTotal = document.getElementById('profile-receipt-total');
+      const orderIdDiv = document.getElementById('profile-order-id');
+      receiptList.innerHTML = '';
+      let total = 0;
+      items.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${item.item} x${item.quantity}</span><span>${item.price}</span>`;
+        receiptList.appendChild(li);
+        const priceNum = parseFloat(item.price.replace(/[^\d.]/g, ''));
+        total += priceNum * item.quantity;
+      });
+      receiptTotal.textContent = items.length ? 'Total: $' + total.toFixed(2) : '';
+      orderIdDiv.textContent = orderId ? 'Order ID: ' + orderId : '';
+      if (items.length === 0) {
+        receiptList.innerHTML = '<li style="color:#888">No recent orders.</li>';
+      }
+    }
+    // --- Order History in Profile ---
+    function renderOrderHistory() {
+      let orderHistory = [];
+      try {
+        orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+      } catch { orderHistory = []; }
+      const listDiv = document.getElementById('order-history-list');
+      listDiv.innerHTML = '';
+      if (orderHistory.length === 0) {
+        listDiv.innerHTML = '<p style="color:#888">No past orders yet.</p>';
+        return;
+      }
+      orderHistory.slice().reverse().forEach(order => {
+        let total = 0;
+        order.items.forEach(item => {
+          const priceNum = parseFloat(item.price.replace(/[^\d.]/g, ''));
+          total += priceNum * item.quantity;
+        });
+        const orderDiv = document.createElement('div');
+        orderDiv.style = 'border:1px solid #eee;padding:12px;margin-bottom:16px;border-radius:8px;background:#fafafa;';
+        orderDiv.innerHTML = `
+          <div style='font-size:1.1em;margin-bottom:4px;'><b>Date:</b> ${new Date(order.date).toLocaleString()}</div>
+          <div style='font-size:1em;margin-bottom:4px;'><b>Order ID:</b> ${order.orderId}</div>
+          <ul style='list-style:none;padding:0;margin:0 0 8px 0;'>
+            ${order.items.map(item => `<li style='display:flex;justify-content:space-between;'><span>${item.item} x${item.quantity}</span><span>${item.price}</span></li>`).join('')}
+          </ul>
+          <div style='font-weight:bold;'>Total: $${total.toFixed(2)}</div>
+          <button class='share-btn form-btn' style='margin-top:8px;background:#f95b11;color:#fff;' data-orderid='${order.orderId}'>Share Order</button>
+        `;
+        listDiv.appendChild(orderDiv);
+      });
+      // Social sharing for each order
+      Array.from(document.getElementsByClassName('share-btn')).forEach(btn => {
+        btn.onclick = function() {
+          const orderDiv = btn.parentElement;
+          const text = orderDiv.innerText.replace(/\n+/g, '\n');
+          if (navigator.share) {
+            navigator.share({
+              title: 'My Food Truck Order',
+              text: text,
+              url: window.location.href
+            });
+          } else {
+            navigator.clipboard.writeText(text);
+            alert('Order details copied to clipboard!');
+          }
+        };
+      });
+    }
+    // --- Push Notification Opt-in ---
+    document.getElementById('push-btn').onclick = function() {
+      if (!('Notification' in window)) {
+        document.getElementById('push-msg').textContent = 'Notifications not supported.';
+        return;
+      }
+      Notification.requestPermission().then(function(permission) {
+        if (permission === 'granted') {
+          document.getElementById('push-msg').textContent = 'You will be reminded about truck specials!';
+          setTimeout(() => {
+            new Notification('Food Truck Special!', {
+              body: 'Check out today\'s specials at your favorite food truck! 🚚🍔',
+              icon: 'src/assets/LFTlogo.png'
+            });
+          }, 5000);
+        } else {
+          document.getElementById('push-msg').textContent = 'Notifications not enabled.';
+        }
+      });
+    };
+    // --- Mobile Restaurant Geolocation Feature ---
+    document.getElementById('show-location-btn').onclick = function() {
+      if (!navigator.geolocation) {
+        document.getElementById('map').innerHTML = 'Geolocation is not supported by your browser.';
+        return;
+      }
+      document.getElementById('map').innerHTML = 'Locating...';
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const userLat = position.coords.latitude;
+        const userLng = position.coords.longitude;
+        // Example: Hardcoded truck location (Las Vegas)
+        const truckLat = 36.1699;
+        const truckLng = -115.1398;
+        const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${truckLng-0.01},${truckLat-0.01},${truckLng+0.01},${truckLat+0.01}&layer=mapnik&marker=${truckLat},${truckLng}`;
+        document.getElementById('map').innerHTML = `
+          <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+            src="${mapUrl}"></iframe>
+          <div style="font-size:0.95em;margin-top:8px;text-align:left;padding:0 8px;">
+            <b>Your Location:</b> ${userLat.toFixed(4)}, ${userLng.toFixed(4)}<br>
+            <b>Truck Location:</b> ${truckLat}, ${truckLng}
+          </div>
+        `;
+      }, function() {
+        document.getElementById('map').innerHTML = 'Unable to retrieve your location.';
+      });
+    };
+    // --- END Mobile Restaurant Geolocation ---
+    // --- On Page Load ---
+    window.addEventListener('DOMContentLoaded', function() {
+      loadProfile();
+      // If profile exists, show view mode
+      const profile = getProfile();
+      if (profile.name || profile.email) {
+        form.style.display = 'none';
+        editBtn.style.display = '';
+        profileView.style.display = '';
+      } else {
+        form.style.display = '';
+        editBtn.style.display = 'none';
+        profileView.style.display = 'none';
+      }
+      renderProfileFavorites();
+      renderProfileReceipt();
+      renderOrderHistory();
+    });
+  </script>
+</body>
+</html>

@@ -11,25 +11,45 @@
   </head>
 
   <body>
-    
-    <header class="head">
-      <h1>Local Food  <i class="fas fa-food-order"></i> Truck</h1>
-      <nav class="navbar">
-        <ul>
-          <li><a href="#home" class="nav-link">Home</a></li>
-          <li><a href="#menu" class="nav-link">Menu</a></li>
-          <li><a href="#about" class="nav-link">About Us</a></li>
-          <li><a href="#contact" class="nav-link">Contact Us</a></li>
-          <li><a href="login.html" class="nav-link">Login</a></li>
-          <li><a href="registration.html" class="nav-link">Register</a></li>
-          <li><a href="favorites.html" class="nav-link">Favorites</a></li>
-        </ul>
-      </nav>
-      <form class="search-bar" style="margin-top:1rem;">
-        <label for="search-input">Search the menu</label>
-        <input type="search" name="search" id="search-input" placeholder="Search Here" />
-      </form>
-    </header> 
+    <header class="head redesigned-header">
+  <button id="mobile-menu-btn" aria-label="Open navigation" class="mobile-menu-btn">
+    <i class="fas fa-bars"></i>
+  </button>
+  <div class="logo-title redesigned-logo-title">
+    <img src="src/assets/LFTlogo.png" alt="Food Truck Logo" class="logo-img redesigned-logo-img" />
+    <h1 class="site-title">Local Food <span class="brand-highlight"><i class="fas fa-truck"></i></span> Truck</h1>
+  </div>
+  <nav class="navbar redesigned-navbar" aria-label="Main Navigation">
+    <ul id="nav-list" class="redesigned-nav-list">
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#menu" class="nav-link">Menu</a></li>
+      <li><a href="#about" class="nav-link">About Us</a></li>
+      <li><a href="#contact" class="nav-link">Contact Us</a></li>
+      <li id="nav-login"><a href="login.html" class="nav-link">Login</a></li>
+      <li id="nav-register"><a href="registration.html" class="nav-link">Register</a></li>
+      <li id="nav-profile" style="display:none"><a href="profile.html" class="nav-link">Profile</a></li>
+      <li id="nav-logout" style="display:none"><a href="#" class="nav-link">Logout</a></li>
+    </ul>
+  </nav>
+</header>
+    <script>
+
+    // Modern mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const navList = document.getElementById('nav-list');
+    if (mobileMenuBtn && navList) {
+      mobileMenuBtn.addEventListener('click', function() {
+        navList.classList.toggle('active');
+        document.body.classList.toggle('nav-open');
+      });
+      navList.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navList.classList.remove('active');
+          document.body.classList.remove('nav-open');
+        });
+      });
+    }
+    </script>
 
 
     <!--Home Section-->
@@ -41,7 +61,7 @@
         <br><a href="#menu" class="btn">Order Now</a></br>
       </div>
       <div class="inner-content-img">
-          <img src="../src/assets/LFTlogo.png" alt="Food Truck" />
+          <img src="../src/assets/burger.png" alt="Food Truck" />
       </div>
     </section>
 
@@ -51,7 +71,7 @@
     <h4>About</h4>
     <div class="about-sec">
         <div class="img">
-            <img src="src/assets/LFTlogo.png" alt="img">
+            <img src="src/assets/menu-5.jpg" alt="img">
         </div>
         <div class="about-content">
             <h3>Food Zone</h3>
@@ -74,7 +94,7 @@
     <h4> Services </h4>
     <div class="service-content">
       <div class="inner-box">
-        <img src="src/assets/foodtruck.jpg" alt="" />
+        <img src="src/assets/menu-6.jpg" alt="" />
         <h2>Food Service</h2>
         <p>We offer quality food and service, and experience from new places.</p>
 
@@ -96,6 +116,14 @@
       </div>
     </section>
 
+<!-- Find Us Section: Mobile Restaurant Geolocation -->
+<section id="find-us" class="find-us-section" style="margin:40px auto;max-width:900px;padding:24px 0;">
+  <h4 style="text-align:center;margin-bottom:12px;">Find Our Food Truck</h4>
+  <div style="text-align:center;">
+    <button id="show-location-btn" class="btn" style="margin-bottom:16px;">Show My Location & Truck</button>
+  </div>
+  <div id="map" style="width:100%;height:350px;margin-top:8px;border-radius:8px;overflow:hidden;background:#f7f7f7;text-align:center;line-height:350px;color:#888;font-size:1.1em;">Map will appear here</div>
+</section>
 
 <!--Menu Section -->
 
@@ -105,7 +133,7 @@
         <div class="in-box">
             <i class="far fa-heart"></i>
             <img src="src/assets/burger.png" alt="img" class="veg-icon">
-            <img src="burger.png" alt="">
+            <img src="burger" alt="">
             <div class="in-content">
                 <div class="star">
                     <i class="fas fa-star"></i>
@@ -253,7 +281,7 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
-                    <h2>May the 4 pounder be with you!</h2>
+                    <h2>QT!</h2>
                     <div class="price">$20.00</div>
                     <form class="add-to-cart-form">
                         <input type="number" name="quantity" min="1" value="1" style="width:60px; margin-right:8px;">
@@ -285,6 +313,37 @@
     </div>
 </section>
 
+<!-- Mobile Restaurant Specials Section -->
+<section class="specials" id="specials">
+  <h4>Today's Specials</h4>
+  <div class="specials-content">
+    <div class="special-card">
+      <div class="special-card-inner">
+        <img src="src/assets/burger.png" alt="Spicy Wagyu Burger" />
+        <h3>Spicy Wagyu Burger</h3>
+        <p>Limited time! Served with fries and a drink.</p>
+        <span class="special-price">$15.00</span>
+      </div>
+    </div>
+    <div class="special-card">
+      <div class="special-card-inner">
+        <img src="src/assets/bbq-porkchop.png" alt="BBQ Porkchop Plate" />
+        <h3>BBQ Porkchop Plate</h3>
+        <p>Char-grilled porkchop with house BBQ sauce.</p>
+        <span class="special-price">$14.00</span>
+      </div>
+    </div>
+    <div class="special-card">
+      <div class="special-card-inner">
+        <img src="src/assets/burrito1.png" alt="Wally's Special Burrito" />
+        <h3>Wally's Special Burrito</h3>
+        <p>Loaded with beef, beans, and cheese. Only today!</p>
+        <span class="special-price">$12.00</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
 
@@ -298,34 +357,36 @@
           <div class="contact-inner-col">
               <h1>Contact US&nbsp;<i class="fas fa-paper-plane"></i></h1>
               <p>1000 Gobi Desert, Las Vegas, USA</p>
-              </p>
               <p>We Want To Hear From You, Write Us:</p>
-              <form action="#" id="" method="get">
-                  <input type="text" name="name" id=" " placeholder="Please Enter Your Name" required>
-                  <input type="email" name="name" id=" " placeholder="Please Enter Your @Email" required>
-                  <input type="text" name="name" id=" " placeholder="Please Enter Your Name" required>
-                  <textarea name="" id="" cols="10" rows="8"></textarea>
-                  <button class="btn">Submit</button>
+              <form id="contact-form" action="https://formspree.io/f/meogbraw" method="POST" autocomplete="off" aria-label="Contact form">
+                  <label for="contact-name" class="visually-hidden">Name</label>
+                  <input type="text" name="name" id="contact-name" placeholder="Please Enter Your Name" required aria-required="true">
+                  <label for="contact-email" class="visually-hidden">Email</label>
+                  <input type="email" name="email" id="contact-email" placeholder="Please Enter Your @Email" required aria-required="true">
+                  <label for="contact-message" class="visually-hidden">Message</label>
+                  <textarea name="message" id="contact-message" cols="10" rows="8" placeholder="Your message" required aria-required="true"></textarea>
+                  <input type="text" name="address" id="contact-address" placeholder="Your Location (optional)" style="margin-top:8px;">
+                  <button type="button" id="contact-location-btn" style="margin:8px 0;">Use My Location</button>
+                  <div id="contact-map-preview" style="margin-bottom:8px;"></div>
+                  <div id="contact-feedback" style="color:green; margin:8px 0 0 0; display:none;"></div>
+                  <button class="btn" type="submit">Submit</button>
               </form>
           </div>
       </div>
-      <div class="map">
-          <iframe src=""
-              width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <div class="map" style="margin: 24px 0;">
+          <iframe src="https://www.google.com/maps?q=1000+Gobi+Desert,+Las+Vegas,+USA&output=embed" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" title="Our Location"></iframe>
       </div>
       <div class="copyright">
           <p>Design By&copy; imackris</p>
           <div class="social">
-              <i class="fab fa-facebook"></i>
-              <i class="fab fa-instagram"></i>
-              <i class="fab fa-pinterest"></i>
-              <i class="fab fa-google-plus"></i>
+              <a href="https://facebook.com/yourpage" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+              <a href="https://instagram.com/yourpage" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="https://pinterest.com/yourpage" target="_blank" rel="noopener" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+              <a href="https://plus.google.com/yourpage" target="_blank" rel="noopener" aria-label="Google Plus"><i class="fab fa-google-plus"></i></a>
           </div>
       </div>
   </div>
 </footer>
-
-<!-------------------------------java script ------------->
 <script>
   let searchbtn = document.querySelector('#search');
   let searchfrm = document.querySelector('.head .search-bar');
@@ -371,30 +432,61 @@
     });
   });
 
-  // Handle Add to Cart form submissions
-  // Add a simple cart UI
+  // --- Improved Cart UI ---
   let cart = [];
   const cartContainer = document.createElement('div');
   cartContainer.id = 'cart-container';
+  cartContainer.setAttribute('role', 'region');
+  cartContainer.setAttribute('aria-label', 'Shopping Cart');
   cartContainer.style.position = 'fixed';
-  cartContainer.style.top = '40px';
-  cartContainer.style.right = '10px';
+  cartContainer.style.top = '80px';
+  cartContainer.style.right = '16px';
   cartContainer.style.background = '#fff';
-  cartContainer.style.border = '1px solid #ccc';
-  cartContainer.style.borderRadius = '4px';
-  cartContainer.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-  cartContainer.style.padding = '8px';
-  cartContainer.style.zIndex = '1000';
-  cartContainer.style.minWidth = '220px';
+  cartContainer.style.border = '1.5px solid #f95b11';
+  cartContainer.style.borderRadius = '8px';
+  cartContainer.style.boxShadow = '0 4px 16px rgba(0,0,0,0.13)';
+  cartContainer.style.padding = '16px 12px 12px 12px';
+  cartContainer.style.zIndex = '1200';
+  cartContainer.style.minWidth = '240px';
+  cartContainer.style.maxWidth = '95vw';
+  cartContainer.style.transition = 'right 0.3s';
+  cartContainer.style.display = 'none';
   cartContainer.innerHTML = `
-    <h4 style="margin-top:0">🛒 Cart</h4>
-    <ul id="cart-list" style="list-style:none;padding:0;margin:0 0 8px 0"></ul>
-    <div id="cart-total" style="font-weight:bold"></div>
-    <button id="clear-cart-btn" style="margin-top:8px;display:block;width:100%">Clear Cart</button>
-    <button id="checkout-btn" style="margin-top:8px;display:block;width:100%">Checkout</button>
+    <button id="close-cart-btn" aria-label="Close cart" style="position:absolute;top:8px;right:8px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#f95b11;">&times;</button>
+    <h4 style="margin:0 0 12px 0;font-size:1.3rem;color:#f95b11;">🛒 Cart</h4>
+    <ul id="cart-list" style="list-style:none;padding:0;margin:0 0 8px 0;max-height:180px;overflow-y:auto;"></ul>
+    <div id="cart-total" style="font-weight:bold;margin-bottom:8px;"></div>
+    <button id="clear-cart-btn" style="margin-bottom:8px;display:block;width:100%;background:#eee;color:#f95b11;border:none;padding:8px 0;border-radius:4px;">Clear Cart</button>
+    <button id="checkout-btn" style="margin-bottom:8px;display:block;width:100%;background:#f95b11;color:#fff;border:none;padding:8px 0;border-radius:4px;">Checkout</button>
     <a href="checkout.html" id="checkout-link" style="display:none"></a>
   `;
   document.body.appendChild(cartContainer);
+
+  // Show/hide cart with a floating button
+  const cartToggleBtn = document.createElement('button');
+  cartToggleBtn.id = 'cart-toggle-btn';
+  cartToggleBtn.setAttribute('aria-label', 'Show cart');
+  cartToggleBtn.innerHTML = '🛒';
+  cartToggleBtn.style.position = 'fixed';
+  cartToggleBtn.style.top = '90px';
+  cartToggleBtn.style.right = '16px';
+  cartToggleBtn.style.background = '#f95b11';
+  cartToggleBtn.style.color = '#fff';
+  cartToggleBtn.style.border = 'none';
+  cartToggleBtn.style.borderRadius = '50%';
+  cartToggleBtn.style.width = '48px';
+  cartToggleBtn.style.height = '48px';
+  cartToggleBtn.style.fontSize = '2rem';
+  cartToggleBtn.style.zIndex = '1201';
+  cartToggleBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.13)';
+  document.body.appendChild(cartToggleBtn);
+
+  cartToggleBtn.onclick = function() {
+    cartContainer.style.display = cartContainer.style.display === 'none' ? 'block' : 'none';
+  };
+  document.getElementById('close-cart-btn').onclick = function() {
+    cartContainer.style.display = 'none';
+  };
 
   function updateCartUI() {
     const cartList = document.getElementById('cart-list');
@@ -403,48 +495,52 @@
     let total = 0;
     cart.forEach((item, idx) => {
       const li = document.createElement('li');
-      li.textContent = `${item.item} x${item.quantity} - ${item.price}`;
-
+      li.style.display = 'flex';
+      li.style.justifyContent = 'space-between';
+      li.style.alignItems = 'center';
+      li.style.marginBottom = '6px';
+      li.innerHTML = `<span>${item.item} x${item.quantity}</span> <span style="color:#f95b11;font-weight:600;">${item.price}</span>`;
       // Remove button
       const removeBtn = document.createElement('button');
-      removeBtn.textContent = 'Remove';
-      removeBtn.style.marginLeft = '4px';
-      removeBtn.style.fontSize = '0.3em';
+      removeBtn.textContent = '✕';
+      removeBtn.style.marginLeft = '8px';
+      removeBtn.style.fontSize = '1em';
+      removeBtn.style.background = 'none';
+      removeBtn.style.border = 'none';
+      removeBtn.style.color = '#f95b11';
+      removeBtn.style.cursor = 'pointer';
+      removeBtn.setAttribute('aria-label', 'Remove item');
       removeBtn.onclick = function() {
         cart.splice(idx, 1);
         updateCartUI();
       };
       li.appendChild(removeBtn);
       cartList.appendChild(li);
-
-      // Remove $ and parse price
       const priceNum = parseFloat(item.price.replace(/[^\d.]/g, ''));
       total += priceNum * item.quantity;
     });
     cartTotal.textContent = 'Total: $' + total.toFixed(2);
   }
-
-  // Fix: updateCartUI should be called after page load to reflect cart state
   updateCartUI();
-
   document.getElementById('clear-cart-btn').onclick = function() {
     cart = [];
     updateCartUI();
   };
-
   document.getElementById('checkout-btn').onclick = function() {
     if (cart.length === 0) {
       alert('Your cart is empty!');
       return;
     }
-
-    // Persist cart to localStorage and redirect to checkout page
     localStorage.setItem('checkoutCart', JSON.stringify(cart));
-
-    // Use the hidden link for navigation (for accessibility/SEO)
+    const orderId = 'ORD-' + Date.now().toString(36).toUpperCase();
+    const order = { items: cart, orderId: orderId, date: new Date().toISOString() };
+    localStorage.setItem('lastOrder', JSON.stringify(order));
+    let orderHistory = [];
+    try { orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || []; } catch { orderHistory = []; }
+    orderHistory.push(order);
+    localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
     document.getElementById('checkout-link').click();
   };
-
   document.querySelectorAll('.add-to-cart-form').forEach(form => {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -452,16 +548,15 @@
       const itemName = inBox.querySelector('h2').textContent;
       const price = inBox.querySelector('.price').textContent;
       const quantity = parseInt(form.querySelector('input[name="quantity"]').value, 10);
-      // Add to cart array
       const existingIndex = cart.findIndex(item => item.item === itemName && item.price === price);
       if (existingIndex !== -1) {
         cart[existingIndex].quantity += quantity;
       } else {
         cart.push({ item: itemName, price, quantity });
       }
-      // Persist cart to localStorage for checkout page
       localStorage.setItem('checkoutCart', JSON.stringify(cart));
       updateCartUI();
+      cartContainer.style.display = 'block';
       alert(`Added to cart:\n${itemName}\nPrice: ${price}\nQuantity: ${quantity}`);
     });
   });
@@ -541,6 +636,7 @@ document.querySelectorAll('.menu .in-box').forEach(inBox => {
     star.setAttribute('tabindex', '0');
     star.setAttribute('role', 'button');
     star.setAttribute('aria-label', `Set rating to ${idx + 1} stars`);
+
     // Restore rating from localStorage if present
     const itemName = inBox.querySelector('h2').textContent.trim();
     const ratingKey = `menuRating_${itemName}`;
@@ -602,13 +698,124 @@ Array.from(document.querySelectorAll('.menu .in-box .fa-heart')).forEach(heart =
 
 // Also call on page load
 renderFavoritesSection();
+
+
+// --- NAVBAR LOGIN/LOGOUT/PROFILE DYNAMIC ---
+function updateNavbarAuth() {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  document.getElementById('nav-login').style.display = isLoggedIn ? 'none' : '';
+  document.getElementById('nav-register').style.display = isLoggedIn ? 'none' : '';
+  document.getElementById('nav-profile').style.display = isLoggedIn ? '' : 'none';
+  document.getElementById('nav-logout').style.display = isLoggedIn ? '' : 'none';
+}
+document.getElementById('nav-logout').addEventListener('click', function(e) {
+  e.preventDefault();
+  localStorage.removeItem('isLoggedIn');
+  window.location.href = 'login.html';
+});
+updateNavbarAuth();
+// --- END NAVBAR DYNAMIC ---
+
+// --- Contact Form Validation and Feedback ---
+const contactForm = document.getElementById('contact-form');
+const contactFeedback = document.getElementById('contact-feedback');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    // Basic client-side validation
+    const name = document.getElementById('contact-name').value.trim();
+    const email = document.getElementById('contact-email').value.trim();
+    const message = document.getElementById('contact-message').value.trim();
+    if (!name || !email || !message) {
+      contactFeedback.style.display = 'block';
+      contactFeedback.style.color = 'red';
+      contactFeedback.textContent = 'Please fill in all required fields.';
+      e.preventDefault();
+      return;
+    }
+    // Email format check
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      contactFeedback.style.display = 'block';
+      contactFeedback.style.color = 'red';
+      contactFeedback.textContent = 'Please enter a valid email address.';
+      e.preventDefault();
+      return;
+    }
+    // Show thank you message after submit
+    contactFeedback.style.display = 'block';
+    contactFeedback.style.color = 'green';
+    contactFeedback.textContent = 'Thank you for contacting us! We will get back to you soon.';
+    // Optionally, clear form fields after a short delay
+    setTimeout(() => {
+      contactForm.reset();
+      contactFeedback.style.display = 'none';
+    }, 4000);
+  });
+}
+
+
+// --- Mobile Restaurant Geolocation Feature ---
+document.getElementById('show-location-btn').onclick = function() {
+  if (!navigator.geolocation) {
+    document.getElementById('map').innerHTML = 'Geolocation is not supported by your browser.';
+    return;
+  }
+  document.getElementById('map').innerHTML = 'Locating...';
+  navigator.geolocation.getCurrentPosition(function(position) {
+    const userLat = position.coords.latitude;
+    const userLng = position.coords.longitude;
+    // Example: Hardcoded truck location (Las Vegas)
+    const truckLat = 36.1699;
+    const truckLng = -115.1398;
+    // OpenStreetMap embed with truck marker
+    const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${truckLng-0.01},${truckLat-0.01},${truckLng+0.01},${truckLat+0.01}&layer=mapnik&marker=${truckLat},${truckLng}`;
+    document.getElementById('map').innerHTML = `
+      <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+        src="${mapUrl}"></iframe>
+      <div style="font-size:0.95em;margin-top:8px;text-align:left;padding:0 8px;">
+        <b>Your Location:</b> ${userLat.toFixed(4)}, ${userLng.toFixed(4)}<br>
+        <b>Truck Location:</b> ${truckLat}, ${truckLng}
+      </div>
+    `;
+  }, function() {
+    document.getElementById('map').innerHTML = 'Unable to retrieve your location.';
+  });
+};
+// --- END Mobile Restaurant Geolocation ---
+
+// --- Contact Form Geolocation Feature ---
+const contactLocationBtn = document.getElementById('contact-location-btn');
+const contactAddress = document.getElementById('contact-address');
+const contactMapPreview = document.getElementById('contact-map-preview');
+if (contactLocationBtn && contactAddress && contactMapPreview) {
+  contactLocationBtn.onclick = function() {
+    contactMapPreview.style.display = 'block';
+    contactMapPreview.innerHTML = 'Locating...';
+    if (!navigator.geolocation) {
+      contactMapPreview.innerHTML = 'Geolocation is not supported by your browser.';
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      // Show map
+      const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.01},${lat-0.01},${lng+0.01},${lat+0.01}&layer=mapnik&marker=${lat},${lng}`;
+      contactMapPreview.innerHTML = `<iframe width='100%' height='180' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='${mapUrl}'></iframe>`;
+      // Use reverse geocoding for address autofill
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.display_name) {
+            contactAddress.value = data.display_name;
+          }
+        });
+    }, function() {
+      contactMapPreview.innerHTML = 'Unable to retrieve your location.';
+    });
+  };
+}
 </script>
 <style>
-.nav-link.active {
-  font-weight: bold;
-  color: #FFD700;
-  border-bottom: 2px solid #FFD700;
-}
+/* Remove .redesigned-header, .redesigned-logo-title, .redesigned-logo-img, .site-title, .brand-highlight, .redesigned-navbar, .redesigned-nav-list, .nav-link.active, .mobile-menu-btn, and related responsive styles from here. Keep only page-specific or unique styles. */
 
 .visually-hidden {
     position: absolute;
@@ -623,6 +830,92 @@ renderFavoritesSection();
 
 .star .fa-star.selected {
   color: #FFD700;
+}
+
+/* Specials Section Styles */
+.specials {
+  background: #fff3e0;
+  padding: 24px;
+  border-radius: 8px;
+  margin: 24px 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.specials h4 {
+  margin: 0 0 16px 0;
+  font-size: 1.6rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+.specials-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.special-card {
+  background: #fff;
+  border: 1px solid #f5f5f5;
+  border-radius: 8px;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.special-card-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px 20px 16px;
+  width: 100%;
+}
+
+.special-card img {
+  max-width: 100px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.special-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+  color: #333;
+  text-align: center;
+}
+
+.special-card p {
+  margin: 0 0 12px 0;
+  font-size: 0.95rem;
+  color: #666;
+  text-align: center;
+}
+
+.special-price {
+  display: inline-block;
+  margin-top: 8px;
+  font-weight: bold;
+  color: #e65100;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 700px) {
+  .specials-content {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .special-card-inner {
+    padding: 20px 8px 16px 8px;
+  }
 }
 </style>
 

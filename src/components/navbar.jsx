@@ -44,7 +44,7 @@ const Navbar = () => {
 
 const styles = {
   navbar: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#f95b11',
     padding: '10px 20px',
     display: 'flex',
     justifyContent: 'center',
@@ -59,7 +59,7 @@ const styles = {
     margin: '0 15px',
   },
   navLink: {
-    color: '#fff',
+    color: '#f42f1d;',
     textDecoration: 'none',
     fontSize: '16px',
   },
