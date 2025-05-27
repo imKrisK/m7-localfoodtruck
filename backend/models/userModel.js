@@ -1,5 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { getDb } from '../db.js';
+import bcrypt from 'bcrypt';
 
 function isValidObjectId(id) {
   return typeof id === 'string' && id.match(/^[a-fA-F0-9]{24}$/);
@@ -23,15 +24,22 @@ export async function getUserByEmail(email) {
 }
 
 export async function createUser(data) {
-  const result = await getUsersCollection().insertOne(data);
-  return { _id: result.insertedId, ...data };
+  // Hash password before saving
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+  const userData = { ...data, password: hashedPassword };
+  const result = await getUsersCollection().insertOne(userData);
+  return { _id: result.insertedId, ...userData };
 }
 
 export async function updateUser(id, data) {
   if (!isValidObjectId(id)) return null;
+  let updateData = { ...data };
+  if (data.password) {
+    updateData.password = await bcrypt.hash(data.password, 10);
+  }
   const result = await getUsersCollection().findOneAndUpdate(
     { _id: new ObjectId(id) },
-    { $set: data },
+    { $set: updateData },
     { returnDocument: 'after', returnOriginal: false }
   );
   console.log('[updateUser] id:', id, 'result:', result);

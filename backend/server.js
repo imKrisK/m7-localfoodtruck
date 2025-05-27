@@ -14,8 +14,17 @@ connectMongo()
     app.use('/items', itemsRouter);
     import('./routes/users.js').then(({ default: usersRouter }) => {
       app.use('/users', usersRouter);
-      app.listen(PORT, () => {
-        console.log(`Backend server running on http://localhost:${PORT}`);
+      import('./routes/orders.js').then(({ default: ordersRouter }) => {
+        app.use('/orders', ordersRouter);
+        import('./routes/favorites.js').then(({ default: favoritesRouter }) => {
+          app.use('/favorites', favoritesRouter);
+          import('./routes/reviews.js').then(({ default: reviewsRouter }) => {
+            app.use('/reviews', reviewsRouter);
+            app.listen(PORT, () => {
+              console.log(`Backend server running on http://localhost:${PORT}`);
+            });
+          });
+        });
       });
     });
   })

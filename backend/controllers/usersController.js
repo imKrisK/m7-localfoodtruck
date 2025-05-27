@@ -1,4 +1,11 @@
 import * as UserModel from '../models/userModel.js';
+import Joi from 'joi';
+
+const userSchema = Joi.object({
+  name: Joi.string().min(2).max(50).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).max(100).required()
+});
 
 export async function getAllUsers(req, res) {
   const users = await UserModel.getAllUsers();
@@ -24,8 +31,10 @@ export async function getUserByEmail(req, res) {
 }
 
 export async function createUser(req, res) {
+  const { error } = userSchema.validate(req.body);
+  if (error) return res.status(400).json({ error: error.details[0].message });
+
   const { name, email, password } = req.body;
-  if (!name || !email || !password) return res.status(400).json({ error: 'Missing fields' });
   const existing = await UserModel.getUserByEmail(email);
   if (existing) return res.status(409).json({ error: 'Email already registered' });
   const newUser = await UserModel.createUser({ name, email, password });
@@ -33,6 +42,9 @@ export async function createUser(req, res) {
 }
 
 export async function updateUser(req, res) {
+  const { error } = userSchema.validate(req.body);
+  if (error) return res.status(400).json({ error: error.details[0].message });
+
   try {
     const { name, email, password } = req.body;
     const updated = await UserModel.updateUser(req.params.id, { name, email, password });
