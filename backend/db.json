@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "id": 1, "name": "Waggu Burger", "price": 20, "description": "Juicy Waggu beef burger", "image": "burger.png" },
+    { "id": 2, "name": "BBQ Porkchop", "price": 20, "description": "Tender BBQ porkchop", "image": "bbq-porkchop.png" },
+    { "id": 3, "name": "The Other Burrito", "price": 20, "description": "Loaded burrito", "image": "burrito1.png" },
+    { "id": 4, "name": "The Cal Burger Zone", "price": 20, "description": "Classic California burger", "image": "calburgerzone.png" }
+  ]
+}

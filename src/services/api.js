@@ -1,7 +1,7 @@
 // src/services/api.js
 // Centralized CRUD operations for your NodeJS/Express API
 
-const API_URL = 'http://localhost:5000/items'; // Change to your actual endpoint
+const API_URL = import.meta.env.VITE_API_URL;
 
 export async function getItems() {
   const res = await fetch(API_URL);
