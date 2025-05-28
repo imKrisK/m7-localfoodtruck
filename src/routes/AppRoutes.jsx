@@ -6,6 +6,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import CatDetail from '../pages/CatDetail';
 import UserProfile from '../pages/UserProfile';
+import CheckoutPage from '../pages/CheckoutPage';
 
 // special component containing all the possible routes for this app
 // any props passed into AppRoutes will also be passed onto
@@ -24,6 +25,9 @@ function AppRoutes(props) {
 
         {/* Route for User Profile */}
         <Route path="/profile" element={<UserProfile />} />
+
+        {/* Route for Checkout (Stripe payment) */}
+        <Route path="/checkout" element={<CheckoutPage />} />
 
         {/* Default route for home page */}
         <Route index element={<Homepage {...props} />} />

@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useUserContext } from '../context/UserContext';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
-  const { currentUser } = useUserContext();
-  const isLoggedIn = !!currentUser && !!currentUser.email;
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
   return (
     <nav style={styles.navbar}>
@@ -11,18 +10,24 @@ const Navbar = () => {
         <li style={styles.navItem}>
           <Link to="/" style={styles.navLink}>Home</Link>
         </li>
-        {!isLoggedIn && (
-          <>
-            <li style={styles.navItem}>
-              <Link to="/login" style={styles.navLink}>Login</Link>
-            </li>
-            <li style={styles.navItem}>
-              <Link to="/register" style={styles.navLink}>Register</Link>
-            </li>
-          </>
+        {!isAuthenticated && (
+          <li style={styles.navItem}>
+            <button onClick={() => loginWithRedirect()} style={styles.navLink}>Log In</button>
+          </li>
         )}
-        {isLoggedIn && (
+        {isAuthenticated && (
           <>
+            <li style={styles.navItem}>
+              <span style={styles.navLink}>Welcome, {user && user.name}</span>
+            </li>
+            <li style={styles.navItem}>
+              <button
+                onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+                style={styles.navLink}
+              >
+                Log Out
+              </button>
+            </li>
             <li style={styles.navItem}>
               <Link to="/profile" style={styles.navLink}>Profile</Link>
             </li>
@@ -34,7 +39,7 @@ const Navbar = () => {
         <li style={styles.navItem}>
           <Link to="/about" style={styles.navLink}>About</Link>
         </li>
-         <li style={styles.navItem}>
+        <li style={styles.navItem}>
           <Link to="/Favorites" style={styles.navLink}>Favorites</Link>
         </li>
       </ul>

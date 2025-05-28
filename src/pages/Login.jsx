@@ -3,6 +3,7 @@ import InputField from '../components/InputField';
 import Button from '../components/Button';
 import FormContainer from '../components/FormContainer';
 import Navbar from '../components/navbar';
+import { loginUser } from '../services/api';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,17 +11,16 @@ const Login = () => {
   const [submitResult, setSubmitResult] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      if (!email || !password) {
-        setSubmitResult('Please enter both email and password.');
-      } else {
-        setSubmitResult('Login successful!');
-      }
-      setLoading(false);
-    }, 1000);
+    try {
+      await loginUser(email, password);
+      setSubmitResult('Login successful!');
+    } catch (err) {
+      setSubmitResult('Login failed.');
+    }
+    setLoading(false);
   };
 
   const styles = {

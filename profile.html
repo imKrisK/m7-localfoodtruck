@@ -444,6 +444,9 @@ function renderProfileFavorites() {
       return [];
     }
   }
+  function setFavorites(favs) {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs));
+  }
   const favorites = getFavorites();
   const favoritesList = document.getElementById('profile-favorites-list');
   favoritesList.innerHTML = '';
@@ -451,7 +454,6 @@ function renderProfileFavorites() {
     favoritesList.innerHTML = '<p style="color:#888">No favorites yet. Go to the menu and click the heart to add some!</p>';
     return;
   }
-  // Fix: match names case-insensitively and trimmed
   favorites.forEach(name => {
     const item = menuItems.find(m => m.name.trim().toLowerCase() === name.trim().toLowerCase());
     if (item) {
@@ -472,10 +474,21 @@ function renderProfileFavorites() {
           <div class="star" style="margin-bottom:4px;">${starsHtml}</div>
           <h2 style="font-size:1em;margin:8px 0 4px 0;">${item.name}</h2>
           <div class="price" style="font-size:0.95em;">${item.price}</div>
+          <button class='remove-fav-btn' style='margin-top:8px;background:#d9534f;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;' data-name="${item.name}"><i class='fas fa-heart-broken'></i> Remove</button>
         </div>
       `;
       favoritesList.appendChild(box);
     }
+  });
+  // Add event listeners for remove buttons
+  favoritesList.querySelectorAll('.remove-fav-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const nameToRemove = btn.getAttribute('data-name');
+      let favs = getFavorites();
+      favs = favs.filter(f => f.trim().toLowerCase() !== nameToRemove.trim().toLowerCase());
+      setFavorites(favs);
+      renderProfileFavorites();
+    });
   });
 }
     // --- Receipt in Profile ---

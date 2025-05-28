@@ -1,5 +1,6 @@
 import "styles.css";
 import { useFoodContext } from "../context/FoodContext";
+import { useCart } from '../context/CartContext';
 import burgerImg from '../assets/burger.png';
 import bbqPorkchopImg from '../assets/bbq-porkchop.png';
 import burrito1Img from '../assets/burrito1.png';
@@ -25,11 +26,25 @@ const imageMap = {
 function FoodCard({ food }) {
   const { isFavorite, addFavorites, removeFromFavorites } = useFoodContext();
   const favorite = isFavorite(food.id);
+  const { cart, setCart } = useCart();
 
   function onFavoriteClick(e) {
     e.preventDefault();
     if (favorite) removeFromFavorites(food.id);
     else addFavorites(food); // Pass full food object
+  }
+
+  function onAddToCart() {
+    // Check if item already in cart
+    const idx = cart.findIndex(item => item.item === food.name && item.price === food.price);
+    if (idx !== -1) {
+      // Increment quantity
+      const newCart = [...cart];
+      newCart[idx].quantity += 1;
+      setCart(newCart);
+    } else {
+      setCart([...cart, { item: food.name, price: food.price, quantity: 1 }]);
+    }
   }
 
   return (
@@ -44,6 +59,7 @@ function FoodCard({ food }) {
         <h3>{food.name}</h3>
         <p>{food.description}</p>
         <p>{food.price}</p>
+        <button className="btn" onClick={onAddToCart}>Add to Cart</button>
       </div>
     </div>
   );

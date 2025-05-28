@@ -1,0 +1,84 @@
+Summarized conversation historyHere are examples and guidance for filling out key sections of your SE Capstone Project Document:
+
+---
+
+### 1. Purpose (Introduction)
+**What is the problem or opportunity?**  
+Many local food trucks lack a digital platform for menu browsing, ordering, and customer engagement, leading to lost sales and limited customer loyalty.
+
+**Why is this problem valuable to address?**  
+A digital solution increases visibility, streamlines ordering, and builds a loyal customer base, directly impacting revenue and customer satisfaction.
+
+**Current state:**  
+Customers must visit in person or rely on social media for updates. Orders are manual, and favorites/loyalty features are missing.
+
+**Desired state:**  
+A web app where users can browse menus, order, save favorites, and receive notifications about specials.
+
+**Has this problem been addressed by other projects?**  
+Some food trucks use third-party delivery apps, but these lack branding and direct customer engagement features.
+
+---
+
+### 2. Stakeholders
+- **Food Truck Owners/Operators:**  
+  Want to increase sales, manage orders efficiently, and engage customers.
+- **Customers:**  
+  Want a convenient way to browse menus, order, and save favorite items.
+- **Developers/Admins:**  
+  Need easy maintenance and analytics access.
+
+**Expectations:**  
+- Reliable, easy-to-use platform
+- Secure handling of user data
+- Fast order processing
+- Mobile-friendly design
+
+---
+
+### 3. Architecture Diagram (Textual Example)
+```
+[User] <---> [Web App Frontend] <---> [Backend API] <---> [Database]
+   |                |                        |                |
+Browses,      Sends requests           Handles logic      Stores users,
+orders,       (menu, orders,           (auth, orders,    menu, orders,
+favorites     favorites, etc.)         favorites)        favorites, etc.
+```
+*You can draw this in Figma, draw.io, or include a PNG/SVG in your document.*
+
+---
+
+### 4. User Stories (Table Example)
+| # | User Story Title         | User Story Description                                                                 | Priority | Additional Notes         |
+|---|-------------------------|----------------------------------------------------------------------------------------|----------|-------------------------|
+| 1 | Browse Menu             | As a user, I want to view the food truck menu so I can decide what to order.           | High     |                         |
+| 2 | Add to Cart             | As a user, I want to add menu items to my cart so I can order multiple items at once.  | High     |                         |
+| 3 | Save Favorites          | As a user, I want to favorite menu items so I can quickly find and order them again.   | Medium   | Heart icon on menu      |
+| 4 | View Order History      | As a user, I want to see my past orders for easy reordering.                           | Medium   | Profile page            |
+| 5 | Receive Notifications   | As a user, I want to get notified about specials and promotions.                       | Low      | Push notifications      |
+
+---
+
+### 5. Non-functional Requirements (Examples)
+- **Security:**  
+  User authentication, encrypted passwords, secure storage of personal data.
+- **Performance:**  
+  App should load in under 2 seconds; order processing < 1 second.
+- **Usability:**  
+  Mobile-friendly, accessible, intuitive navigation.
+- **Reliability:**  
+  99% uptime, automatic error recovery, regular backups.
+- **Maintainability:**  
+  Modular code, clear documentation, follows industry standards.
+
+---
+
+### 6. Testing Strategy (Examples)
+- Unit tests for backend API endpoints (orders, favorites, users)
+- Manual UI testing for all user flows (menu, cart, checkout, favorites)
+- Edge case testing (empty cart, duplicate favorites, invalid login)
+- User acceptance testing with real users
+
+---
+
+If you want a more detailed example or a filled-out section for your specific project, let me know which section to expand!

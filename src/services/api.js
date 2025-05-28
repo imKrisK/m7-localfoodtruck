@@ -115,3 +115,15 @@ export async function deleteReview(id) {
   const res = await fetch(`${REVIEWS_URL}/${id}`, { method: 'DELETE' });
   if (!res.ok) throw new Error('Failed to delete review');
 }
+
+// LOGIN
+export async function loginUser(email, password) {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/users/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ email, password }),
+  });
+  if (!res.ok) throw new Error('Login failed');
+  return res.json();
+}
