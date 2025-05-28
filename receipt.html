@@ -3,20 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Receipt - Food Truck</title>
+  <title>Order Receipt - Food Truck</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     .receipt-container {
-      max-width: 500px;
-      margin: 40px auto;
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.08);
       padding: 32px 24px;
-    }
-    .receipt-container h2 {
-      margin-top: 0;
-      text-align: center;
+      max-width: 420px;
+      margin: 40px auto;
     }
     .order-list {
       list-style: none;
@@ -26,8 +22,8 @@
     .order-list li {
       display: flex;
       justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid #eee;
+      align-items: center;
+      margin-bottom: 6px;
     }
     .order-total {
       font-weight: bold;
@@ -51,24 +47,49 @@
   <div class="receipt-container">
     <h2>Order Receipt</h2>
     <div class="thank-you">Thank you for your order!</div>
+    <form id="lookup-form" style="margin-bottom:18px;">
+      <label for="lookup-order-id">Order ID:</label>
+      <input type="text" id="lookup-order-id" name="lookup-order-id" placeholder="e.g. ORD-..." required style="width:100%;margin-bottom:8px;">
+      <label for="lookup-email">Email:</label>
+      <input type="email" id="lookup-email" name="lookup-email" placeholder="Enter your email" required style="width:100%;margin-bottom:8px;">
+      <button type="submit" class="btn" style="margin-bottom:0;">Lookup Receipt</button>
+      <div id="lookup-error" style="color:#d9534f;margin-top:8px;"></div>
+    </form>
     <div id="guest-info" style="margin-bottom:18px;"></div>
     <ul id="receipt-list" class="order-list"></ul>
     <div id="receipt-total" class="order-total"></div>
     <div id="order-id" style="text-align:center;color:#888;margin:16px 0 0 0;"></div>
-    <button class="btn" id="back-btn" style="background:#eee;color:#333;">Back to Menu</button>
+    <div style="display:flex;gap:8px;margin-top:18px;">
+      <button class="btn" id="print-btn" style="flex:1;background:#f95b11;color:#fff;">Print</button>
+      <button class="btn" id="share-btn" style="flex:1;background:#007bff;color:#fff;">Share</button>
+      <button class="btn" id="email-btn" style="flex:1;background:#28a745;color:#fff;">Email</button>
+    </div>
+    <button class="btn" id="back-btn" style="background:#eee;color:#333;margin-top:12px;">Back to Menu</button>
+  </div>
+  <div id="receipt-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:32px 24px;border-radius:10px;max-width:420px;width:90vw;box-shadow:0 4px 24px rgba(0,0,0,0.18);position:relative;">
+      <span id="close-modal" style="position:absolute;top:12px;right:18px;font-size:1.5em;cursor:pointer;">&times;</span>
+      <div id="modal-content"></div>
+    </div>
   </div>
   <script>
-    function renderReceipt() {
+    async function fetchOrderFromMongo(orderId, email) {
+      try {
+        const res = await fetch(`http://localhost:5380/orders/by-id-email?orderId=${encodeURIComponent(orderId)}&email=${encodeURIComponent(email)}`);
+        if (!res.ok) throw new Error('Order not found. Please check your Order ID and Email.');
+        return await res.json();
+      } catch (err) {
+        throw err;
+      }
+    }
+
+    function renderReceipt(order) {
       const receiptList = document.getElementById('receipt-list');
       const receiptTotal = document.getElementById('receipt-total');
       const orderIdDiv = document.getElementById('order-id');
       const guestInfoDiv = document.getElementById('guest-info');
-      let order = {};
-      try {
-        order = JSON.parse(localStorage.getItem('lastOrder')) || {};
-      } catch (e) { order = {}; }
       const items = order.items || [];
-      const orderId = order.orderId || '';
+      const orderId = order.orderId || order._id || '';
       const guestInfo = order.guestInfo || {};
       // Show guest info if present
       if (guestInfo.name || guestInfo.address) {
@@ -83,23 +104,103 @@
         guestInfoDiv.innerHTML = '';
       }
       receiptList.innerHTML = '';
-      let total = 0;
+      let subtotal = 0;
       items.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `<span>${item.item} x${item.quantity}</span><span>${item.price}</span>`;
-        receiptList.appendChild(li);
         const priceNum = parseFloat(item.price.replace(/[^\d.]/g, ''));
-        total += priceNum * item.quantity;
+        const itemTotal = priceNum * item.quantity;
+        const li = document.createElement('li');
+        li.innerHTML = `<span style=\"flex:2;text-align:left;\">${item.item || item.name} x${item.quantity}</span>` +
+          `<span style=\"flex:1;text-align:right;color:#f95b11;font-weight:600;\">${item.price} ea</span>` +
+          `<span style=\"flex:1;text-align:right;margin-left:8px;\">= $${itemTotal.toFixed(2)}</span>`;
+        receiptList.appendChild(li);
+        subtotal += itemTotal;
       });
-      receiptTotal.textContent = 'Total: $' + total.toFixed(2);
-      if (orderId) {
-        orderIdDiv.textContent = 'Order ID: ' + orderId;
+      const taxRate = 0.0825;
+      const tax = subtotal * taxRate;
+      const total = subtotal + tax;
+      receiptTotal.innerHTML =
+        `<div style='margin-bottom:2px;display:flex;justify-content:flex-end;'><span style='flex:1;text-align:right;'>Subtotal:</span> <span style='min-width:80px;display:inline-block;text-align:right;'>$${subtotal.toFixed(2)}</span></div>` +
+        `<div style='margin-bottom:2px;display:flex;justify-content:flex-end;'><span style='flex:1;text-align:right;'>Tax (8.25%):</span> <span style='min-width:80px;display:inline-block;text-align:right;'>$${tax.toFixed(2)}</span></div>` +
+        `<div style='font-weight:bold;display:flex;justify-content:flex-end;'><span style='flex:1;text-align:right;'>Total:</span> <span style='min-width:80px;display:inline-block;text-align:right;'>$${total.toFixed(2)}</span></div>`;
+      orderIdDiv.textContent = orderId ? 'Order ID: ' + orderId : '';
+      // Add for modal preview
+      window.latestReceiptHTML = document.querySelector('.receipt-container').innerHTML;
+    }
+
+    function renderLocalReceipt() {
+      let order = {};
+      try {
+        order = JSON.parse(localStorage.getItem('lastOrder')) || {};
+      } catch (e) { order = {}; }
+      if (order && order.orderId) {
+        renderReceipt(order);
       }
     }
-    renderReceipt();
+
+    // On page load, show local receipt if available
+    renderLocalReceipt();
+
+    // Lookup form logic
+    document.getElementById('lookup-form').onsubmit = async function(e) {
+      e.preventDefault();
+      const orderId = document.getElementById('lookup-order-id').value.trim();
+      const email = document.getElementById('lookup-email').value.trim();
+      const errorDiv = document.getElementById('lookup-error');
+      errorDiv.textContent = '';
+      if (!orderId || !email) {
+        errorDiv.textContent = 'Please enter both Order ID and Email.';
+        return;
+      }
+      errorDiv.textContent = 'Looking up receipt...';
+      try {
+        const order = await fetchOrderFromMongo(orderId, email);
+        renderReceipt(order);
+        errorDiv.textContent = '';
+      } catch (err) {
+        errorDiv.textContent = err.message || 'Order not found.';
+      }
+    };
     document.getElementById('back-btn').onclick = function() {
       window.location.href = 'index.html#menu';
     };
+    // Print button
+    document.getElementById('print-btn').onclick = function() {
+      window.print();
+    };
+    // Share button
+    document.getElementById('share-btn').onclick = function() {
+      const text = document.querySelector('.receipt-container').innerText;
+      if (navigator.share) {
+        navigator.share({
+          title: 'My Food Truck Order Receipt',
+          text: text,
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(text);
+        alert('Receipt copied to clipboard!');
+      }
+    };
+    // Email button
+    document.getElementById('email-btn').onclick = function() {
+      let order = {};
+      try { order = JSON.parse(localStorage.getItem('lastOrder')) || {}; } catch (e) { order = {}; }
+      const email = order.guestInfo && order.guestInfo.email ? order.guestInfo.email : '';
+      const subject = encodeURIComponent('Your Food Truck Order Receipt');
+      const body = encodeURIComponent(document.querySelector('.receipt-container').innerText);
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    };
+    // Modal preview after order placement
+    if (window.location.hash === '#show-modal') {
+      const modal = document.getElementById('receipt-modal');
+      const modalContent = document.getElementById('modal-content');
+      modalContent.innerHTML = window.latestReceiptHTML || document.querySelector('.receipt-container').innerHTML;
+      modal.style.display = 'flex';
+      document.getElementById('close-modal').onclick = function() {
+        modal.style.display = 'none';
+        window.location.hash = '';
+      };
+    }
   </script>
 </body>
 </html>

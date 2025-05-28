@@ -516,6 +516,7 @@
   updateCartUI();
   document.getElementById('clear-cart-btn').onclick = function() {
     cart = [];
+    localStorage.setItem('checkoutCart', JSON.stringify(cart));
     updateCartUI();
   };
   document.getElementById('checkout-btn').onclick = function() {
@@ -683,37 +684,6 @@ document.querySelectorAll('.menu .in-box').forEach(inBox => {
     });
   });
 });
-
-// Render favorites section
-function renderFavoritesSection() {
-  const favorites = getFavorites();
-  const favoritesList = document.getElementById('favorites-list');
-  if (!favoritesList) return;
-  favoritesList.innerHTML = '';
-  if (favorites.length === 0) {
-    favoritesList.innerHTML = '<p>No favorites yet. Click the heart on a menu item to add it here!</p>';
-    return;
-  }
-  favorites.forEach(name => {
-    const menuItem = Array.from(document.querySelectorAll('.menu .in-box')).find(inBox =>
-      inBox.querySelector('h2').textContent.trim() === name
-    );
-    if (menuItem) {
-      const clone = menuItem.cloneNode(true);
-      const heart = clone.querySelector('.fa-heart');
-      if (heart) heart.remove();
-      favoritesList.appendChild(clone);
-    }
-  });
-}
-
-// Update favorites section when hearts are toggled
-Array.from(document.querySelectorAll('.menu .in-box .fa-heart')).forEach(heart => {
-  heart.addEventListener('click', renderFavoritesSection);
-});
-
-// Also call on page load
-renderFavoritesSection();
 
 // --- NAVBAR LOGIN/LOGOUT/PROFILE DYNAMIC ---
 function updateNavbarAuth() {

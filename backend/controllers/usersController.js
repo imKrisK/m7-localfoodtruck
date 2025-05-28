@@ -44,12 +44,21 @@ export async function createUser(req, res) {
 }
 
 export async function updateUser(req, res) {
-  const { error } = userSchema.validate(req.body);
-  if (error) return res.status(400).json({ error: error.details[0].message });
+  const { error } = userSchema.validate({
+    ...req.body,
+    // Only validate password if provided, otherwise use a dummy valid password
+    password: req.body.password && req.body.password.trim() !== '' ? req.body.password : 'dummyPassword123'
+  });
+  if (error && !(req.body.password === undefined || req.body.password === '')) return res.status(400).json({ error: error.details[0].message });
 
   try {
     const { name, email, password, avatar } = req.body;
-    const updated = await UserModel.updateUser(req.params.id, { name, email, password, avatar });
+    // Only update password if provided and not blank
+    const updateData = { name, email, avatar };
+    if (password && password.trim() !== '') {
+      updateData.password = password;
+    }
+    const updated = await UserModel.updateUser(req.params.id, updateData);
     if (updated === null) {
       return res.status(404).json({ error: 'User not found' });
     }
