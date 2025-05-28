@@ -42,7 +42,6 @@ export async function updateUser(id, data) {
     { $set: updateData },
     { returnDocument: 'after', returnOriginal: false }
   );
-  console.log('[updateUser] id:', id, 'result:', result);
   // Workaround: fetch the user after update to confirm
   const updated = await getUsersCollection().findOne({ _id: new ObjectId(id) });
   if (!updated) return null;
@@ -52,7 +51,6 @@ export async function updateUser(id, data) {
 export async function deleteUser(id) {
   if (!isValidObjectId(id)) return null;
   const result = await getUsersCollection().findOneAndDelete({ _id: new ObjectId(id) });
-  console.log('[deleteUser] id:', id, 'result:', result);
   // Workaround: check if user still exists after delete
   const deleted = await getUsersCollection().findOne({ _id: new ObjectId(id) });
   if (deleted) return null; // If still exists, deletion failed

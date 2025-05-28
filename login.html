@@ -25,28 +25,32 @@
         </form>
     </div>
     <script>
-    const PROFILE_KEY = 'memberProfile';
     const LOGIN_KEY = 'isLoggedIn';
     const loginForm = document.getElementById('login-form');
     const loginError = document.getElementById('login-error');
-    loginForm.addEventListener('submit', function(e) {
+    loginForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       const email = document.getElementById('email').value.trim().toLowerCase();
       const password = document.getElementById('password').value;
       loginError.textContent = '';
-      const profile = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}');
-      if (!profile.email || !profile.password) {
-        loginError.textContent = 'No account found. Please register.';
-        return;
+      try {
+        const res = await fetch('http://localhost:5380/users/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        if (!res.ok) {
+          const data = await res.json();
+          loginError.textContent = data.error || 'Login failed.';
+          return;
+        }
+        const user = await res.json();
+        localStorage.setItem(LOGIN_KEY, 'true');
+        localStorage.setItem('memberProfile', JSON.stringify(user));
+        window.location.href = 'profile.html';
+      } catch (err) {
+        loginError.textContent = 'Network error. Please try again.';
       }
-      if (profile.email.toLowerCase() !== email || profile.password !== password) {
-        loginError.textContent = 'Invalid email or password.';
-        return;
-      }
-      // Set login flag
-      localStorage.setItem(LOGIN_KEY, 'true');
-      // Redirect to profile
-      window.location.href = 'profile.html';
     });
     </script>
 

@@ -105,17 +105,130 @@
       display: block;
       margin: 0 auto 4px auto;
     }
+    /* --- Responsive Navbar Styles --- */
+    .redesigned-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+    }
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+    .logo-img {
+      width: 40px;
+      height: 40px;
+      margin-right: 8px;
+    }
+    .site-title {
+      font-size: 1.2em;
+      margin: 0;
+    }
+    .brand-highlight {
+      color: #f95b11;
+    }
+    .redesigned-navbar {
+      display: flex;
+      align-items: center;
+    }
+    .redesigned-nav-list {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .redesigned-nav-list li {
+      margin: 0 8px;
+    }
+    .nav-link {
+      text-decoration: none;
+      color: #333;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .nav-link:hover {
+      background: #f95b11;
+      color: #fff;
+    }
+    /* --- Mobile Styles --- */
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+      .redesigned-navbar {
+        position: absolute;
+        top: 56px;
+        right: 0;
+        background: #fff;
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        z-index: 1000;
+      }
+      .redesigned-nav-list {
+        flex-direction: column;
+        width: 100%;
+      }
+      .redesigned-nav-list li {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+      }
+      .nav-link {
+        padding: 12px;
+        font-size: 1.1em;
+      }
+      .nav-link:hover {
+        background: #f95b11;
+        color: #fff;
+      }
+      body.nav-open {
+        overflow: hidden;
+      }
+    }
+    /* --- END Responsive Navbar Styles --- */
   </style>
 </head>
 <body>
-  <header class="head">
-    <h1>Local Food <i class="fas fa-food-order"></i> Truck</h1>
-    <nav class="navbar">
-      <ul>
-        <li><a href="index.html" class="nav-link">Home</a></li>
+  <header class="head redesigned-header">
+    <button id="mobile-menu-btn" aria-label="Open navigation" class="mobile-menu-btn">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="logo-title redesigned-logo-title">
+      <img src="src/assets/LFTlogo.png" alt="Food Truck Logo" class="logo-img redesigned-logo-img" />
+      <h1 class="site-title">Local Food <span class="brand-highlight"><i class="fas fa-truck"></i></span> Truck</h1>
+    </div>
+    <nav class="navbar redesigned-navbar" aria-label="Main Navigation">
+      <ul id="nav-list" class="redesigned-nav-list">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#menu" class="nav-link">Menu</a></li>
+        <li><a href="index.html#about" class="nav-link">About Us</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact Us</a></li>
+        <li id="nav-login"><a href="login.html" class="nav-link">Login</a></li>
+        <li id="nav-register"><a href="registration.html" class="nav-link">Register</a></li>
+        <li id="nav-profile" style="display:none"><a href="profile.html" class="nav-link">Profile</a></li>
+        <li id="nav-logout" style="display:none"><a href="#" class="nav-link">Logout</a></li>
       </ul>
     </nav>
   </header>
+  <div id="specials-banner" style="background:#fffbe6;border:1.5px solid #f95b11;color:#b85c00;padding:12px 18px;margin:24px 0 0 0;border-radius:8px;display:flex;align-items:center;gap:12px;font-size:1.08em;">
+    <i class="fas fa-bullhorn" style="color:#f95b11;font-size:1.3em;"></i>
+    <span><b>Today's Special:</b> <span id="specials-text">Spicy Wagyu Burger - $15.00! Limited time only. <a href="index.html#specials" style="color:#f95b11;text-decoration:underline;">See all specials</a></span></span>
+  </div>
   <div class="profile-container">
     <h2 style="text-align:center">Member Profile</h2>
     <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:24px;">
@@ -161,7 +274,29 @@
       <button id="show-location-btn" class="form-btn" style="margin-bottom:12px;">Show My Location & Truck</button>
       <div id="map" style="width:100%;height:300px;border-radius:8px;overflow:hidden;background:#f7f7f7;text-align:center;line-height:300px;color:#888;font-size:1.1em;">Map will appear here</div>
     </div>
+    <section class="specials" id="profile-specials" style="max-width:900px;margin:40px auto 0 auto;padding:24px 0;">
+      <div class="specials-content" style="display:flex;justify-content:center;align-items:center;">
+        <div class="special-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:24px 32px;max-width:340px;width:100%;align-items:center;">
+          <div class="special-card-inner" style="position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;">
+            <img src="src/assets/LFTlogo.png" alt="Food Truck Logo" style="position:absolute;top:8px;right:8px;width:36px;height:36px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);background:#fff;z-index:2;" />
+            <img id="profile-specials-rotating-img" src="src/assets/burger.png" alt="Special" style="width:160px;height:100px;max-width:100%;object-fit:cover;border-radius:8px;transition:opacity 0.5s;display:block;margin:0 auto;position:relative;z-index:1;" />
+            <!-- Move Today's Special below the image, centered -->
+            <div style="width:100%;display:flex;justify-content:center;align-items:center;margin-top:12px;">
+              <h4 style="background:var(--clr1);padding:4px 18px 2px 18px;border-radius:16px;font-size:1.08em;margin:0;box-shadow:0 2px 8px rgba(0,0,0,0.07);letter-spacing:0.5px;font-weight:600;color:#111;display:inline-block;">Today's Special</h4>
+            </div>
+            <h3 id="profile-specials-rotating-title" style="margin-top:18px;">Spicy Wagyu Burger</h3>
+            <p id="profile-specials-rotating-desc" style="color:#111;">Limited time! Served with fries and a drink.</p>
+            <span id="profile-specials-rotating-price" class="special-price" style="margin-bottom:8px;">$15.00</span>
+            <form id="profile-specials-add-to-cart-form" style="margin-top:16px;display:flex;justify-content:center;align-items:center;gap:8px;width:100%;max-width:220px;">
+              <input type="number" name="quantity" min="1" value="1" style="width:60px;">
+              <button class="btn" type="submit" style="flex:1;min-width:0;">Add to Cart <i class="fas fa-plus-circle"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
+  <script src="cart.js"></script>
   <script>
     // --- Auth Check ---
     if (localStorage.getItem('isLoggedIn') !== 'true') {
@@ -199,7 +334,7 @@
       else avatarImg.src = 'src/assets/LFTlogo.png';
       nameInput.value = profile.name || '';
       emailInput.value = profile.email || '';
-      passwordInput.value = profile.password || '';
+      passwordInput.value = '';
       viewName.textContent = profile.name || '-';
       viewEmail.textContent = profile.email || '-';
     }
@@ -225,19 +360,33 @@
     });
     
     // --- Save Profile ---
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
-      const profile = {
-        name: nameInput.value.trim(),
-        email: emailInput.value.trim(),
-        password: passwordInput.value,
-        avatar: avatarImg.src
-      };
-      setProfile(profile);
-      loadProfile();
-      form.style.display = 'none';
-      editBtn.style.display = '';
-      profileView.style.display = '';
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      const avatar = avatarImg.src;
+      // Optionally, validate fields here
+      try {
+        const profile = getProfile();
+        const res = await fetch(`http://localhost:5380/users/${profile._id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password, avatar })
+        });
+        if (!res.ok) {
+          alert('Profile update failed.');
+          return;
+        }
+        const updated = await res.json();
+        setProfile(updated);
+        loadProfile();
+        form.style.display = 'none';
+        editBtn.style.display = '';
+        profileView.style.display = '';
+      } catch (err) {
+        alert('Network error. Please try again.');
+      }
     });
     // --- Edit Profile ---
     editBtn.addEventListener('click', function() {
@@ -429,6 +578,36 @@
       });
     };
     // --- END Mobile Restaurant Geolocation ---
+    // --- Modern mobile menu toggle ---
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const navList = document.getElementById('nav-list');
+    if (mobileMenuBtn && navList) {
+      mobileMenuBtn.addEventListener('click', function() {
+        navList.classList.toggle('active');
+        document.body.classList.toggle('nav-open');
+      });
+      navList.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navList.classList.remove('active');
+          document.body.classList.remove('nav-open');
+        });
+      });
+    }
+    // --- NAVBAR LOGIN/LOGOUT/PROFILE DYNAMIC ---
+    function updateNavbarAuth() {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      document.getElementById('nav-login').style.display = isLoggedIn ? 'none' : '';
+      document.getElementById('nav-register').style.display = isLoggedIn ? 'none' : '';
+      document.getElementById('nav-profile').style.display = isLoggedIn ? '' : 'none';
+      document.getElementById('nav-logout').style.display = isLoggedIn ? '' : 'none';
+    }
+    document.getElementById('nav-logout').addEventListener('click', function(e) {
+      e.preventDefault();
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = 'login.html';
+    });
+    updateNavbarAuth();
+    // --- END NAVBAR DYNAMIC ---
     // --- On Page Load ---
     window.addEventListener('DOMContentLoaded', function() {
       loadProfile();
@@ -446,7 +625,78 @@
       renderProfileFavorites();
       renderProfileReceipt();
       renderOrderHistory();
+      // Show browser notification for specials if permission granted
+      if ('Notification' in window && Notification.permission === 'granted') {
+        setTimeout(() => {
+          new Notification('Today\'s Special!', {
+            body: 'Spicy Wagyu Burger - $15.00! Limited time only.',
+            icon: 'src/assets/burger.png'
+          });
+        }, 2000);
+      }
+      // Ensure cart UI is updated and visible for new users
+      if (typeof updateCartUI === 'function') updateCartUI();
+      // Optionally, show cart toggle button for new users
+      const cartToggleBtn = document.getElementById('cart-toggle-btn');
+      if (cartToggleBtn) cartToggleBtn.style.display = '';
     });
+    // Rotating specials logic for profile page
+    const profileSpecials = [
+      {
+        img: 'src/assets/burger.png',
+        title: 'Spicy Wagyu Burger',
+        desc: 'Limited time! Served with fries and a drink.',
+        price: '$15.00'
+      },
+      {
+        img: 'src/assets/bbq-porkchop.png',
+        title: 'BBQ Porkchop Plate',
+        desc: 'Char-grilled porkchop with house BBQ sauce.',
+        price: '$14.00'
+      },
+      {
+        img: 'src/assets/burrito1.png',
+        title: "Wally's Special Burrito",
+        desc: 'Loaded with beef, beans, and cheese. Only today!',
+        price: '$12.00'
+      }
+    ];
+    let profileSpecialIdx = 0;
+    function showProfileSpecial(idx) {
+      const img = document.getElementById('profile-specials-rotating-img');
+      const title = document.getElementById('profile-specials-rotating-title');
+      const desc = document.getElementById('profile-specials-rotating-desc');
+      const price = document.getElementById('profile-specials-rotating-price');
+      if (!img || !title || !desc || !price) return;
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = profileSpecials[idx].img;
+        title.textContent = profileSpecials[idx].title;
+        desc.textContent = profileSpecials[idx].desc;
+        price.textContent = profileSpecials[idx].price;
+        img.style.opacity = 1;
+      }, 300);
+    }
+    setInterval(() => {
+      profileSpecialIdx = (profileSpecialIdx + 1) % profileSpecials.length;
+      showProfileSpecial(profileSpecialIdx);
+    }, 4000);
+    window.addEventListener('DOMContentLoaded', () => showProfileSpecial(0));
+    // Add to Cart for Profile Specials
+    const profileSpecialsAddToCartForm = document.getElementById('profile-specials-add-to-cart-form');
+    if (profileSpecialsAddToCartForm) {
+      profileSpecialsAddToCartForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const quantity = parseInt(profileSpecialsAddToCartForm.querySelector('input[name="quantity"]').value, 10) || 1;
+        const itemName = document.getElementById('profile-specials-rotating-title').textContent;
+        const price = document.getElementById('profile-specials-rotating-price').textContent;
+        if (typeof window.addToCart === 'function') {
+          window.addToCart(itemName, price, quantity);
+        } else {
+          alert('Cart is not available.');
+        }
+      });
+    }
   </script>
 </body>
 </html>

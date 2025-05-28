@@ -3,8 +3,7 @@ import { useUserContext } from "../context/UserContext";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 import Navbar from "../components/navbar";
-
-const defaultAvatar = "/src/assets/LFTlogo.png";
+import defaultAvatar from '../assets/LFTlogo.png';
 
 const UserProfile = () => {
   const { currentUser, handleUpdateUser } = useUserContext();

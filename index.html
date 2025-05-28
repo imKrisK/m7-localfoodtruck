@@ -61,7 +61,7 @@
         <br><a href="#menu" class="btn">Order Now</a></br>
       </div>
       <div class="inner-content-img">
-          <img src="../src/assets/burger.png" alt="Food Truck" />
+          <img src="src/assets/burger.png" alt="Food Truck" />
       </div>
     </section>
 
@@ -133,7 +133,6 @@
         <div class="in-box">
             <i class="far fa-heart"></i>
             <img src="src/assets/burger.png" alt="img" class="veg-icon">
-            <img src="burger" alt="">
             <div class="in-content">
                 <div class="star">
                     <i class="fas fa-star"></i>
@@ -153,7 +152,6 @@
         <div class="in-box">
             <i class="far fa-heart"></i>
             <img src="src/assets/bbq-porkchop.png" alt="img" class="veg-icon">
-            <img src="bbq-porkchop.png" alt="">
             <div class="in-content">
                 <div class="star">
                     <i class="fas fa-star"></i>
@@ -173,7 +171,6 @@
         <div class="in-box">
             <i class="far fa-heart"></i>
             <img src="src/assets/burrito1.png" alt="img" class="veg-icon">
-            <img src="burrito1.png" alt="">
             <div class="in-content">
                 <div class="star">
                     <i class="fas fa-star"></i>
@@ -193,7 +190,6 @@
         <div class="in-box">
             <i class="far fa-heart"></i>
             <img src="src/assets/calburgerzone.png" alt="img" class="veg-icon">
-            <img src="calburgerzone.png" alt="">
             <div class="in-content">
                 <div class="star">
                     <i class="fas fa-star"></i>
@@ -213,7 +209,6 @@
         <div class="in-box">
             <i class="far fa-heart"></i>
             <img src="src/assets/burrito.png" alt="img" class="veg-icon">
-            <img src="burrito.png" alt="">
             <div class="in-content">
                 <div class="star">
                     <i class="fas fa-star"></i>
@@ -233,7 +228,6 @@
         <div class="in-box">
             <i class="far fa-heart"></i>
             <img src="src/assets/spare-ribs.png" alt="img" class="veg-icon">
-            <img src="spare-ribs.png" alt="">
             <div class="in-content">
                 <div class="star">
                     <i class="fas fa-star"></i>
@@ -253,7 +247,6 @@
         <div class="in-box">
             <i class="far fa-heart"></i>
             <img src="src/assets/chickenwings.png" alt="img" class="veg-icon">
-            <img src="chickenwings.png" alt="">
             <div class="in-content">
                 <div class="star">
                     <i class="fas fa-star"></i>
@@ -273,7 +266,6 @@
         <div class="in-box">
             <i class="far fa-heart"></i>
             <img src="src/assets/4lbsburger.png" alt="img" class="veg-icon">
-            <img src="4lbsburger.png" alt="">
             <div class="in-content">
                 <div class="star">
                     <i class="fas fa-star"></i>
@@ -293,7 +285,6 @@
         <div class="in-box">
             <i class="far fa-heart"></i>
             <img src="src/assets/comb3.png" alt="img" class="veg-icon">
-            <img src="combo3.png" alt="">
             <div class="in-content">
                 <div class="star">
                     <i class="fas fa-star"></i>
@@ -314,31 +305,20 @@
 </section>
 
 <!-- Mobile Restaurant Specials Section -->
-<section class="specials" id="specials">
-  <h4>Today's Specials</h4>
-  <div class="specials-content">
-    <div class="special-card">
-      <div class="special-card-inner">
-        <img src="src/assets/burger.png" alt="Spicy Wagyu Burger" />
-        <h3>Spicy Wagyu Burger</h3>
-        <p>Limited time! Served with fries and a drink.</p>
-        <span class="special-price">$15.00</span>
-      </div>
-    </div>
-    <div class="special-card">
-      <div class="special-card-inner">
-        <img src="src/assets/bbq-porkchop.png" alt="BBQ Porkchop Plate" />
-        <h3>BBQ Porkchop Plate</h3>
-        <p>Char-grilled porkchop with house BBQ sauce.</p>
-        <span class="special-price">$14.00</span>
-      </div>
-    </div>
-    <div class="special-card">
-      <div class="special-card-inner">
-        <img src="src/assets/burrito1.png" alt="Wally's Special Burrito" />
-        <h3>Wally's Special Burrito</h3>
-        <p>Loaded with beef, beans, and cheese. Only today!</p>
-        <span class="special-price">$12.00</span>
+<section class="specials" id="specials" style="max-width:900px;margin:40px auto 0 auto;padding:24px 0;">
+  <div class="specials-content" style="display:flex;justify-content:center;align-items:center;">
+    <div class="special-card" style="background:#fff;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.08);padding:24px 32px;max-width:340px;width:100%;">
+      <div class="special-card-inner" style="position:relative;text-align:center;">
+        <img src="src/assets/LFTlogo.png" alt="Food Truck Logo" style="position:absolute;top:8px;right:8px;width:36px;height:36px;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,0.10);background:#fff;z-index:2;" />
+        <img id="specials-rotating-img" src="src/assets/burger.png" alt="Special" style="width:160px;height:100px;max-width:100%;object-fit:cover;border-radius:8px;transition:opacity 0.5s;display:block;margin:0 auto;position:relative;z-index:1;" />
+        <h4 style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--clr1);padding:4px 18px 2px 18px;border-radius:16px;font-size:1.08em;margin:0;box-shadow:0 2px 8px rgba(0,0,0,0.07);z-index:3;letter-spacing:0.5px;font-weight:600;color:#111;">Join Us!!</h4>
+        <h3 id="specials-rotating-title" style="margin-top:28px;">Spicy Wagyu Burger</h3>
+        <p id="specials-rotating-desc" style="color:#111;">Limited time! Served with fries and a drink.</p>
+        <span id="specials-rotating-price" class="special-price">$15.00</span>
+        <form id="specials-add-to-cart-form" style="margin-top:16px;display:flex;justify-content:center;align-items:center;gap:8px;">
+          <input type="number" name="quantity" min="1" value="1" style="width:60px;">
+          <button class="btn" type="submit">Add to Cart <i class="fas fa-plus-circle"></i></button>
+        </form>
       </div>
     </div>
   </div>
@@ -491,15 +471,20 @@
   function updateCartUI() {
     const cartList = document.getElementById('cart-list');
     const cartTotal = document.getElementById('cart-total');
+    // Always get cart from localStorage for consistency
+    try { cart = JSON.parse(localStorage.getItem('checkoutCart')) || []; } catch { cart = []; }
     cartList.innerHTML = '';
-    let total = 0;
+    let subtotal = 0;
     cart.forEach((item, idx) => {
       const li = document.createElement('li');
       li.style.display = 'flex';
       li.style.justifyContent = 'space-between';
       li.style.alignItems = 'center';
       li.style.marginBottom = '6px';
-      li.innerHTML = `<span>${item.item} x${item.quantity}</span> <span style="color:#f95b11;font-weight:600;">${item.price}</span>`;
+      // Item breakdown: name, quantity, unit price, item total
+      const priceNum = parseFloat(item.price.replace(/[^\d.]/g, ''));
+      const itemTotal = priceNum * item.quantity;
+      li.innerHTML = `<span>${item.item} x${item.quantity}</span> <span style="color:#f95b11;font-weight:600;">${item.price} ea</span> <span style="margin-left:8px;">= $${itemTotal.toFixed(2)}</span>`;
       // Remove button
       const removeBtn = document.createElement('button');
       removeBtn.textContent = '✕';
@@ -512,14 +497,21 @@
       removeBtn.setAttribute('aria-label', 'Remove item');
       removeBtn.onclick = function() {
         cart.splice(idx, 1);
+        localStorage.setItem('checkoutCart', JSON.stringify(cart));
         updateCartUI();
       };
       li.appendChild(removeBtn);
       cartList.appendChild(li);
-      const priceNum = parseFloat(item.price.replace(/[^\d.]/g, ''));
-      total += priceNum * item.quantity;
+      subtotal += itemTotal;
     });
-    cartTotal.textContent = 'Total: $' + total.toFixed(2);
+    // Tax calculation (8.25%)
+    const taxRate = 0.0825;
+    const tax = subtotal * taxRate;
+    const total = subtotal + tax;
+    cartTotal.innerHTML =
+      `<div style='margin-bottom:2px;'>Subtotal: $${subtotal.toFixed(2)}</div>` +
+      `<div style='margin-bottom:2px;'>Tax (8.25%): $${tax.toFixed(2)}</div>` +
+      `<div style='font-weight:bold;'>Total: $${total.toFixed(2)}</div>`;
   }
   updateCartUI();
   document.getElementById('clear-cart-btn').onclick = function() {
@@ -561,7 +553,31 @@
     });
   });
 
-  // --- FAVORITES FEATURE FOR MENU HEART ICONS ---
+  // Add to Cart for Today's Special
+const specialsAddToCartForm = document.getElementById('specials-add-to-cart-form');
+if (specialsAddToCartForm) {
+  specialsAddToCartForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const quantity = parseInt(specialsAddToCartForm.querySelector('input[name="quantity"]').value, 10) || 1;
+    const itemName = document.getElementById('specials-rotating-title').textContent;
+    const price = document.getElementById('specials-rotating-price').textContent;
+    let cart = [];
+    try { cart = JSON.parse(localStorage.getItem('checkoutCart')) || []; } catch { cart = []; }
+    const existingIndex = cart.findIndex(item => item.item === itemName && item.price === price);
+    if (existingIndex !== -1) {
+      cart[existingIndex].quantity += quantity;
+    } else {
+      cart.push({ item: itemName, price, quantity });
+    }
+    localStorage.setItem('checkoutCart', JSON.stringify(cart));
+    if (typeof updateCartUI === 'function') updateCartUI();
+    const cartContainer = document.getElementById('cart-container');
+    if (cartContainer) cartContainer.style.display = 'block';
+    alert(`Added to cart:\n${itemName}\nPrice: ${price}\nQuantity: ${quantity}`);
+  });
+}
+
+// --- FAVORITES FEATURE FOR MENU HEART ICONS ---
 const FAVORITES_KEY = 'menuFavorites';
 
 function getFavorites() {
@@ -699,7 +715,6 @@ Array.from(document.querySelectorAll('.menu .in-box .fa-heart')).forEach(heart =
 // Also call on page load
 renderFavoritesSection();
 
-
 // --- NAVBAR LOGIN/LOGOUT/PROFILE DYNAMIC ---
 function updateNavbarAuth() {
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -716,207 +731,49 @@ document.getElementById('nav-logout').addEventListener('click', function(e) {
 updateNavbarAuth();
 // --- END NAVBAR DYNAMIC ---
 
-// --- Contact Form Validation and Feedback ---
-const contactForm = document.getElementById('contact-form');
-const contactFeedback = document.getElementById('contact-feedback');
-if (contactForm) {
-  contactForm.addEventListener('submit', function(e) {
-    // Basic client-side validation
-    const name = document.getElementById('contact-name').value.trim();
-    const email = document.getElementById('contact-email').value.trim();
-    const message = document.getElementById('contact-message').value.trim();
-    if (!name || !email || !message) {
-      contactFeedback.style.display = 'block';
-      contactFeedback.style.color = 'red';
-      contactFeedback.textContent = 'Please fill in all required fields.';
-      e.preventDefault();
-      return;
-    }
-    // Email format check
-    if (!/^\S+@\S+\.\S+$/.test(email)) {
-      contactFeedback.style.display = 'block';
-      contactFeedback.style.color = 'red';
-      contactFeedback.textContent = 'Please enter a valid email address.';
-      e.preventDefault();
-      return;
-    }
-    // Show thank you message after submit
-    contactFeedback.style.display = 'block';
-    contactFeedback.style.color = 'green';
-    contactFeedback.textContent = 'Thank you for contacting us! We will get back to you soon.';
-    // Optionally, clear form fields after a short delay
-    setTimeout(() => {
-      contactForm.reset();
-      contactFeedback.style.display = 'none';
-    }, 4000);
-  });
-}
-
-
-// --- Mobile Restaurant Geolocation Feature ---
-document.getElementById('show-location-btn').onclick = function() {
-  if (!navigator.geolocation) {
-    document.getElementById('map').innerHTML = 'Geolocation is not supported by your browser.';
-    return;
+// --- Rotating Specials Image ---
+const specials = [
+  {
+    img: 'src/assets/burger.png',
+    title: 'Spicy Wagyu Burger',
+    desc: 'Limited time! Served with fries and a drink.',
+    price: '$15.00'
+  },
+  {
+    img: 'src/assets/bbq-porkchop.png',
+    title: 'BBQ Porkchop Plate',
+    desc: 'Char-grilled porkchop with house BBQ sauce.',
+    price: '$14.00'
+  },
+  {
+    img: 'src/assets/burrito1.png',
+    title: "Wally's Special Burrito",
+    desc: 'Loaded with beef, beans, and cheese. Only today!',
+    price: '$12.00'
   }
-  document.getElementById('map').innerHTML = 'Locating...';
-  navigator.geolocation.getCurrentPosition(function(position) {
-    const userLat = position.coords.latitude;
-    const userLng = position.coords.longitude;
-    // Example: Hardcoded truck location (Las Vegas)
-    const truckLat = 36.1699;
-    const truckLng = -115.1398;
-    // OpenStreetMap embed with truck marker
-    const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${truckLng-0.01},${truckLat-0.01},${truckLng+0.01},${truckLat+0.01}&layer=mapnik&marker=${truckLat},${truckLng}`;
-    document.getElementById('map').innerHTML = `
-      <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-        src="${mapUrl}"></iframe>
-      <div style="font-size:0.95em;margin-top:8px;text-align:left;padding:0 8px;">
-        <b>Your Location:</b> ${userLat.toFixed(4)}, ${userLng.toFixed(4)}<br>
-        <b>Truck Location:</b> ${truckLat}, ${truckLng}
-      </div>
-    `;
-  }, function() {
-    document.getElementById('map').innerHTML = 'Unable to retrieve your location.';
-  });
-};
-// --- END Mobile Restaurant Geolocation ---
-
-// --- Contact Form Geolocation Feature ---
-const contactLocationBtn = document.getElementById('contact-location-btn');
-const contactAddress = document.getElementById('contact-address');
-const contactMapPreview = document.getElementById('contact-map-preview');
-if (contactLocationBtn && contactAddress && contactMapPreview) {
-  contactLocationBtn.onclick = function() {
-    contactMapPreview.style.display = 'block';
-    contactMapPreview.innerHTML = 'Locating...';
-    if (!navigator.geolocation) {
-      contactMapPreview.innerHTML = 'Geolocation is not supported by your browser.';
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(function(position) {
-      const lat = position.coords.latitude;
-      const lng = position.coords.longitude;
-      // Show map
-      const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.01},${lat-0.01},${lng+0.01},${lat+0.01}&layer=mapnik&marker=${lat},${lng}`;
-      contactMapPreview.innerHTML = `<iframe width='100%' height='180' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='${mapUrl}'></iframe>`;
-      // Use reverse geocoding for address autofill
-      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.display_name) {
-            contactAddress.value = data.display_name;
-          }
-        });
-    }, function() {
-      contactMapPreview.innerHTML = 'Unable to retrieve your location.';
-    });
-  };
+];
+let specialIdx = 0;
+function showSpecial(idx) {
+  const img = document.getElementById('specials-rotating-img');
+  const title = document.getElementById('specials-rotating-title');
+  const desc = document.getElementById('specials-rotating-desc');
+  const price = document.getElementById('specials-rotating-price');
+  if (!img || !title || !desc || !price) return;
+  img.style.opacity = 0;
+  setTimeout(() => {
+    img.src = specials[idx].img;
+    title.textContent = specials[idx].title;
+    desc.textContent = specials[idx].desc;
+    price.textContent = specials[idx].price;
+    img.style.opacity = 1;
+  }, 300);
 }
+setInterval(() => {
+  specialIdx = (specialIdx + 1) % specials.length;
+  showSpecial(specialIdx);
+}, 4000);
+window.addEventListener('DOMContentLoaded', () => showSpecial(0));
 </script>
-<style>
-/* Remove .redesigned-header, .redesigned-logo-title, .redesigned-logo-img, .site-title, .brand-highlight, .redesigned-navbar, .redesigned-nav-list, .nav-link.active, .mobile-menu-btn, and related responsive styles from here. Keep only page-specific or unique styles. */
-
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    border: 0;
-}
-
-.star .fa-star.selected {
-  color: #FFD700;
-}
-
-/* Specials Section Styles */
-.specials {
-  background: #fff3e0;
-  padding: 24px;
-  border-radius: 8px;
-  margin: 24px 0;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.specials h4 {
-  margin: 0 0 16px 0;
-  font-size: 1.6rem;
-  color: #ffffff;
-  text-align: center;
-}
-
-.specials-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-  align-items: stretch;
-}
-
-.special-card {
-  background: #fff;
-  border: 1px solid #f5f5f5;
-  border-radius: 8px;
-  padding: 0;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.special-card-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px 16px 20px 16px;
-  width: 100%;
-}
-
-.special-card img {
-  max-width: 100px;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  display: block;
-}
-
-.special-card h3 {
-  margin: 0 0 8px 0;
-  font-size: 1.2rem;
-  color: #333;
-  text-align: center;
-}
-
-.special-card p {
-  margin: 0 0 12px 0;
-  font-size: 0.95rem;
-  color: #666;
-  text-align: center;
-}
-
-.special-price {
-  display: inline-block;
-  margin-top: 8px;
-  font-weight: bold;
-  color: #e65100;
-  font-size: 1.1rem;
-}
-
-@media (max-width: 700px) {
-  .specials-content {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .special-card-inner {
-    padding: 20px 8px 16px 8px;
-  }
-}
-</style>
-
+</body>
 </html>
+

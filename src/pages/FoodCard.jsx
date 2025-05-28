@@ -1,6 +1,26 @@
 import "styles.css";
 import { useFoodContext } from "../context/FoodContext";
+import burgerImg from '../assets/burger.png';
+import bbqPorkchopImg from '../assets/bbq-porkchop.png';
+import burrito1Img from '../assets/burrito1.png';
+import calburgerzoneImg from '../assets/calburgerzone.png';
+import burritoImg from '../assets/burrito.png';
+import spareRibsImg from '../assets/spare-ribs.png';
+import chickenWingsImg from '../assets/chickenwings.png';
+import fourLbsBurgerImg from '../assets/4lbsburger.png';
+import comb3Img from '../assets/comb3.png';
 
+const imageMap = {
+  'burger.png': burgerImg,
+  'bbq-porkchop.png': bbqPorkchopImg,
+  'burrito1.png': burrito1Img,
+  'calburgerzone.png': calburgerzoneImg,
+  'burrito.png': burritoImg,
+  'spare-ribs.png': spareRibsImg,
+  'chickenwings.png': chickenWingsImg,
+  '4lbsburger.png': fourLbsBurgerImg,
+  'comb3.png': comb3Img,
+};
 
 function FoodCard({ food }) {
   const { isFavorite, addFavorites, removeFromFavorites } = useFoodContext();
@@ -15,7 +35,7 @@ function FoodCard({ food }) {
   return (
     <div className="food-card">
       <div className="food-card__image">
-        <img src={food.image} alt={food.name} />
+        <img src={imageMap[food.image] || burgerImg} alt={food.name} />
         <button className={`favorite${favorite ? ' active' : ''}`} onClick={onFavoriteClick}>
           
         </button>

@@ -1,10 +1,12 @@
 import * as UserModel from '../models/userModel.js';
 import Joi from 'joi';
+import bcrypt from 'bcrypt';
 
 const userSchema = Joi.object({
   name: Joi.string().min(2).max(50).required(),
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).max(100).required()
+  password: Joi.string().min(6).max(100).required(),
+  avatar: Joi.string().allow('').optional() // allow avatar as base64 or URL
 });
 
 export async function getAllUsers(req, res) {
@@ -34,10 +36,10 @@ export async function createUser(req, res) {
   const { error } = userSchema.validate(req.body);
   if (error) return res.status(400).json({ error: error.details[0].message });
 
-  const { name, email, password } = req.body;
+  const { name, email, password, avatar } = req.body;
   const existing = await UserModel.getUserByEmail(email);
   if (existing) return res.status(409).json({ error: 'Email already registered' });
-  const newUser = await UserModel.createUser({ name, email, password });
+  const newUser = await UserModel.createUser({ name, email, password, avatar });
   res.status(201).json(newUser);
 }
 
@@ -46,8 +48,8 @@ export async function updateUser(req, res) {
   if (error) return res.status(400).json({ error: error.details[0].message });
 
   try {
-    const { name, email, password } = req.body;
-    const updated = await UserModel.updateUser(req.params.id, { name, email, password });
+    const { name, email, password, avatar } = req.body;
+    const updated = await UserModel.updateUser(req.params.id, { name, email, password, avatar });
     if (updated === null) {
       return res.status(404).json({ error: 'User not found' });
     }
@@ -69,4 +71,22 @@ export async function deleteUser(req, res) {
     console.error('Delete error:', err);
     res.status(400).json({ error: 'Invalid ID' });
   }
+}
+
+export async function loginUser(req, res) {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email and password are required.' });
+  }
+  const user = await UserModel.getUserByEmail(email);
+  if (!user) {
+    return res.status(401).json({ error: 'Invalid email or password.' });
+  }
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) {
+    return res.status(401).json({ error: 'Invalid email or password.' });
+  }
+  // Optionally, exclude password from response
+  const { password: _, ...userWithoutPassword } = user;
+  res.json(userWithoutPassword);
 }
