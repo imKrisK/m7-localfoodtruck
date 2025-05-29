@@ -21,14 +21,27 @@ app.use(express.json());
 app.post('/api/create-checkout-session', async (req, res) => {
   const { items, customer } = req.body;
   // Map your cart items to Stripe line items
-  const line_items = items.map(item => ({
-    price_data: {
-      currency: 'usd',
-      product_data: { name: item.item },
-      unit_amount: Math.round(Number(item.price.replace(/[^\\d.]/g, '')) * 100),
-    },
-    quantity: item.quantity,
-  }));
+  const line_items = (items || []).map(item => {
+    // Defensive: ensure price is a valid number string (e.g. "$12.00")
+    let priceNum = 0;
+    if (typeof item.price === 'string') {
+      priceNum = Number(item.price.replace(/[^\d.]/g, ''));
+    } else if (typeof item.price === 'number') {
+      priceNum = item.price;
+    }
+    if (!item.item || isNaN(priceNum) || priceNum <= 0) {
+      throw new Error('Invalid cart item: missing or invalid price or name');
+    }
+    const quantity = Number(item.quantity) || 1;
+    return ({
+      price_data: {
+        currency: 'usd',
+        product_data: { name: item.item },
+        unit_amount: Math.round(priceNum * 100),
+      },
+      quantity,
+    });
+  });
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],

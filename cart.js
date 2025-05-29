@@ -146,16 +146,22 @@
   window.addToCart = function(itemName, price, quantity) {
     cart = getCart();
     quantity = parseInt(quantity, 10) || 1;
-    const existingIndex = cart.findIndex(item => item.item === itemName && item.price === price);
+    // Defensive: ensure valid item, price, and quantity
+    if (!itemName || typeof itemName !== 'string' || !price || isNaN(Number(String(price).replace(/[^\d.]/g, ''))) || quantity <= 0) {
+      alert('Invalid cart item. Please try again.');
+      return;
+    }
+    const priceStr = (typeof price === 'string' && price.trim().startsWith('$')) ? price : `$${Number(price).toFixed(2)}`;
+    const existingIndex = cart.findIndex(item => item.item === itemName && item.price === priceStr);
     if (existingIndex !== -1) {
       cart[existingIndex].quantity += quantity;
     } else {
-      cart.push({ item: itemName, price, quantity });
+      cart.push({ item: itemName, price: priceStr, quantity });
     }
     setCart(cart);
     updateCartUI();
     document.getElementById('cart-container').style.display = 'block';
-    alert(`Added to cart:\n${itemName}\nPrice: ${price}\nQuantity: ${quantity}`);
+    alert(`Added to cart:\n${itemName}\nPrice: ${priceStr}\nQuantity: ${quantity}`);
   };
 
   // Initial render
