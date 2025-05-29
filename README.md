@@ -1,40 +1,23 @@
-# Huski & Homie React App
+# Local Food Truck App – Frontend
 
-A modern, component-based React application for a food ordering and menu experience, featuring user authentication, favorites, and full CRUD operations with a NodeJS/Express backend.
+This is the frontend for the Local Food Truck web application. It is built with React and Vite, providing a modern, responsive user interface for customers to browse the menu, place orders, and manage their profiles.
 
 ---
 
 ## Features
 
-- **Component Architecture:**
-  - Modular, reusable components (Button, InputField, FormContainer, Navbar, Footer, etc.)
-  - DRY (Don't Repeat Yourself) coding principles
-- **State Management:**
-  - Local state with `useState` and `useEffect`
-  - Global state with React Context (User, Food/Favorites, Theme, Emoji)
-  - Complex state with `useReducer` and custom hooks
-  - Persistence with `localStorage` for favorites, cart, and ratings
-- **Routing:**
-  - React Router v6 for client-side navigation
-  - Dynamic and fallback routes (404 handling)
-- **Error Handling:**
-  - Component-level error and loading states
-  - Async error handling and user feedback
-  - Form validation and conditional rendering
-- **CRUD Operations:**
-  - Create, Read, Update, Delete menu items (cats/foods) via API
-  - UI fully wired to backend for data management
-- **UI/UX:**
-  - Responsive design with modern CSS
-  - Favorites, cart, and ratings features
-  - User authentication (login/register/profile)
+- Browse menu items with images and prices
+- Add items to cart and checkout
+- User registration and login
+- Mark favorites and view order history
+- Responsive/mobile-friendly design
 
 ---
 
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v16+ recommended)
+- Node.js (v18 or higher recommended)
 - npm or yarn
 
 ### Installation
@@ -56,6 +39,9 @@ A modern, component-based React application for a food ordering and menu experie
    yarn dev
    ```
 4. Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### Environment Variables
+- API URLs are configured in the `.env` file (see backend for endpoints).
 
 ---
 
@@ -87,19 +73,21 @@ index.html, styles.css    # Main HTML and CSS
 
 ---
 
-## Error Handling & Conditional Rendering
-- All forms and async operations provide user feedback for loading, errors, and success.
-- 404 and fallback routes are handled with a dedicated `PageNotFound` component.
+## Useful Scripts
+- `npm run dev` – Start development server
+- `npm run build` – Build for production
+- `npm run preview` – Preview production build
 
 ---
 
-## Contributing
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+## Notes
+- Make sure the backend server is running for API requests to work.
+- For payment, Stripe is integrated via the backend.
 
 ---
 
 ## License
-[MIT](LICENSE) (or specify your license here)
+MIT
 
 ---
 
@@ -113,7 +101,3 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 Kris K. (and contributors)
 
 ---
-
-## Notes
-- For backend/API setup, see the NodeJS/Express project (not included here).
-- For static HTML pages (e.g., `favorites.html`, `checkout.html`), see the root directory.
