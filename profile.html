@@ -397,17 +397,29 @@ function renderProfileFavorites() {
     };
     // --- Mobile Restaurant Geolocation Feature ---
     document.getElementById('show-location-btn').onclick = function() {
-      // Show only the food truck location (Las Vegas example)
-      const truckLat = 36.1699;
-      const truckLng = -115.1398;
-      const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${truckLng-0.01},${truckLat-0.01},${truckLng+0.01},${truckLat+0.01}&layer=mapnik&marker=${truckLat},${truckLng}`;
-      document.getElementById('map').innerHTML = `
-        <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-          src="${mapUrl}"></iframe>
-        <div style="font-size:0.95em;margin-top:8px;text-align:left;padding:0 8px;">
-          <b>Truck Location:</b> ${truckLat}, ${truckLng}
-        </div>
-      `;
+      const mapDiv = document.getElementById('map');
+      if (!navigator.geolocation) {
+        mapDiv.innerHTML = '<div style="color:#d9534f;">Geolocation is not supported by your browser.</div>';
+        return;
+      }
+      mapDiv.innerHTML = 'Locating…';
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const userLat = position.coords.latitude;
+        const userLng = position.coords.longitude;
+        // Example: Las Vegas truck location
+        const truckLat = 36.1699;
+        const truckLng = -115.1398;
+        const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${truckLng-0.01},${truckLat-0.01},${truckLng+0.01},${truckLat+0.01}&layer=mapnik&marker=${truckLat},${truckLng}`;
+        mapDiv.innerHTML = `
+          <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="${mapUrl}"></iframe>
+          <div style="font-size:0.95em;margin-top:8px;text-align:left;padding:0 8px;">
+            <b>Your Location:</b> ${userLat.toFixed(5)}, ${userLng.toFixed(5)}<br>
+            <b>Truck Location:</b> ${truckLat}, ${truckLng}
+          </div>
+        `;
+      }, function() {
+        mapDiv.innerHTML = '<div style="color:#d9534f;">Unable to retrieve your location.</div>';
+      });
     };
     // --- END Mobile Restaurant Geolocation ---
     // --- Modern mobile menu toggle ---
