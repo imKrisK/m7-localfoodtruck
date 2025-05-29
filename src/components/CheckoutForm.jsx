@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { CardElement, useStripe, useElements, Elements } from '@stripe/react-stripe-js';
 
-const CheckoutForm = ({ amount, onPaymentSuccess }) => {
+const CheckoutForm = ({ amount, clientSecret, onPaymentSuccess }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState(null);
@@ -10,18 +10,17 @@ const CheckoutForm = ({ amount, onPaymentSuccess }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!amount || amount < 50) {
+    if (!amount || amount < 0.5) {
       setError('Invalid or missing order total.');
       return;
     }
     setLoading(true);
     setError(null);
-    const { clientSecret } = await fetch('/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: Math.round(amount) }) // amount in cents
-    }).then(res => res.json());
-
+    if (!clientSecret) {
+      setError('Payment not initialized.');
+      setLoading(false);
+      return;
+    }
     const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),

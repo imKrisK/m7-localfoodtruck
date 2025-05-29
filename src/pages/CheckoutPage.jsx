@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import OrderSummary from '../components/OrderSummary';
 import GuestInfoForm from '../components/GuestInfoForm';
 import { Elements } from '@stripe/react-stripe-js';
@@ -46,6 +46,20 @@ export default function CheckoutPage() {
   const [orderError, setOrderError] = useState('');
   const [showReceipt, setShowReceipt] = useState(false);
   const [lastOrder, setLastOrder] = useState(null);
+  const [clientSecret, setClientSecret] = useState('');
+
+  // Fetch PaymentIntent client secret from backend when total changes
+  useEffect(() => {
+    if (total > 0) {
+      fetch('http://localhost:5380/payments/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: total })
+      })
+        .then(res => res.json())
+        .then(data => setClientSecret(data.clientSecret));
+    }
+  }, [total]);
 
   // Place order logic (save to backend)
   const handlePlaceOrder = async (paymentSuccess) => {
@@ -129,13 +143,15 @@ export default function CheckoutPage() {
       {!guestInfo ? (
         <GuestInfoForm onSubmit={setGuestInfo} loading={loading} />
       ) : (
-        <>
-          <h3 style={{marginTop:32}}>Payment</h3>
-          <Elements stripe={stripePromise}>
-            <CheckoutForm amount={total} onPaymentSuccess={handlePlaceOrder} />
-          </Elements>
-          <button className="btn" style={{marginTop:16}} onClick={()=>setGuestInfo(null)} disabled={loading}>Back to Info</button>
-        </>
+        clientSecret && guestInfo && (
+          <>
+            <h3 style={{marginTop:32}}>Payment</h3>
+            <Elements stripe={stripePromise} options={{ clientSecret }}>
+              <CheckoutForm amount={total} clientSecret={clientSecret} onPaymentSuccess={handlePlaceOrder} />
+            </Elements>
+            <button className="btn" style={{marginTop:16}} onClick={()=>setGuestInfo(null)} disabled={loading}>Back to Info</button>
+          </>
+        )
       )}
       {orderError && <div style={{color:'#d9534f',marginTop:12}}>{orderError}</div>}
     </div>

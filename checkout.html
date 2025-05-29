@@ -14,9 +14,11 @@
       <input type="text" id="guest-name" name="guest-name" placeholder="Full Name" required>
       <input type="email" id="guest-email" name="guest-email" placeholder="Email (optional)">
       <input type="tel" id="guest-phone" name="guest-phone" placeholder="Phone (optional)">
-      <textarea id="guest-address" name="guest-address" placeholder="Delivery Address" required></textarea>
-      <button type="button" id="get-location-btn">Use My Current Location</button>
-      <div id="map-preview"></div>
+
+
+      <!-- Add a static truck location button and map preview -->
+      <button type="button" id="show-truck-location-btn">Show Food Truck Location</button>
+      <div id="truck-map-preview" style="margin-top:12px;"></div>
     </form>
     <ul id="order-list" class="order-list"></ul>
     <div id="order-total" class="order-total"></div>
@@ -36,6 +38,7 @@
       <button class="btn" id="view-receipt-btn" style="background:#007bff;color:#fff;margin-top:12px;">View Full Receipt</button>
     </div>
   </div>
+  
   <!--
     Removed legacy cart.js script. All cart logic is now handled in React context.
   -->
@@ -45,3 +48,115 @@
   -->
 </body>
 </html>
+<script>
+// Remove geolocation logic, use static truck location (Las Vegas example)
+const truckLat = 36.1699;
+const truckLng = -115.1398;
+const truckMapBtn = document.getElementById('show-truck-location-btn');
+const truckMapPreview = document.getElementById('truck-map-preview');
+if (truckMapBtn && truckMapPreview) {
+  truckMapBtn.onclick = function() {
+    const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${truckLng-0.01},${truckLat-0.01},${truckLng+0.01},${truckLat+0.01}&layer=mapnik&marker=${truckLat},${truckLng}`;
+    truckMapPreview.innerHTML = `
+      <iframe width="100%" height="220" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+        src="${mapUrl}"></iframe>
+      <div style="font-size:0.95em;margin-top:8px;text-align:left;padding:0 8px;">
+        <b>Truck Location:</b> ${truckLat}, ${truckLng}
+      </div>
+    `;
+  };
+}
+
+// --- Back to Menu button: link to home page menu section ---
+const backBtn = document.getElementById('back-btn');
+if (backBtn) {
+  backBtn.onclick = function() {
+    window.location.href = 'index.html#menu';
+  };
+}
+
+// --- Place Order button: Stripe Checkout integration ---
+const placeOrderBtn = document.getElementById('place-order-btn');
+if (placeOrderBtn) {
+  placeOrderBtn.onclick = async function() {
+    // Gather order/cart data
+    const order = JSON.parse(localStorage.getItem('cart')) || [];
+    const customer = {
+      name: document.getElementById('guest-name').value,
+      email: document.getElementById('guest-email').value,
+      phone: document.getElementById('guest-phone').value,
+      address: document.getElementById('guest-address').value,
+    };
+    if (!order.length) {
+      document.getElementById('order-feedback').textContent = 'Your cart is empty.';
+      return;
+    }
+    // Call backend to create Stripe session
+    const res = await fetch('http://localhost:5380/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: order, customer }),
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url; // Redirect to Stripe Checkout
+    } else {
+      document.getElementById('order-feedback').textContent = 'Payment error: ' + (data.error || 'Unknown error');
+    }
+  };
+}
+
+// --- Shopping Cart Display ---
+    function renderCart() {
+      const cartDiv = document.createElement('div');
+      cartDiv.className = 'receipt-cart-container';
+      cartDiv.innerHTML = '<h3>Your Shopping Cart</h3>';
+      let cart = [];
+      try {
+        // Use the unified 'checkoutCart' key for cross-page cart sharing
+        cart = JSON.parse(localStorage.getItem('checkoutCart'));
+        if (!Array.isArray(cart) || !cart.length) {
+          // Try to get items from lastOrder if cart is empty
+          const lastOrder = JSON.parse(localStorage.getItem('lastOrder'));
+          if (lastOrder && Array.isArray(lastOrder.items) && lastOrder.items.length) {
+            cart = lastOrder.items;
+          } else {
+            cart = [];
+          }
+        }
+      } catch { cart = []; }
+      if (!cart.length) {
+        cartDiv.innerHTML += '<div style="color:#888">Your cart is empty.</div>';
+      } else {
+        let subtotal = 0;
+        const ul = document.createElement('ul');
+        ul.className = 'order-list';
+        cart.forEach(item => {
+          const priceNum = parseFloat((item.price||'').toString().replace(/[^\d.]/g, ''));
+          const itemTotal = priceNum * (item.quantity || 1);
+          subtotal += itemTotal;
+          const name = item.item || item.name || 'Item';
+          const price = item.price ? item.price : '$0.00';
+          const quantity = item.quantity || 1;
+          const li = document.createElement('li');
+          li.innerHTML = `<span>${name} x${quantity}</span><span>${price} ea</span><span>= $${itemTotal.toFixed(2)}</span>`;
+          ul.appendChild(li);
+        });
+        const taxRate = 0.0825;
+        const tax = subtotal * taxRate;
+        const total = subtotal + tax;
+        cartDiv.appendChild(ul);
+        cartDiv.innerHTML += `<div class='order-total' style='margin-top:8px;'>Subtotal: $${subtotal.toFixed(2)}</div>`;
+        cartDiv.innerHTML += `<div class='order-total'>Tax (8.25%): $${tax.toFixed(2)}</div>`;
+        cartDiv.innerHTML += `<div class='order-total' style='font-weight:bold;'>Cart Total: $${total.toFixed(2)}</div>`;
+      }
+      // Insert inside the receipt container, above the lookup form
+      const summaryDiv = document.getElementById('receipt-cart-summary');
+      if (summaryDiv) {
+        summaryDiv.innerHTML = '';
+        summaryDiv.appendChild(cartDiv);
+      }
+    }
+    // Render cart on page load
+    renderCart();
+</script>

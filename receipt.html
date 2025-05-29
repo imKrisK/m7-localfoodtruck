@@ -41,12 +41,27 @@
       width: 100%;
       margin-top: 24px;
     }
+    .receipt-cart-container {
+      background: #f7f7f7;
+      padding: 16px 12px;
+      border-radius: 8px;
+      margin: 24px 0;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .receipt-cart-container h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
   </style>
 </head>
 <body style="background: #fff url('./src/assets/LFTlogo.png') no-repeat top 40px center fixed; background-size: 120px auto;">
-  <div class="receipt-container">
+  <div id="receipt-cart-anchor" style="margin-bottom:0;"></div>
+  <div class="receipt-container" style="margin-top:12px;">
     <h2>Order Receipt</h2>
     <div class="thank-you">Thank you for your order!</div>
+    <div id="receipt-cart-summary"></div>
     <form id="lookup-form" style="margin-bottom:18px;">
       <label for="lookup-order-id">Order ID:</label>
       <input type="text" id="lookup-order-id" name="lookup-order-id" placeholder="e.g. ORD-..." required style="width:100%;margin-bottom:8px;">
@@ -83,6 +98,17 @@
       }
     }
 
+    // --- Stripe session receipt fetch ---
+    async function fetchStripeReceipt(sessionId) {
+      try {
+        const res = await fetch(`http://localhost:5380/api/stripe-session?session_id=${encodeURIComponent(sessionId)}`);
+        if (!res.ok) throw new Error('Could not fetch Stripe receipt.');
+        return await res.json();
+      } catch (err) {
+        throw err;
+      }
+    }
+
     function renderReceipt(order) {
       const receiptList = document.getElementById('receipt-list');
       const receiptTotal = document.getElementById('receipt-total');
@@ -109,9 +135,9 @@
         const priceNum = parseFloat(item.price.replace(/[^\d.]/g, ''));
         const itemTotal = priceNum * item.quantity;
         const li = document.createElement('li');
-        li.innerHTML = `<span style=\"flex:2;text-align:left;\">${item.item || item.name} x${item.quantity}</span>` +
-          `<span style=\"flex:1;text-align:right;color:#f95b11;font-weight:600;\">${item.price} ea</span>` +
-          `<span style=\"flex:1;text-align:right;margin-left:8px;\">= $${itemTotal.toFixed(2)}</span>`;
+        li.innerHTML = `<span style="flex:2;text-align:left;">${item.item || item.name} x${item.quantity}</span>` +
+          `<span style="flex:1;text-align:right;color:#f95b11;font-weight:600;">${item.price} ea</span>` +
+          `<span style="flex:1;text-align:right;margin-left:8px;">= $${itemTotal.toFixed(2)}</span>`;
         receiptList.appendChild(li);
         subtotal += itemTotal;
       });
@@ -137,8 +163,27 @@
       }
     }
 
-    // On page load, show local receipt if available
-    renderLocalReceipt();
+    async function renderStripeReceiptIfPresent() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sessionId = urlParams.get('session_id');
+      if (!sessionId) return;
+      try {
+        const order = await fetchStripeReceipt(sessionId);
+        renderReceipt(order);
+        // Optionally, store in localStorage for later
+        localStorage.setItem('lastOrder', JSON.stringify(order));
+      } catch (err) {
+        document.getElementById('lookup-error').textContent = err.message || 'Could not load Stripe receipt.';
+      }
+    }
+
+    
+
+    // On page load, show Stripe receipt if session_id is present, else show local receipt
+    renderStripeReceiptIfPresent();
+    if (!new URLSearchParams(window.location.search).get('session_id')) {
+      renderLocalReceipt();
+    }
 
     // Lookup form logic
     document.getElementById('lookup-form').onsubmit = async function(e) {

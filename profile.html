@@ -6,202 +6,6 @@
   <title>Member Profile</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-  <style>
-    .profile-container {
-      max-width: 420px;
-      margin: 40px auto;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      padding: 32px;
-    }
-    .profile-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 12px;
-      border: 2px solid #eee;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .profile-form label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: bold;
-    }
-    .profile-form input[type="text"],
-    .profile-form input[type="email"],
-    .profile-form input[type="password"] {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .profile-form input[type="file"] {
-      display: block;
-      margin: 0 auto 12px auto;
-    }
-    .profile-form .form-btn {
-      margin-top: 10px;
-      width: 100%;
-      background: #f95b11;
-      color: #fff;
-      border: none;
-      padding: 10px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .profile-form .form-btn:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-    .profile-form .show-password {
-      font-size: 1rem;
-      margin-bottom: 12px;
-      display: block;
-      text-align: left;
-    }
-    .profile-form .edit-btn {
-      background: #007BFF;
-      color: #fff;
-      margin-top: 16px;
-    }
-    .order-list {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-    .order-list li {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid #eee;
-    }
-    .order-total {
-      font-weight: bold;
-      margin-top: 8px;
-    }
-    .menu-content {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-    }
-    .in-box {
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 8px;
-      text-align: center;
-      background: #f9f9f9;
-      transition: transform 0.2s;
-    }
-    .in-box:hover {
-      transform: scale(1.05);
-    }
-    .veg-icon {
-      display: block;
-      margin: 0 auto 4px auto;
-    }
-    /* --- Responsive Navbar Styles --- */
-    .redesigned-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 16px;
-      background: #fff;
-      border-bottom: 1px solid #ddd;
-    }
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5em;
-      cursor: pointer;
-    }
-    .logo-title {
-      display: flex;
-      align-items: center;
-    }
-    .logo-img {
-      width: 40px;
-      height: 40px;
-      margin-right: 8px;
-    }
-    .site-title {
-      font-size: 1.2em;
-      margin: 0;
-    }
-    .brand-highlight {
-      color: #f95b11;
-    }
-    .redesigned-navbar {
-      display: flex;
-      align-items: center;
-    }
-    .redesigned-nav-list {
-      display: flex;
-      align-items: center;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-    .redesigned-nav-list li {
-      margin: 0 8px;
-    }
-    .nav-link {
-      text-decoration: none;
-      color: #333;
-      padding: 8px 12px;
-      border-radius: 4px;
-      transition: background 0.2s;
-    }
-    .nav-link:hover {
-      background: #f95b11;
-      color: #fff;
-    }
-    /* --- Mobile Styles --- */
-    @media (max-width: 768px) {
-      .mobile-menu-btn {
-        display: block;
-      }
-      .redesigned-navbar {
-        position: absolute;
-        top: 56px;
-        right: 0;
-        background: #fff;
-        border-radius: 0 0 8px 8px;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        z-index: 1000;
-      }
-      .redesigned-nav-list {
-        flex-direction: column;
-        width: 100%;
-      }
-      .redesigned-nav-list li {
-        width: 100%;
-        text-align: center;
-        margin: 0;
-      }
-      .nav-link {
-        padding: 12px;
-        font-size: 1.1em;
-      }
-      .nav-link:hover {
-        background: #f95b11;
-        color: #fff;
-      }
-      body.nav-open {
-        overflow: hidden;
-      }
-    }
-    /* --- END Responsive Navbar Styles --- */
-  </style>
 </head>
 <body>
   <header class="head redesigned-header">
@@ -235,14 +39,7 @@
       <img id="profile-avatar" src="src/assets/LFTlogo.png" alt="avatar" class="profile-avatar" />
       <input type="file" id="avatar-input" accept="image/*" style="margin-bottom:12px;" />
     </div>
-    
-    </form>
-    <button id="edit-btn" class="form-btn edit-btn" style="display:none">Edit Profile</button>
-    <button id="logout-btn" class="form-btn" style="background:#d9534f;color:#fff;margin-top:12px;">Logout</button>
-    <div id="profile-view" style="display:none;text-align:center;margin-top:24px">
-      <p><b>Name:</b> <span id="view-name"></span></p>
-      <p><b>Email:</b> <span id="view-email"></span></p>
-    </div>
+   
     <div id="profile-favorites" style="margin-top:32px;">
       <h3>Your Favorites</h3>
       <div id="profile-favorites-list"></div>
@@ -291,14 +88,26 @@
   </div>
   <script src="cart.js"></script>
   <script>
+    
     // --- Auth Check ---
     // Do NOT clear memberProfile, orderHistory, or lastOrder on logout or login redirect
     if (localStorage.getItem('isLoggedIn') !== 'true') {
       window.location.href = 'login.html';
     }
     // --- Profile State Management ---
-    // Remove per-user localStorage for profile/order history; always fetch from MongoDB when logged in
-    async function fetchProfileFromMongo() {
+    // Fix: define form, editBtn, profileView, nameInput, emailInput, avatarImg at the top
+const form = document.querySelector('.profile-form') || document.querySelector('form');
+const editBtn = document.getElementById('edit-btn');
+const profileView = document.getElementById('profile-view');
+const nameInput = document.getElementById('name') || document.querySelector('input[name="name"]');
+const emailInput = document.getElementById('email') || document.querySelector('input[name="email"]');
+const avatarImg = document.getElementById('profile-avatar');
+// Fix: define passwordInput and viewName/viewEmail for profile logic
+const passwordInput = document.getElementById('password') || document.querySelector('input[name="password"]');
+const viewName = document.getElementById('view-name');
+const viewEmail = document.getElementById('view-email');
+// Remove per-user localStorage for profile/order history; always fetch from MongoDB when logged in
+async function fetchProfileFromMongo() {
   // Use the email from the session/global memberProfile
   const globalProfile = JSON.parse(localStorage.getItem('memberProfile') || '{}');
   if (!globalProfile || !globalProfile.email) return null;
@@ -334,18 +143,14 @@ window.addEventListener('DOMContentLoaded', async function() {
   loadProfile();
   // If profile exists, show view mode
   const profile = getProfile();
-  if (profile.name || profile.email) {
-    form.style.display = 'none';
-    editBtn.style.display = '';
-    profileView.style.display = '';
-  } else {
-    form.style.display = '';
-    editBtn.style.display = 'none';
-    profileView.style.display = 'none';
-  }
+  // Defensive: Only set style if element exists
+  if (form) form.style.display = profile.name || profile.email ? 'none' : '';
+  if (editBtn) editBtn.style.display = profile.name || profile.email ? '' : 'none';
+  if (profileView) profileView.style.display = profile.name || profile.email ? '' : 'none';
   renderProfileFavorites();
   renderProfileReceipt();
   renderOrderHistory();
+  renderProfileCartSummary();
   // Show browser notification for specials if permission granted
   if ('Notification' in window && Notification.permission === 'granted') {
     setTimeout(() => {
@@ -359,6 +164,7 @@ window.addEventListener('DOMContentLoaded', async function() {
   if (typeof updateCartUI === 'function') updateCartUI();
   // Optionally, show cart toggle button for new users
   const cartToggleBtn = document.getElementById('cart-toggle-btn');
+  // Defensive: Only set style if element exists
   if (cartToggleBtn) cartToggleBtn.style.display = '';
 });
     // Rotating specials logic for profile page
@@ -418,10 +224,13 @@ window.addEventListener('DOMContentLoaded', async function() {
       });
     }
     // --- Logout ---
-    document.getElementById('logout-btn').onclick = function() {
-      localStorage.removeItem('isLoggedIn');
-      window.location.href = 'login.html';
-    };
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.onclick = function() {
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = 'login.html';
+      };
+    }
     // --- Favorites in Profile ---
     // --- Render Favorites Section in Profile ---
 function renderProfileFavorites() {
@@ -643,18 +452,14 @@ function renderProfileFavorites() {
       loadProfile();
       // If profile exists, show view mode
       const profile = getProfile();
-      if (profile.name || profile.email) {
-        form.style.display = 'none';
-        editBtn.style.display = '';
-        profileView.style.display = '';
-      } else {
-        form.style.display = '';
-        editBtn.style.display = 'none';
-        profileView.style.display = 'none';
-      }
+      // Defensive: Only set style if element exists
+      if (form) form.style.display = profile.name || profile.email ? 'none' : '';
+      if (editBtn) editBtn.style.display = profile.name || profile.email ? '' : 'none';
+      if (profileView) profileView.style.display = profile.name || profile.email ? '' : 'none';
       renderProfileFavorites();
       renderProfileReceipt();
       renderOrderHistory();
+      renderProfileCartSummary();
       // Show browser notification for specials if permission granted
       if ('Notification' in window && Notification.permission === 'granted') {
         setTimeout(() => {
@@ -668,6 +473,7 @@ function renderProfileFavorites() {
       if (typeof updateCartUI === 'function') updateCartUI();
       // Optionally, show cart toggle button for new users
       const cartToggleBtn = document.getElementById('cart-toggle-btn');
+      // Defensive: Only set style if element exists
       if (cartToggleBtn) cartToggleBtn.style.display = '';
     });
     // Rotating specials logic for profile page
@@ -766,13 +572,13 @@ function renderProfileFavorites() {
 
     function loadProfile() {
   const profile = JSON.parse(localStorage.getItem('memberProfile') || '{}');
-  if (profile.avatar) avatarImg.src = profile.avatar;
-  else avatarImg.src = 'src/assets/LFTlogo.png';
-  nameInput.value = profile.name || '';
-  emailInput.value = profile.email || '';
-  passwordInput.value = '';
-  viewName.textContent = profile.name || '-';
-  viewEmail.textContent = profile.email || '-';
+  if (profile.avatar && avatarImg) avatarImg.src = profile.avatar;
+  else if (avatarImg) avatarImg.src = 'src/assets/LFTlogo.png';
+  if (nameInput) nameInput.value = profile.name || '';
+  if (emailInput) emailInput.value = profile.email || '';
+  if (passwordInput) passwordInput.value = '';
+  if (viewName) viewName.textContent = profile.name || '-';
+  if (viewEmail) viewEmail.textContent = profile.email || '-';
 }
     // --- Listen for favorites change and update profile favorites live ---
 window.addEventListener('storage', function(e) {
@@ -782,6 +588,59 @@ window.addEventListener('storage', function(e) {
 });
 // Also update favorites when returning to the profile page
 window.addEventListener('focus', renderProfileFavorites);
+// --- Add missing getProfile helper ---
+function getProfile() {
+  try {
+    return JSON.parse(localStorage.getItem('memberProfile')) || {};
+  } catch {
+    return {};
+  }
+}
+    // --- Shopping Cart UI in Profile Card ---
+function renderProfileCartSummary() {
+  // Remove old cart summary if present
+  const oldSummary = document.getElementById('profile-cart-summary');
+  if (oldSummary) oldSummary.remove();
+  let cart = [];
+  try {
+    cart = JSON.parse(localStorage.getItem('checkoutCart')) || [];
+  } catch { cart = []; }
+  if (!cart.length) return;
+  let subtotal = 0;
+  cart.forEach(item => {
+    const priceNum = parseFloat((item.price||'').toString().replace(/[^\d.]/g, ''));
+    subtotal += priceNum * (item.quantity || 1);
+  });
+  const taxRate = 0.0825;
+  const tax = subtotal * taxRate;
+  const total = subtotal + tax;
+  const summaryDiv = document.createElement('div');
+  summaryDiv.id = 'profile-cart-summary';
+  summaryDiv.style = 'background:#f7f7f7;padding:12px 10px 10px 10px;border-radius:8px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.07);font-size:1em;position:absolute;bottom:16px;right:16px;min-width:180px;z-index:10;';
+  summaryDiv.innerHTML =
+    `<div style='font-weight:bold;margin-bottom:4px;'>Cart Summary</div>` +
+    `<div>Subtotal: $${subtotal.toFixed(2)}</div>` +
+    `<div>Tax (8.25%): $${tax.toFixed(2)}</div>` +
+    `<div style='font-weight:bold;'>Total: $${total.toFixed(2)}</div>`;
+  // Place inside the card, above Place Order button if present
+  const card = document.querySelector('.special-card-inner');
+  if (card) {
+    card.style.position = 'relative';
+    const placeOrderBtn = card.querySelector('.btn[type="submit"]');
+    if (placeOrderBtn) {
+      card.insertBefore(summaryDiv, placeOrderBtn);
+    } else {
+      card.appendChild(summaryDiv);
+    }
+  }
+}
+window.addEventListener('DOMContentLoaded', function() {
+  renderProfileCartSummary();
+});
+// Also update cart summary when cart changes
+window.addEventListener('storage', function(e) {
+  if (e.key === 'checkoutCart') renderProfileCartSummary();
+});
   </script>
 </body>
 </html>

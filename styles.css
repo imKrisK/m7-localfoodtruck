@@ -1203,3 +1203,103 @@ section p {
   font-size: 1em;
   margin-bottom: 10px;
 }
+
+/* --- Profile Page Styles (migrated from profile.html) --- */
+.profile-container {
+  max-width: 420px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  padding: 32px;
+}
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border: 2px solid #eee;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.profile-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+.profile-form input[type="text"],
+.profile-form input[type="email"],
+.profile-form input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.profile-form input[type="file"] {
+  display: block;
+  margin: 0 auto 12px auto;
+}
+.profile-form .form-btn {
+  margin-top: 10px;
+  width: 100%;
+  background: #f95b11;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.profile-form .form-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+.profile-form .show-password {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  display: block;
+  text-align: left;
+}
+.profile-form .edit-btn {
+  background: #007BFF;
+  color: #fff;
+  margin-top: 16px;
+}
+.order-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.order-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+.order-total {
+  font-weight: bold;
+  margin-top: 8px;
+}
+.menu-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.in-box {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  text-align: center;
+  background: #f9f9f9;
+  transition: transform 0.2s;
+}
+.in-box:hover {
+  transform: scale(1.05);
+}
+.veg-icon {
+  display: block;
+  margin: 0 auto 4px auto;
+}

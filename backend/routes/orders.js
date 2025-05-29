@@ -1,7 +1,9 @@
 import express from 'express';
 import * as ordersController from '../controllers/ordersController.js';
+import Stripe from 'stripe';
 
 const router = express.Router();
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 router.get('/', ordersController.getAllOrders);
 router.get('/:id', ordersController.getOrderById);
@@ -28,6 +30,20 @@ router.get('/by-id-email', async (req, res) => {
     res.json(order);
   } catch (err) {
     res.status(500).json({ error: 'Server error.' });
+  }
+});
+
+// Payment route
+router.post('/create-payment-intent', async (req, res) => {
+  const { amount } = req.body;
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Math.round(amount * 100), // amount in cents
+      currency: 'usd',
+    });
+    res.json({ clientSecret: paymentIntent.client_secret });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

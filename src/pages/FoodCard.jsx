@@ -26,7 +26,7 @@ const imageMap = {
 function FoodCard({ food }) {
   const { isFavorite, addFavorites, removeFromFavorites } = useFoodContext();
   const favorite = isFavorite(food.id);
-  const { cart, setCart } = useCart();
+  const { cart, addToCart } = useCart();
 
   function onFavoriteClick(e) {
     e.preventDefault();
@@ -35,16 +35,12 @@ function FoodCard({ food }) {
   }
 
   function onAddToCart() {
-    // Check if item already in cart
-    const idx = cart.findIndex(item => item.item === food.name && item.price === food.price);
-    if (idx !== -1) {
-      // Increment quantity
-      const newCart = [...cart];
-      newCart[idx].quantity += 1;
-      setCart(newCart);
-    } else {
-      setCart([...cart, { item: food.name, price: food.price, quantity: 1 }]);
-    }
+    // Use addToCart helper from context
+    addToCart({
+      id: food.id, // Ensure food has a unique id
+      item: food.name,
+      price: food.price
+    }, 1);
   }
 
   return (
