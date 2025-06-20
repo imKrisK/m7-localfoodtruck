@@ -1,4 +1,4 @@
-import "styles.css";
+import "../../styles.css";
 import { useFoodContext } from "../context/FoodContext";
 import { useCart } from '../context/CartContext';
 import burgerImg from '../assets/burger.png';
