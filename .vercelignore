@@ -1,0 +1,32 @@
+# Vercel ignore file
+node_modules
+.git
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.local
+.env.production
+coverage
+.nyc_output
+.vscode
+.idea
+
+# Backend files (will be handled separately)
+backend/node_modules
+backend/.env
+
+# Large assets that don't need to be uploaded
+src/assets/*.jpg
+src/assets/*.jpeg
+src/assets/*.png
+!src/assets/LFTlogo.png
+
+# Documentation
+*.md
+!README.md
+
+# Development files
+docker-compose.yml
+Dockerfile
+backend/Dockerfile
