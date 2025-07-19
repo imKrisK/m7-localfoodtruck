@@ -20,7 +20,7 @@ export default function Menu() {
   return (
     <div className="menu-list" style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
       {items.map((food) => (
-        <FoodCard key={food.id} food={food} />
+        <FoodCard key={food._id} food={food} />
       ))}
     </div>
   );

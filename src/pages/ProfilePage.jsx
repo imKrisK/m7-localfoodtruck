@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import Rating from '../components/Rating';
 
 const defaultAvatar = 'src/assets/LFTlogo.png';
 
@@ -121,14 +122,56 @@ export default function ProfilePage() {
   // Render favorites
   function renderFavorites() {
     if (!favorites.length) return <p style={{ color: '#888' }}>No favorites yet. Go to the menu and click the heart to add some!</p>;
-    // You can enhance this to show images, etc.
-    return favorites.map((name, idx) => (
-      <div key={idx} className="in-box" style={{ maxWidth: 180, display: 'inline-block', margin: 8 }}>
-        <div className="in-content">
-          <h2 style={{ fontSize: '1em', margin: '8px 0 4px 0' }}>{name}</h2>
+    // Static mapping for demo; ideally fetch from menu API
+    const imageMap = {
+      'burger.png': 'src/assets/burger.png',
+      'bbq-porkchop.png': 'src/assets/bbq-porkchop.png',
+      'burrito1.png': 'src/assets/burrito1.png',
+      'calburgerzone.png': 'src/assets/calburgerzone.png',
+      'burrito.png': 'src/assets/burrito.png',
+      'spare-ribs.png': 'src/assets/spare-ribs.png',
+      'chickenwings.png': 'src/assets/chickenwings.png',
+      '4lbsburger.png': 'src/assets/4lbsburger.png',
+      'comb3.png': 'src/assets/comb3.png',
+    };
+    function getFavoriteDetails(name) {
+      const lower = name.trim().toLowerCase();
+      const map = {
+        'spicy wagyu burger': { image: 'burger.png', price: '$15.00' },
+        'bbq porkchop plate': { image: 'bbq-porkchop.png', price: '$14.00' },
+        "wally's special burrito": { image: 'burrito1.png', price: '$13.00' },
+        'cal burger zone': { image: 'calburgerzone.png', price: '$12.00' },
+        'qt!': { image: '4lbsburger.png', price: '$20.00' },
+        'trifecta!': { image: 'comb3.png', price: '$20.00' },
+      };
+      return map[lower] || { image: 'burger.png', price: '$12.00' };
+    }
+    function handleRemoveFavorite(name) {
+      setFavorites(favs => {
+        const updated = favs.filter(f => f !== name);
+        localStorage.setItem('menuFavorites', JSON.stringify(updated));
+        return updated;
+      });
+    }
+    return favorites.map((name, idx) => {
+      const { image, price } = getFavoriteDetails(name);
+      return (
+        <div key={idx} className="in-box" style={{ maxWidth: 200, display: 'inline-block', margin: 8, verticalAlign: 'top', background: '#222', borderRadius: 8, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
+          <div className="in-content" style={{ padding: 12, textAlign: 'center' }}>
+            <img src={imageMap[image] || imageMap['burger.png']} alt={name} style={{ width: 80, height: 80, objectFit: 'cover', borderRadius: 8, marginBottom: 8 }} />
+            <h2 style={{ fontSize: '1em', margin: '8px 0 4px 0', color: '#fff' }}>{name}</h2>
+            <div className="price" style={{ fontSize: '0.95em', color: '#FFD700', marginBottom: 4 }}>{price}</div>
+            <button className='remove-fav-btn' style={{ marginTop: 8, background: '#d9534f', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: 4, cursor: 'pointer' }} onClick={() => handleRemoveFavorite(name)}><i className='fas fa-heart-broken'></i> Remove</button>
+            <div style={{ marginTop: 8 }}>
+              <span style={{ fontSize: '0.9em', color: '#FFD700' }}>Your Rating: </span>
+              <React.Suspense fallback={<span>...</span>}>
+                <Rating itemName={name} size={18} />
+              </React.Suspense>
+            </div>
+          </div>
         </div>
-      </div>
-    ));
+      );
+    });
   }
 
   // Render last receipt

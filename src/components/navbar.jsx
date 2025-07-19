@@ -1,51 +1,16 @@
 import { Link } from 'react-router-dom';
 
-const Navbar = () => {
-  return (
-    <nav style={styles.navbar}>
-      <ul style={styles.navList}>
-        <li style={styles.navItem}>
-          <Link to="/" style={styles.navLink}>Home</Link>
-        </li>
-        <li style={styles.navItem}>
-          <Link to="/profile" style={styles.navLink}>Profile</Link>
-        </li>
-        <li style={styles.navItem}>
-          <Link to="/dashboard" style={styles.navLink}>Dashboard</Link>
-        </li>
-        <li style={styles.navItem}>
-          <Link to="/about" style={styles.navLink}>About</Link>
-        </li>
-        <li style={styles.navItem}>
-          <Link to="/Favorites" style={styles.navLink}>Favorites</Link>
-        </li>
-      </ul>
-    </nav>
-  );
-};
+const NavBar = () => (
+  <nav className="navbar redesigned-navbar" aria-label="Main Navigation">
+    <ul className="redesigned-nav-list">
+      <li><Link to="/" className="nav-link">Home</Link></li>
+      <li><Link to="/menu" className="nav-link">Menu</Link></li>
+      <li><Link to="/about" className="nav-link">About Us</Link></li>
+      <li><Link to="/contact" className="nav-link">Contact Us</Link></li>
+      <li><Link to="/profile" className="nav-link">Profile</Link></li>
+    </ul>
+  </nav>
+);
 
-const styles = {
-  navbar: {
-    backgroundColor: '#f95b11',
-    padding: '10px 20px',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  navList: {
-    listStyle: 'none',
-    display: 'flex',
-    margin: 0,
-    padding: 0,
-  },
-  navItem: {
-    margin: '0 15px',
-  },
-  navLink: {
-    color: '#f42f1d;',
-    textDecoration: 'none',
-    fontSize: '16px',
-  },
-};
-
-export default Navbar;
+export default NavBar;
 

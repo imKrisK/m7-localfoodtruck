@@ -7,6 +7,9 @@ import Register from '../pages/Register';
 import CatDetail from '../pages/CatDetail';
 import UserProfile from '../pages/UserProfile';
 import CheckoutPage from '../pages/CheckoutPage';
+import MenuPage from '../pages/Menu.jsx';
+import About from '../pages/About.jsx';
+import Contact from '../pages/Contact.jsx';
 
 // special component containing all the possible routes for this app
 // any props passed into AppRoutes will also be passed onto
@@ -28,6 +31,16 @@ function AppRoutes(props) {
 
         {/* Route for Checkout (Stripe payment) */}
         <Route path="/checkout" element={<CheckoutPage />} />
+
+
+        {/* Route for Menu */}
+        <Route path="/menu" element={<MenuPage />} />
+
+        {/* Route for About */}
+        <Route path="/about" element={<About />} />
+
+        {/* Route for Contact */}
+        <Route path="/contact" element={<Contact />} />
 
         {/* Default route for home page */}
         <Route index element={<Homepage {...props} />} />

@@ -313,6 +313,7 @@ section p {
 
 /*--------------menu section--------*/
 
+/* --- Menu Section Modern Styles --- */
 .menu-content {
   display: flex;
   flex-wrap: wrap;
@@ -335,51 +336,53 @@ section p {
   align-items: center;
   justify-content: flex-start;
   box-sizing: border-box;
+  border-radius: 8px;
+  transition: transform 0.2s, background 0.2s;
 }
 
 .in-box:hover {
-    background: var(--clr4);
-    transition: .4s ease all;
+  background: var(--clr4);
+  transform: translateY(-5px);
 }
 
-.in-box img {
-    width: 10rem;
-    height: auto;
+/* Menu card images: center, consistent size, aspect ratio, and spacing */
+.in-box img, .veg-icon {
+  display: block;
+  margin: 0 auto 1.2rem auto;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
-.in-box .far {
-    position: absolute;
-    font-size: 2.5rem;
-    margin-left: -7rem;
-    color: var(--clr3);
+.in-box .far, .in-box .fas.fa-heart {
+  position: absolute;
+  font-size: 2.5rem;
+  left: 1rem;
+  top: 1rem;
+  color: var(--clr3);
+  z-index: 2;
 }
 
-.in-box .bbq-icon {
-    margin-left: 22rem;
-    position: absolute;
-    width: 3rem;
-}
-
-.star 
-.price {
-    padding: 1rem 0;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--clr3);
-    text-transform: capitalize;
-}
-
-.fa-star {
-    color: var(--clr2);
-}
-
-.in-box .far {
-    font-size: 2rem;
-    color: var(--clr3);
+.in-box .fas.fa-heart.active {
+  color: #ff4757;
 }
 
 .in-box .fa-plus-circle {
-    color: var(--clr4);
+  color: var(--clr4);
+}
+
+.star, .price {
+  padding: 1rem 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--clr3);
+  text-transform: capitalize;
+}
+
+.fa-star {
+  color: var(--clr2);
 }
 
 
@@ -764,7 +767,7 @@ section p {
 
 /* --- Favorite Food Card --- */
 
-.Food-card {
+.food-card {
   position: relative;
   border-radius: 8px;
   overflow: hidden;
@@ -775,7 +778,7 @@ section p {
   flex-direction: column;
 }
 
-.Food-card:hover {
+.food-card:hover {
   transform: translateY(-5px);
 }
 
@@ -810,7 +813,7 @@ section p {
   padding: 1rem;
 }
 
-.Food-card:hover .Food-overlay {
+.food-card:hover .food-overlay {
   opacity: 1;
 }
 
@@ -874,7 +877,7 @@ section p {
 }
 
 @media (max-width: 768px) {
-  .Food-card {
+  .food-card {
     font-size: 0.9rem;
   }
 
@@ -1282,24 +1285,4 @@ section p {
 .order-total {
   font-weight: bold;
   margin-top: 8px;
-}
-.menu-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-.in-box {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 8px;
-  text-align: center;
-  background: #f9f9f9;
-  transition: transform 0.2s;
-}
-.in-box:hover {
-  transform: scale(1.05);
-}
-.veg-icon {
-  display: block;
-  margin: 0 auto 4px auto;
 }

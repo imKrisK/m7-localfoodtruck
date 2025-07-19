@@ -1,5 +1,5 @@
 import "../Styles.css"
-import { useFoodContext } from "../context/FoodContext"
+import { useFoodContext } from "../context/useFoodContext"
 import FoodCard from "../components/FoodCard"
 
 function Favorites() {

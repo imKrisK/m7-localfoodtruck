@@ -12,8 +12,9 @@ const app = express();
 const PORT = process.env.PORT || 5380;
 
 
+const FRONTEND_URL = process.env.FRONTEND_URL || process.env.VERCEL_URL || 'http://localhost:5173';
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: [FRONTEND_URL, 'https://*.vercel.app', 'http://localhost:5173'],
   credentials: true // Allow cookies/auth headers
 }));
 app.use(express.json());
@@ -47,8 +48,8 @@ app.post('/api/create-checkout-session', async (req, res) => {
       payment_method_types: ['card'],
       line_items,
       mode: 'payment',
-      success_url: 'http://localhost:5173/receipt.html?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'http://localhost:5173/checkout.html',
+      success_url: `${FRONTEND_URL}/receipt.html?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${FRONTEND_URL}/checkout.html`,
       customer_email: customer.email,
     });
     res.json({ url: session.url });
@@ -96,9 +97,12 @@ connectMongo()
             app.use('/reviews', reviewsRouter);
             import('./routes/payments.js').then(({ default: paymentsRouter }) => {
               app.use('/payments', paymentsRouter);
-              app.listen(PORT, () => {
-                console.log(`Backend server running on http://localhost:${PORT}`);
-              });
+              // For Vercel, export the app instead of calling listen
+              if (process.env.NODE_ENV !== 'production') {
+                app.listen(PORT, () => {
+                  console.log(`Backend server running on http://localhost:${PORT}`);
+                });
+              }
             });
           });
         });
@@ -109,3 +113,6 @@ connectMongo()
     console.error('Failed to connect to MongoDB:', err.message);
     process.exit(1);
   });
+
+// Export for Vercel
+export default app;

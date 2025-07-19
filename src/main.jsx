@@ -2,16 +2,16 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
-import { ThemeProvider } from './context/myThemeContext';
+import { MyThemeProvider } from './App.jsx';
 import { CartProvider } from './context/CartContext';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ThemeProvider>
+    <MyThemeProvider>
       <CartProvider>
         <App />
       </CartProvider>
-    </ThemeProvider>
+    </MyThemeProvider>
   </StrictMode>
 );
 

@@ -47,7 +47,7 @@
         const user = await res.json();
         localStorage.setItem(LOGIN_KEY, 'true');
         localStorage.setItem('memberProfile', JSON.stringify(user));
-        window.location.href = 'profile.html';
+        window.location.href = '/profile';
       } catch (err) {
         loginError.textContent = 'Network error. Please try again.';
       }
