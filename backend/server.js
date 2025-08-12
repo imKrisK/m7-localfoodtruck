@@ -12,10 +12,26 @@ const app = express();
 const PORT = process.env.PORT || 5380;
 
 
+
+// Used for Stripe redirect URLs only
 const FRONTEND_URL = process.env.FRONTEND_URL || process.env.VERCEL_URL || 'http://localhost:5173';
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  process.env.VERCEL_URL,
+  'http://localhost:5173'
+].filter(Boolean);
+
 app.use(cors({
-  origin: [FRONTEND_URL, 'https://*.vercel.app', 'http://localhost:5173'],
-  credentials: true // Allow cookies/auth headers
+  origin: function(origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'), false);
+  },
+  credentials: true
 }));
 app.use(express.json());
 
