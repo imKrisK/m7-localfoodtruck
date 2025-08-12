@@ -101,7 +101,7 @@ if (placeOrderBtn) {
       return;
     }
     // Call backend to create Stripe session
-    const res = await fetch('http://localhost:5380/api/create-checkout-session', {
+  const res = await fetch('/api/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items: order, customer }),

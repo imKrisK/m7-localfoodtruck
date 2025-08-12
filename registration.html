@@ -44,7 +44,7 @@ regForm.addEventListener('submit', async function(e) {
     return;
   }
   try {
-    const res = await fetch('http://localhost:5380/users', {
+  const res = await fetch('/api/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password })

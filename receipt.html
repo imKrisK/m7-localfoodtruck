@@ -90,7 +90,7 @@
   <script>
     async function fetchOrderFromMongo(orderId, email) {
       try {
-        const res = await fetch(`http://localhost:5380/orders/by-id-email?orderId=${encodeURIComponent(orderId)}&email=${encodeURIComponent(email)}`);
+  const res = await fetch(`/api/orders/by-id-email?orderId=${encodeURIComponent(orderId)}&email=${encodeURIComponent(email)}`);
         if (!res.ok) throw new Error('Order not found. Please check your Order ID and Email.');
         return await res.json();
       } catch (err) {
@@ -101,7 +101,7 @@
     // --- Stripe session receipt fetch ---
     async function fetchStripeReceipt(sessionId) {
       try {
-        const res = await fetch(`http://localhost:5380/api/stripe-session?session_id=${encodeURIComponent(sessionId)}`);
+  const res = await fetch(`/api/stripe-session?session_id=${encodeURIComponent(sessionId)}`);
         if (!res.ok) throw new Error('Could not fetch Stripe receipt.');
         return await res.json();
       } catch (err) {
